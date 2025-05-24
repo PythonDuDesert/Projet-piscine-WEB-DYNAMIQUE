@@ -1,5 +1,8 @@
 # Projet-piscine-WEB-DYNAMIQUE
 
+Léonard FORESTIER - Mike LIN - Julien MENET - Olivier YAMMINE
+ING2 Groupe 5 - PROMO 2028
+
 Credits:
     -logo.png / logo_no_bg.png : ChatGPT
     -greek-temple-ruins.jpg : Freepik

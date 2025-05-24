@@ -54,14 +54,18 @@ nav {
     background-color: #2998ff;
 }
 
+.nav_button:active {
+    transform: translateY(2px);
+}
+
 .nav_button .nav_icone {
     width: 18px;
     margin-left: 5px;
 }
 
 /* section */
-#overlay {  /* Grey overlay*/
-    background-color: rgba(0, 0, 0, 0.4);
+#overlay {  /* Grey overlay : filtre gris de taille de l'écran, fixe, en arrière plan (z-index: -1) */
+    background-color: rgba(0, 0, 0, 0.6);
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -70,10 +74,19 @@ nav {
     z-index: -1;
 }
 
+section {
+    color: white;
+    margin: 0 30px;
+}
+
+#description {
+    font-size: x-large;
+}
+
 /* footer */
 footer {
     background-color: rgba(20, 20, 20, 0.95);
-    color: #ccc;
+    color: #ddd;
     padding: 20px 10px 40px 10px;
     text-align: center;
 }
