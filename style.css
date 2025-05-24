@@ -46,17 +46,23 @@ nav {
     font-size: large;
     width: 15vw;
     max-width: 200px;
+    min-width: 120px;
 }
 
 .nav_button:hover {
     cursor: pointer;
-    background-color: #3fa2fd;
+    background-color: #2998ff;
+}
+
+.nav_button .nav_icone {
+    width: 18px;
+    margin-left: 5px;
 }
 
 /* section */
 section {
     border: 0.1px solid transparent;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* footer */
