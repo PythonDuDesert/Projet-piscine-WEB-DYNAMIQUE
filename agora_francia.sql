@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 25 mai 2025 à 13:43
+-- Généré le : dim. 25 mai 2025 à 18:54
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -20,6 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `agora francia`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `acheteurs`
+--
+
+DROP TABLE IF EXISTS `acheteurs`;
+CREATE TABLE IF NOT EXISTS `acheteurs` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `Nom` varchar(255) NOT NULL,
+  `Prenom` varchar(255) NOT NULL,
+  `DateNaissance` date NOT NULL,
+  `Email` varchar(255) NOT NULL,
+  `Telephone` varchar(255) NOT NULL,
+  `CodePostal` int UNSIGNED NOT NULL,
+  `Adresse` varchar(255) NOT NULL,
+  `Pseudo` varchar(255) NOT NULL,
+  `MotDePasse` varchar(255) NOT NULL,
+  `Photo` varchar(255) NOT NULL,
+  `DateInscription` date NOT NULL,
+  `Solde` decimal(10,0) UNSIGNED NOT NULL,
+  `TypeCarte` tinyint NOT NULL,
+  `NumeroCarte` varchar(255) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
