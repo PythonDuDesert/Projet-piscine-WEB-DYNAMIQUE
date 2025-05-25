@@ -7,19 +7,21 @@ $(document).ready(function() {
     $currentImg.css('display', 'block'); // on affiche seulement l'image courante
 
     $('#next').click(function(){ // image suivante 
-        i++; // on incrémente le compteur
-        i = i%$img.length; // modulo pour la boucle
-        $img.fadeOut(200);
-        $currentImg = $img.eq(i);
-        $currentImg.fadeIn(200);
+        $img.eq(i).fadeOut(300, function() {
+            i++;  // on décrémente le compteur
+            i = i%$img.length; // modulo pour la boucle
+            $img.eq(i).fadeIn(300, function() {
+            });
+        });
     });
 
     $('#previous').click(function(){ // image précédente 
-        i--;  // on décrémente le compteur
-        i = i%$img.length; // modulo pour la boucle
-        $img.fadeOut(200); 
-        $currentImg = $img.eq(i); 
-        $currentImg.fadeIn(200); 
+        $img.eq(i).fadeOut(300, function() {
+            i--;  // on décrémente le compteur
+            i = (i+$img.length)%$img.length; // modulo pour la boucle
+            $img.eq(i).fadeIn(300, function() {
+            });
+        });
     });
 
     function slideImg(){ 

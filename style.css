@@ -11,6 +11,7 @@ body {
     max-width: 150px;
 }
 
+
 /* header */
 header {
     display: flex;
@@ -26,6 +27,7 @@ header h1 {
     font-size: 300%;
     color: rgb(0, 120, 220);
 }
+
 
 /* navigation */
 nav {
@@ -66,6 +68,7 @@ nav {
     margin-left: 5px;
 }
 
+
 /* section */
 #overlay {  /* Grey overlay : filtre gris de taille de l'écran, fixe, en arrière plan (z-index: -1) */
     background-color: rgba(0, 0, 0, 0.6);
@@ -86,7 +89,8 @@ section {
     font-size: x-large;
 }
 
-#carrousel { /* carrousel */
+/* carrousel */
+#carrousel {
     display: flex;
     justify-content: center;
 }
@@ -139,6 +143,35 @@ section {
 #previous:active, #next:active {
     transform: translateY(2px);
 }
+
+/* boutons compte */
+#container_compte {
+    margin: 150px auto;
+}
+
+.option_compte {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 60px;
+    background-color: #7000ff;
+    color: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    font-size: large;
+    font-weight: 700;
+    margin: 50px auto;
+    padding-bottom: 5px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option_compte:hover {
+    background-color: #06f;
+}
+
 
 /* footer */
 footer {
