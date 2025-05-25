@@ -36,6 +36,7 @@ nav {
     gap: 5%;
     padding: 20px 0;
     background-color: rgba(0, 0, 0, 0.75);
+    z-index: 99;
 }
 
 .nav_button {
@@ -76,16 +77,66 @@ nav {
 
 section {
     color: white;
-    margin: 0 30px;
+    margin: 50px;
 }
 
 #description {
     font-size: x-large;
 }
 
+#carrousel {
+    display: flex;
+    justify-content: center;
+}
+
+#carrousel ul {
+    list-style: none;
+    padding: 0;
+}
+
+.carrousel_img {
+    width: 50vw;
+    min-width: 300px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#carrousel_nav {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    top: -275px;
+    gap: clamp(2rem, 20vw, 5rem); /* simulateur de "max gap" */
+}
+
+#carrousel_nav #previous, #carrousel_nav #next {
+    background: rgba(150, 150, 150, 0.8);
+    border-radius: 50%;
+    color: #FFFFFF;
+    border: 0;
+    cursor: pointer;
+    font-size: xx-large;
+    width: 50px;
+    height: 50px;
+    padding-bottom: 5px;
+}
+
+
+#carrousel_nav #previous {
+    padding-right: 10px;
+}
+
+#carrousel_nav #next {
+    padding-left: 10px;
+}
+
+#previous:active, #next:active {
+    transform: translateY(2px);
+}
+
 /* footer */
 footer {
-    background-color: rgba(20, 20, 20, 0.95);
+    background-color: rgba(30, 30, 30, 0.90);
     color: #ddd;
     padding: 20px 10px 40px 10px;
     text-align: center;
@@ -95,5 +146,4 @@ footer #map_location {
     width: 30vw;
     min-width: 200px;
     max-width: 500px;
-    border: 4px solid black;
 }
