@@ -23,15 +23,13 @@ $(document).ready(function() {
     });
 
     function slideImg(){ 
-        setTimeout(function(){ // on utilise une fonction anonyme 
-            i++;
+        $img.eq(i).fadeOut(300, function() {
             i = i%$img.length; // modulo pour la boucle
-            $img.fadeOut(1000);
-            $currentImg = $img.eq(i); 
-            $currentImg.fadeIn(1000); 
-            slideImg(); // on oublie pas de relancer la fonction à la fin 
-        }, 4000); // on définit l'intervalle à 4000 millisecondes (4s) 
-    } 
+            $img.eq(i).fadeIn(300, function() {
+                setTimeout(slideImg, 4000);
+            });
+        });
+    }
 
-    //slideImg(); // enfin, on lance la fonction une première fois
+    slideImg(); // enfin, on lance la fonction une première fois
 })

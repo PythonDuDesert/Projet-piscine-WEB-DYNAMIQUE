@@ -4,7 +4,7 @@ Léonard FORESTIER - Mike LIN - Julien MENET - Olivier YAMMINE
 <br>ING2 Groupe 5 - PROMO 2028
 
 Credits:
-    <br>-logo.png / logo_no_bg.png : ChatGPT
+    <br>-logo.png : ChatGPT
     <br>-greek-temple-ruins.jpg : Freepik
     <br>-panier.png : Chariot icônes créées par Bogdan Rosu - Flaticon
     <br>-utlisateur.png : Utilisateur icônes créées par Freepik - Flaticon

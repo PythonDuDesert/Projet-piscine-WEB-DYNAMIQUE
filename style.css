@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-image: url("images/greek-temple-ruins.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -48,6 +48,8 @@ nav {
     width: 15vw;
     max-width: 200px;
     min-width: 120px;
+    font-weight: 700;
+    transition: background-color 0.2s ease;
 }
 
 .nav_button:hover {
@@ -84,7 +86,7 @@ section {
     font-size: x-large;
 }
 
-#carrousel {
+#carrousel { /* carrousel */
     display: flex;
     justify-content: center;
 }
@@ -119,8 +121,8 @@ section {
     width: 50px;
     height: 50px;
     padding-bottom: 5px;
+    transition: background-color 0.2s ease;
 }
-
 
 #carrousel_nav #previous {
     padding-right: 10px;
@@ -128,6 +130,10 @@ section {
 
 #carrousel_nav #next {
     padding-left: 10px;
+}
+
+#carrousel_nav #previous:hover, #carrousel_nav #next:hover {
+    background-color: rgba(120, 120, 120, 0.8);
 }
 
 #previous:active, #next:active {
