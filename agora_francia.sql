@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 26 mai 2025 à 02:12
+-- Généré le : lun. 26 mai 2025 à 11:09
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -24,11 +24,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `acheteurs`
+-- Structure de la table `acheteurs_vendeurs`
 --
 
-DROP TABLE IF EXISTS `acheteurs`;
-CREATE TABLE IF NOT EXISTS `acheteurs` (
+DROP TABLE IF EXISTS `acheteurs_vendeurs`;
+CREATE TABLE IF NOT EXISTS `acheteurs_vendeurs` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `Nom` varchar(255) NOT NULL,
   `Prenom` varchar(255) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `acheteurs` (
   `MotDePasse` varchar(255) NOT NULL,
   `Photo` varchar(255) NOT NULL,
   `DateInscription` date NOT NULL,
-  `Solde` decimal(10,0) UNSIGNED NOT NULL,
+  `Solde` decimal(10,0) UNSIGNED NOT NULL COMMENT 'euros',
   `TypeCarte` tinyint NOT NULL,
   `NumeroCarte` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
@@ -76,26 +76,39 @@ INSERT INTO `admin` (`ID`, `Prenom`, `Nom`, `Email`, `MotDePasse`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `vendeurs`
+-- Structure de la table `articles`
 --
 
-DROP TABLE IF EXISTS `vendeurs`;
-CREATE TABLE IF NOT EXISTS `vendeurs` (
+DROP TABLE IF EXISTS `articles`;
+CREATE TABLE IF NOT EXISTS `articles` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `Nom` varchar(255) NOT NULL,
-  `Prenom` varchar(255) NOT NULL,
-  `DateNaissance` date NOT NULL,
-  `Email` varchar(255) NOT NULL,
-  `Telephone` varchar(255) NOT NULL,
-  `CodePostal` int UNSIGNED NOT NULL,
-  `Adresse` varchar(255) NOT NULL,
-  `Pseudo` varchar(255) NOT NULL,
-  `MotDePasse` varchar(255) NOT NULL,
-  `Photo` varchar(255) NOT NULL,
-  `DateInscription` date NOT NULL,
-  `Solde` decimal(10,0) UNSIGNED NOT NULL COMMENT 'euros',
-  `TypeCarte` tinyint NOT NULL,
-  `NumeroCarte` varchar(255) NOT NULL,
+  `NomArticle` varchar(255) NOT NULL,
+  `DateAjout` date NOT NULL,
+  `PrixAchatImmediat` decimal(10,0) UNSIGNED NOT NULL,
+  `PrixEnchere` decimal(10,0) UNSIGNED NOT NULL,
+  `PrixNegociation` decimal(10,0) UNSIGNED NOT NULL,
+  `DateFinEnchere` datetime NOT NULL,
+  `Description` varchar(255) NOT NULL,
+  `QuantiteStock` mediumint UNSIGNED NOT NULL,
+  `QuantiteVendue` mediumint UNSIGNED NOT NULL,
+  `Image` varchar(255) NOT NULL,
+  `IDAcheteurVendeur` int NOT NULL COMMENT 'Clé étrangère',
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commandes`
+--
+
+DROP TABLE IF EXISTS `commandes`;
+CREATE TABLE IF NOT EXISTS `commandes` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID_article` int NOT NULL COMMENT 'Clé étrangère',
+  `DateAchat` datetime NOT NULL,
+  `PrixAchat` decimal(10,0) UNSIGNED NOT NULL,
+  `MoyenPayement` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
