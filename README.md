@@ -24,6 +24,7 @@ Léonard FORESTIER - Mike LIN - Julien MENET - Olivier YAMMINE
     <br>-notification.png : Notification icônes créées par Cuputo - Flaticon
     <br>-acceuil.png : Bouton d'accueil icônes créées par FR_Media - Flaticon
     <br>-livre_ouvert.png : Livre icônes créées par Freepik - Flaticon
+    <br>-Inspiration pour les boutons : https://getcssscan.com/css-buttons-examples
 <br>Réutilisation des TD/TP.
 
 <br>https://www.canva.com/design/DAGocZUzkAM/0UeqUDhHJh4JXr84gPCwfg/edit
