@@ -33,16 +33,16 @@ Léonard FORESTIER - Mike LIN - Julien MENET - Olivier YAMMINE
     <br>-https://fr.wikipedia.org/wiki/Religion_de_l%27%C3%89gypte_antique#/media/Fichier:Stele_Ra-Horakhty_Louvre_N3795-Egypte_louvre_047_stele.jpg
     <br>-https://www.antiques-delaval.com/fr/archeologie/18085-lampe-a-huile-antique-romaine-terre-cuite-afrique-du-nord-egypte-algerie.html
     <br>-https://www.antiques-delaval.com/fr/archeologie/18061-statuette-amulette-funeraire-egyptienne-egypte-terre-cuite-dieu-pretre-.html
-    <br>-Chariot icônes créées par Bogdan Rosu - Flaticon
     <br>-https://fr.wikipedia.org/wiki/Anubis#/media/Fichier:Anubis_standing.svg
     <br>-https://www.mv-bracelet.com/osiris/
     <br>-https://mythologica.fr/egypte/isis.htm
     <br>-https://fr.wikipedia.org/wiki/Horus#/media/Fichier:Horus_standing.svg
-    <br>-Chariot icônes créées par Bogdan Rosu - Flaticon
-    <br>-Utilisateur icônes créées par Freepik - Flaticon
-    <br>-Notification icônes créées par Cuputo - Flaticon
-    <br>-Bouton d'accueil icônes créées par FR_Media - Flaticon
-    <br>-Livre icônes créées par Freepik - Flaticon
-<br>Réutilisation des TD/TP.
+    <br>-https://fr.wikipedia.org/wiki/Seth#/media/Fichier:Set.svg
+    <br>-https://fr.wikipedia.org/wiki/R%C3%AA#/media/Fichier:Re-Horakhty.svg
+    <br>-https://fr.pngtree.com/freepng/old-book-cover-isolated-with-clipping-path-for-mockup_17407296.html
+    <br>-https://fr.freepik.com/photos-gratuite/couverture-livre-vierge-antique-cuir-marron-espace-design_21631149.htm#fromView=search&page=1&position=4&uuid=df9d9ea8-5547-450a-bfa5-0d73f717e225&query=Livre+Ancien
+    <br>-https://fr.freepik.com/photos-gratuite/marque-pages-lin-dans-vieux-cahier_2041514.htm#fromView=search&page=1&position=6&uuid=df9d9ea8-5547-450a-bfa5-0d73f717e225&query=Livre+Ancien
+
+    <br>-Réutilisation des TD/TP.
 
 <br>https://www.canva.com/design/DAGocZUzkAM/0UeqUDhHJh4JXr84gPCwfg/edit
