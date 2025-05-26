@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 26 mai 2025 à 11:09
+-- Généré le : lun. 26 mai 2025 à 18:30
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -45,7 +45,17 @@ CREATE TABLE IF NOT EXISTS `acheteurs_vendeurs` (
   `TypeCarte` tinyint NOT NULL,
   `NumeroCarte` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `acheteurs_vendeurs`
+--
+
+INSERT INTO `acheteurs_vendeurs` (`ID`, `Nom`, `Prenom`, `DateNaissance`, `Email`, `Telephone`, `CodePostal`, `Adresse`, `Pseudo`, `MotDePasse`, `Photo`, `DateInscription`, `Solde`, `TypeCarte`, `NumeroCarte`) VALUES
+(1, 'Liquidation ', 'Poséidon ', '0355-05-03', 'poseidon.liquidation@gmail.com', '06 12 34 56 78', 75013, ' 7 Rue des Vagues, 75013 Paris', 'RoiDesOceans', 'Trident', '/Projet-piscine-WEB-DYNAMIQUE/images/Poseidon.jpg', '0400-07-18', 8000, 1, '4539 7582 1234 5678'),
+(2, 'Destock', 'Hercule ', '0365-05-03', 'hercule.destock@agorafrancia.gr', '06 12 34 56 78', 75012, '12 Rue des Travaux, 75012 Paris', 'HerculeLeCostaud', '12Travaux', '/Projet-piscine-WEB-DYNAMIQUE/images/Hercule', '0386-12-05', 7563, 3, '5578 1234 5987 8765'),
+(3, 'TroisPourLePrixDeDeux', 'Cerbère ', '0347-01-25', 'cerbere.soldes@agorafrancia.gr', '06 33 66 99 00', 69003, '3 Rue des Trois Têtes, 69003 Lyon', 'CerbèreLeChien', 'AboiePas', '/Projet-piscine-WEB-DYNAMIQUE/images/Cerbere', '0396-04-19', 3333, 3, '3782 8224 3333 1005'),
+(4, 'Dépôt-vente', 'Hadès ', '0299-06-24', 'hades.depot@agorafrancia.gr', '06 98 76 54 32', 13001, '666 Avenue des Ombres, 13001 Marseille', 'RoiDesEnfers', 'Enfer', '/Projet-piscine-WEB-DYNAMIQUE/images/Hades', '0336-06-06', 6666, 2, '3782 8224 6666 1005');
 
 -- --------------------------------------------------------
 
@@ -83,6 +93,7 @@ DROP TABLE IF EXISTS `articles`;
 CREATE TABLE IF NOT EXISTS `articles` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `NomArticle` varchar(255) NOT NULL,
+  `Catégorie` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT 'Commun, rare,  prenium',
   `DateAjout` date NOT NULL,
   `PrixAchatImmediat` decimal(10,0) UNSIGNED NOT NULL,
   `PrixEnchere` decimal(10,0) UNSIGNED NOT NULL,
