@@ -29,10 +29,10 @@ Léonard FORESTIER - Mike LIN - Julien MENET - Olivier YAMMINE
     <br>https://fr.freepik.com/vecteurs-libre/illustration-vectorielle-vintage-pot-creme-remixee-partir-oeuvre-john-matulis_17201206.htm#from_element=cross_selling__vector
     <br>-https://fr.freepik.com/images-ia-gratuites/ancien-recipient-poterie-au-design-retro_201646381.htm#fromView=search&page=3&position=41&uuid=6a74216b-e32d-47aa-bccc-de9ca468f1a0&query=object+egypt
     <br>-https://fr.freepik.com/images-ia-gratuites/vase-terre-cuite-motif-indigene_209409731.htm#fromView=search&page=5&position=8&uuid=6a74216b-e32d-47aa-bccc-de9ca468f1a0&query=object+egypt
-    <br>https://www.antiques-delaval.com/fr/faience-autres/1848-goulet-vase-pot-cruxhe-terre-egypte-antique-vessel.html
-    <br>https://fr.wikipedia.org/wiki/Religion_de_l%27%C3%89gypte_antique#/media/Fichier:Stele_Ra-Horakhty_Louvre_N3795-Egypte_louvre_047_stele.jpg
-    <br>https://www.antiques-delaval.com/fr/archeologie/18085-lampe-a-huile-antique-romaine-terre-cuite-afrique-du-nord-egypte-algerie.html
-    <br>https://www.antiques-delaval.com/fr/archeologie/18061-statuette-amulette-funeraire-egyptienne-egypte-terre-cuite-dieu-pretre-.html
+    <br>-https://www.antiques-delaval.com/fr/faience-autres/1848-goulet-vase-pot-cruxhe-terre-egypte-antique-vessel.html
+    <br>-https://fr.wikipedia.org/wiki/Religion_de_l%27%C3%89gypte_antique#/media/Fichier:Stele_Ra-Horakhty_Louvre_N3795-Egypte_louvre_047_stele.jpg
+    <br>-https://www.antiques-delaval.com/fr/archeologie/18085-lampe-a-huile-antique-romaine-terre-cuite-afrique-du-nord-egypte-algerie.html
+    <br>-https://www.antiques-delaval.com/fr/archeologie/18061-statuette-amulette-funeraire-egyptienne-egypte-terre-cuite-dieu-pretre-.html
     <br>
 <br>Réutilisation des TD/TP.
 
