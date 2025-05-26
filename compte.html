@@ -42,19 +42,11 @@
                         <td>Mot de passe</td>
                         <td><input type="password" name="password1"></td>
                     </tr>
-                    <tr>
-                        <td>Type de compte</td>
-                        <td>
-                            Vendeur<input type="radio" name="type_compte1" value="acheteur" checked>
-                            Acheteur<input type="radio" name="type_compte1" value="vendeur">
-                            Admin<input type="radio" name="type_compte1" value="admin">
-                        </td>
-                    </tr>
                 </table>
             </form>
             <div class="buttons_bar">
-                <button type="submit" id="connexion">Connexion</button>
-                <button type="button" class="retour">Retour</button>
+                <button type="button" class="button_compte retour">Retour</button>
+                <button type="submit" class="button_compte" id="connexion">Connexion</button>
             </div>
             <div class="container_blur" id="container_blur1"></div>
         </div>
@@ -62,14 +54,6 @@
         <div id="container_inscription">
             <form action="mon_compte.php" method="post">
                 <table class="table_inscription" border="1">
-                    <tr>
-                        <td>Type de compte</td>
-                        <td>
-                            Vendeur<input type="radio" name="type_compte2" value="acheteur" checked>
-                            Acheteur<input type="radio" name="type_compte2" value="vendeur">
-                            Admin<input type="radio" name="type_compte2" value="admin">
-                        </td>
-                    </tr>
                     <tr>
                         <td>Prénom</td>
                         <td><input type="text" name="prenom"></td>
@@ -117,8 +101,8 @@
                 </table>
             </form>
             <div class="buttons_bar">
-                <button type="submit" id="inscription">S'inscrire</button>
-                <button type="button" class="retour">Retour</button>
+                <button type="button" class="button_compte retour">Retour</button>
+                <button type="submit" class="button_compte" id="inscription">S'inscrire</button>
             </div>
             <div class="container_blur" id="container_blur2"></div>
         </div>
