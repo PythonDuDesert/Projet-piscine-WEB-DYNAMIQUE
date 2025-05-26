@@ -6,11 +6,6 @@ body {
     margin: 0;
 }
 
-#logo {
-    width: 15%;
-    max-width: 150px;
-}
-
 
 /**************** header ****************/
 header {
@@ -26,6 +21,11 @@ header h1 {
     font-weight: 800;
     font-size: 300%;
     color: rgb(0, 120, 220);
+}
+
+
+#logo {
+    max-width: 150px;
 }
 
 
