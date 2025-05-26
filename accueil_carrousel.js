@@ -12,10 +12,10 @@ $(document).ready(function() {
             return;
         }
         transition_in_progress = 1;
-        $img.eq(i).fadeOut(2300, function() {
+        $img.eq(i).fadeOut(300, function() {
             i++;  // on décrémente le compteur
             i = i%$img.length; // modulo pour la boucle
-            $img.eq(i).fadeIn(2300, function() {
+            $img.eq(i).fadeIn(300, function() {
                 transition_in_progress = 0;
             });
         });
