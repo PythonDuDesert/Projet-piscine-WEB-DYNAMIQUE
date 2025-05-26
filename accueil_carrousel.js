@@ -1,33 +1,50 @@
 $(document).ready(function() {
-    $img = $('#carrousel img'); // on cible les images contenues dans le carrousel 
-    indexImg = $img.length - 1; // on définit l'index du dernier élément 
-    i = 0; // on initialise un compteur 
-    $currentImg = $img.eq(i); // enfin, on cible l'image courante, qui possède l'index i (0 pour l'instant) 
+    let $img = $('#carrousel img'); // on cible les images contenues dans le carrousel 
+    let indexImg = $img.length - 1; // on définit l'index du dernier élément 
+    let i = 0; // on initialise un compteur 
+    let $currentImg = $img.eq(i); // enfin, on cible l'image courante, qui possède l'index i (0 pour l'instant) 
     $img.css('display', 'none'); // on cache les images 
     $currentImg.css('display', 'block'); // on affiche seulement l'image courante
+    let transition_in_progress = 0;
 
     $('#next').click(function(){ // image suivante 
-        $img.eq(i).fadeOut(300, function() {
+        if (transition_in_progress==1) {
+            return;
+        }
+        transition_in_progress = 1;
+        $img.eq(i).fadeOut(2300, function() {
             i++;  // on décrémente le compteur
             i = i%$img.length; // modulo pour la boucle
-            $img.eq(i).fadeIn(300, function() {
+            $img.eq(i).fadeIn(2300, function() {
+                transition_in_progress = 0;
             });
         });
     });
 
     $('#previous').click(function(){ // image précédente 
+        if (transition_in_progress==1) {
+            return;
+        }
+        transition_in_progress = 1;
         $img.eq(i).fadeOut(300, function() {
             i--;  // on décrémente le compteur
             i = (i+$img.length)%$img.length; // modulo pour la boucle
             $img.eq(i).fadeIn(300, function() {
+                transition_in_progress = 0;
             });
         });
     });
 
-    function slideImg(){ 
+    function slideImg(){
+        if (transition_in_progress==1) {
+            setTimeout(slideImg, 300); // attend qu’on puisse faire la transition
+            return;
+        }
+        transition_in_progress = 1;
         $img.eq(i).fadeOut(300, function() {
             i = i%$img.length; // modulo pour la boucle
             $img.eq(i).fadeIn(300, function() {
+                transition_in_progress = 0;
                 setTimeout(slideImg, 4000);
             });
         });
