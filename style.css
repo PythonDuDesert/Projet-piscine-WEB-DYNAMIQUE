@@ -12,7 +12,7 @@ body {
 }
 
 
-/* header */
+/**************** header ****************/
 header {
     display: flex;
     justify-content: center;
@@ -29,7 +29,7 @@ header h1 {
 }
 
 
-/* navigation */
+/**************** navigation ****************/
 nav {
     display: flex;
     justify-content: center;
@@ -69,7 +69,7 @@ nav {
 }
 
 
-/* section */
+/**************** section ****************/
 #overlay {  /* Grey overlay : filtre gris de taille de l'écran, fixe, en arrière plan (z-index: -1) */
     background-color: rgba(0, 0, 0, 0.6);
     width: 100vw;
@@ -112,7 +112,7 @@ section {
     justify-content: space-between;
     position: relative;
     top: -275px;
-    gap: clamp(2rem, 20vw, 5rem); /* simulateur de "max gap" */
+    gap: clamp(2rem, 20vw, 5rem);
 }
 
 #carrousel_nav #previous, #carrousel_nav #next {
@@ -155,25 +155,80 @@ section {
     align-items: center;
     width: 250px;
     height: 60px;
-    background-color: #7000ff;
+    background-color: #1f3195;
     color: white;
     border: 3px solid black;
-    border-radius: 10px;
-    font-size: large;
+    border-radius: 20px;
+    font-size: x-large;
     font-weight: 700;
     margin: 50px auto;
-    padding-bottom: 5px;
+    padding: 2px 2px 8px 2px;
     letter-spacing: 2px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease;
 }
 
 .option_compte:hover {
-    background-color: #06f;
+    background-color: #08165d;
+}
+
+.option_compte:active {
+    transform: translateY(3px);
+}
+
+/* formulaire connexion */
+.container_blur {
+    width: 50%;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    filter: blur(20px);
+    z-index: -2;
+}
+
+#container_blur1 {
+    min-width: 420px;
+    max-width: 500px;
+    height: 300px;
+    bottom: 200px;
+    margin-bottom: -200px;
+}
+
+#container_blur2 {
+    min-width: 500px;
+    max-width: 600px;
+    height: 600px;
+    bottom: 500px;
+    margin-bottom: -600px;
+}
+
+#container_connexion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 100px auto;
+    padding: 50px 0;
+    font-size: large;
+}
+
+#container_inscription {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 100px auto;
+    padding: 50px 0;
+    font-size: large;
+}
+
+.buttons_bar {
+    margin-top: 30px;
 }
 
 
-/* footer */
+/**************** footer ****************/
 footer {
     background-color: rgba(30, 30, 30, 0.90);
     color: #ddd;
