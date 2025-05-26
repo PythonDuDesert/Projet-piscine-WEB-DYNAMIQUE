@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 26 mai 2025 à 18:30
+-- Généré le : lun. 26 mai 2025 à 19:59
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -105,7 +105,26 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `Image` varchar(255) NOT NULL,
   `IDAcheteurVendeur` int NOT NULL COMMENT 'Clé étrangère',
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `articles`
+--
+
+INSERT INTO `articles` (`ID`, `NomArticle`, `Catégorie`, `DateAjout`, `PrixAchatImmediat`, `PrixEnchere`, `PrixNegociation`, `DateFinEnchere`, `Description`, `QuantiteStock`, `QuantiteVendue`, `Image`, `IDAcheteurVendeur`) VALUES
+(1, 'Trident ', 'Prenium', '0400-07-28', 5000, 2500, 4500, '2025-06-04 20:38:24', 'Authentique Trident de Poséidon ! Parfait pour décorer votre salon, impressionner vos invités ou même diriger des océans. Matière : Résine métallisée. Hauteur : 1,20 m. Poids : 2,5 kg.\"', 1, 0, '/Projet-piscine-WEB-DYNAMIQUE/images/Trident.png', 1),
+(2, 'Tentacule de Kraken', 'Rare', '0400-06-12', 249, 149, 199, '2025-06-04 18:30:58', 'Kraken pêcher ce matin, tentacule toujours très fraîche. \r\nLongueur : 3 mètres.', 8, 2, '/Projet-piscine-WEB-DYNAMIQUE/images/Kraken.jpg', 1),
+(3, 'Le Coffre aux Trésors de Sirène', 'Rare', '0400-06-25', 179, 99, 139, '2025-06-02 21:10:05', 'Coffre en bois vieilli avec incrustations de coquillages et pierres semi-précieuses. Contient :\r\n10 pièces d’or répliques (taille réelle)\r\n1 collier de perles faux\r\n1 flacon de \"poussière de sirène\" (paillettes biodégradables)\r\nDimensions : 40 x 30 x 25 c', 10, 4, '/Projet-piscine-WEB-DYNAMIQUE/images/Coffre.jpg', 1),
+(4, 'La Perle Géante Lumineuse', 'Commun', '0400-06-24', 69, 39, 59, '2025-06-04 21:13:54', 'Perle en résine de 20 cm de diamètre, avec effet nacré et lumière. Autonomie : 10h. Poids : 1,2 kg.', 20, 12, '/Projet-piscine-WEB-DYNAMIQUE/images/Perle.jpg', 1),
+(5, 'Le Kraken en Peluche (Format Géant)', 'Commun', '0400-06-05', 19, 10, 15, '2025-05-26 19:20:39', 'Peluche tentaculaire géante (1,20 m)\r\nCâliner vos peurs marines\r\nMatière : Polyester ultra-doux. Lavable en machine. Yeux lumineux.', 6, 1, '/Projet-piscine-WEB-DYNAMIQUE/images/Peluche.jpg', 1),
+(6, 'Le Manteau d’Écume (Dégradé Bleu)', 'Commun', '0400-06-01', 49, 29, 39, '2025-06-12 21:24:10', 'Manteau longueur royale avec effet « vague qui brille ».\r\n\r\nMatière : Polyester résistant (imitation écume)\r\n\r\nCapuche intégrée en forme de vague\r\n\r\nPoche secrète pour cacher des coquillages (ou vos clés)\r\n\r\nTaille unique (adaptable de 1,60 m à 1,90 m)', 8, 3, '/Projet-piscine-WEB-DYNAMIQUE/images/Manteau.jpg', 1),
+(7, 'Peau du Lion de Némée', 'Prenium ', '0386-12-22', 1289, 975, 1049, '2025-06-03 21:31:53', 'Peau du Lion de Némée, vaincu par Hercule lors de son premier travail.', 1, 0, '/Projet-piscine-WEB-DYNAMIQUE/images/Nemee.jpg', 2),
+(8, 'Massue \"Travail n°9\"', 'Rare', '0386-12-29', 59, 45, 29, '2025-05-26 19:35:19', 'Massue utilisée contre l\'Hydre de Lerne', 1, 0, '/Projet-piscine-WEB-DYNAMIQUE/images/Massue.jpg', 2),
+(9, 'Flèches empoisonnées ', 'Commun', '0386-12-18', 34, 29, 19, '2025-05-26 19:38:28', 'Pack de 6 flèches pour recréer le combat contre les oiseaux du lac Stymphale.', 20, 12, '/Projet-piscine-WEB-DYNAMIQUE/images/Fleches.jpg', 2),
+(10, 'Collier à Trois Têtes \"Gardien des Enfers\"', 'Commun', '0396-05-14', 39, 25, 30, '2025-06-04 21:42:39', 'Collier ajustable pour chien (ou humain audacieux)\r\nMatériaux : Nylon résistant + détails glow-in-the-dark\r\nTaille : Adaptable (40-60 cm)', 15, 4, '/Projet-piscine-WEB-DYNAMIQUE/images/Collier.jpg', 3),
+(11, 'Os à Mâcher', 'Commun', '0396-05-05', 12, 8, 10, '2025-05-26 19:45:36', 'Os en caoutchouc ultra-résistant, infusé au \"jus du fleuve Styx\" (arôme faux bacon)\r\nAvantages :\r\nDurée de vie : \"Éternelle\" (en théorie)\r\nNettoie les dents et distrait votre molosse pendant des heures\r\nFlotte dans l’eau (testé dans le Styx, résultats var', 30, 18, '/Projet-piscine-WEB-DYNAMIQUE/images/Os.jpg', 3),
+(12, 'La Toison d\'Or', 'Prenium', '0396-05-18', 2499, 1999, 2100, '2025-06-10 21:47:53', 'Légendaire Toison d\'Or, symbole de pouvoir et de prospérité.', 1, 0, '/Projet-piscine-WEB-DYNAMIQUE/images/Toison.jpg', 3),
+(13, 'Le Trône d\'Hadès', 'Prenium', '0336-06-06', 14, 9, 14, '2025-06-03 21:55:53', '\"Le véritable trône du Dieu des Enfers, récupéré après négociation avec Perséphone.\r\n\r\nMatière : Obsidienne pure incrustée d\'os de Titans\r\n\r\nDimensions : 2,5m de haut x 1,8m de large (poids : 888 kg)\r\n\r\nFonctionnalités :\r\n\r\nSiège chauffant à lave (réglabl', 1, 0, '/Projet-piscine-WEB-DYNAMIQUE/images/Trone.jpeg', 4);
 
 -- --------------------------------------------------------
 
