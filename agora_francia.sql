@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 27 mai 2025 à 11:57
+-- Généré le : mar. 27 mai 2025 à 13:12
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `Image` varchar(255) NOT NULL,
   `IDAcheteurVendeur` int NOT NULL COMMENT 'Clé étrangère',
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `articles`
@@ -141,7 +141,8 @@ INSERT INTO `articles` (`ID`, `NomArticle`, `Categorie`, `DateAjout`, `PrixAchat
 (21, 'Stele de Re', 'Premium', '0390-03-29', 899, 800, 849, '2025-06-14 15:30:00', 'Stele authentique du dieu Re.', 1, 1, 'images/articles/Stele_Ra.jpg', 10),
 (22, 'Vase egyptien en terre cuite avec ances', 'Commun', '0390-05-06', 45, 60, 39, '2025-06-07 18:30:00', 'Vase egyptien en terre cuite clair avec ances pour le tenir.', 12, 11, 'images/articles/vase1.jpg', 8),
 (23, 'Vase egyptien en terre cuite avec ances et motifs', 'Commun', '0390-08-02', 45, 29, 40, '2025-06-07 19:00:00', 'Vase egyptien en terre cuite sombre avec ances et motifs egyptien gravés dessus.', 10, 12, 'images/articles/vase2.jpg', 9),
-(24, 'Vase egyptien avec  motifs peints', 'Commun', '0390-11-30', 40, 25, 30, '2025-06-07 12:30:00', 'Vase egyptien avec  motifs peints.', 17, 21, 'images/articles/vase3.jpg', 6);
+(24, 'Vase egyptien avec  motifs peints', 'Commun', '0390-11-30', 40, 25, 30, '2025-06-07 12:30:00', 'Vase egyptien avec  motifs peints.', 17, 21, 'images/articles/vase3.jpg', 6),
+(25, 'Cube ancien mystique', 'Premium', '0390-08-15', 1500, 1300, 1430, '2025-06-07 13:10:00', 'Cube ancien mystique d\'origine inconnue.', 1, 0, 'images/articles/allspark.jpg', 10);
 
 -- --------------------------------------------------------
 
