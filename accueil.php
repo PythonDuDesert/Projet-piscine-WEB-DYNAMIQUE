@@ -12,11 +12,11 @@
 <body>
     <header>
         <h1>Agora Francia</h1>
-        <a href="accueil.html"><img src="images/logo_no_bg.png" alt="logo" id="logo"></a>
+        <a href="accueil.php"><img src="images/logo_no_bg.png" alt="logo" id="logo"></a>
     </header>
 
     <nav>
-        <a href="accueil.html"><button type="button" class="nav_button" id="acceuil" style="background-color: #392eff;">Accueil<img src="images/accueil.png" class="nav_icone"></button></a>
+        <a href="accueil.php"><button type="button" class="nav_button" id="acceuil" style="background-color: #392eff;">Accueil<img src="images/accueil.png" class="nav_icone"></button></a>
         <a href="parcourir.html"><button type="button" class="nav_button" id="parcourir">Tout Parcourir<img src="images/livre_ouvert.png" class="nav_icone"></button></a>
         <a href="notifications.html"><button type="button" class="nav_button" id="notifs">Notifications<img src="images/notification.png" class="nav_icone"></button></a>
         <a href="panier.html"><button type="button" class="nav_button" id="panier">Panier<img src="images/paniers.png" class="nav_icone"></button></a>
