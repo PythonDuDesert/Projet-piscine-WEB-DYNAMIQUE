@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 27 mai 2025 à 18:48
+-- Généré le : mar. 27 mai 2025 à 20:12
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `agora francia`
+-- Base de données : `agora_francia`
 --
 
 -- --------------------------------------------------------
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `acheteurs_vendeurs` (
   `TypeCarte` tinyint NOT NULL,
   `NumeroCarte` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `acheteurs_vendeurs`
@@ -65,7 +65,11 @@ INSERT INTO `acheteurs_vendeurs` (`ID`, `Nom`, `Prenom`, `DateNaissance`, `Email
 (13, 'Erikson', 'Leif', '0970-08-13', 'leif.erikson@gmail.com', '0722345487', 36110, '1 Rue de l\'expedition', 'Lexplorateur', 'Islande12', 'images/leif.jpg', '1002-04-27', 3254, 2, '4322 3245 4356 1254'),
 (14, 'Lucius Artorius Castus ', 'Askeladd', '0969-10-30', 'askeladd@agorafrancia.fr', '4567984190', 9988, '4 Rue du Jutland du Nord', 'Askeladd', 'Pirate3', 'images/askeladd.png', '1001-07-21', 12000, 3, '9171 9452 6821 1780 '),
 (15, 'Jarl', 'Ulf', '0976-03-05', 'ulf.leouf@gmail.com', '4587432192', 9990, '343 Rue du Vinland', 'LeNavigateur', 'ulfff', 'images/ulf.png', '1021-09-19', 8467, 1, '6305 1571 8000 5331'),
-(16, 'Knut', 'Knutsson', '0985-12-01', 'knut.legrand@agorafrancia.fr', '0612566360 ', 29000, '45 Avenue du Jelling ', 'KnutLeGrand', 'TheGreat', 'images/knut.jpg', '1017-09-23', 6000, 2, '5279 9917 4335 2424');
+(16, 'Knut', 'Knutsson', '0985-12-01', 'knut.legrand@agorafrancia.fr', '0612566360 ', 29000, '45 Avenue du Jelling ', 'KnutLeGrand', 'TheGreat', 'images/knut.jpg', '1017-09-23', 6000, 2, '5279 9917 4335 2424'),
+(17, 'Einsteinus', 'Albertus', '0341-03-10', 'albertus.einsteinus@agorafrancia.gr', '07 64 43 19 22', 35000, '12 Rue des inventions', 'Albertus', 'emc2', '/images/albertus_einsteinus.jpg', '0382-06-01', 650, 2, '4109 3489 1007 9848'),
+(18, 'Stote', 'Harry', '0380-07-31', 'harry.stote@agorafrancia.gr', '06 12 34 56 78', 33000, '9 Rue de la Magie Antique', 'SavantUltime', 'SavantUltime123', '/images/aristote.jpg', '0401-11-01', 1500, 3, '3115 1234 3231 6458'),
+(19, 'Couchoud', 'Nicolas', '0372-05-15', 'nicolas.couchoud@agorafrancia.gr', '07 89 65 43 21', 78100, '21 Rue des Parchemins', 'MrCouchoud', 'Electromag123', '/images/nicolas_Couchoud.png', '0400-09-15', 720, 2, '1462 7548 3265 8958'),
+(20, 'Hugo', 'Victorius', '0320-02-26', 'victorius.hugo@agorafrancia.gr', '06 01 23 45 67', 75000, '5 Impasse des Ecrivains', 'HugoAstuces', 'miserables123', '/images/victorius_hugo.jpg', '0350-12-25', 800, 1, '1643 4976 1872 2983');
 
 -- --------------------------------------------------------
 
