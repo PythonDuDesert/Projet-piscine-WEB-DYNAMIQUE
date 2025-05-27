@@ -30,7 +30,10 @@
         </p>
         <br>
         <div id="carrousel"> 
+            <h2>Sélection du jour</h2>
             <?php include 'carrousel_articles.php'; ?>
+            <p id="nom_article"></p>
+            <p id="prix_article"></p>
         </div>
         <div id="carrousel_nav">
             <button type="button" id="previous"><</button>
