@@ -42,6 +42,7 @@ $(document).ready(function() {
         }
         transition_in_progress = 1;
         $img.eq(i).fadeOut(300, function() {
+            i++;
             i = i%$img.length; // modulo pour la boucle
             $img.eq(i).fadeIn(300, function() {
                 transition_in_progress = 0;
