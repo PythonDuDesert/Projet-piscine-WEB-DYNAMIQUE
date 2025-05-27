@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 27 mai 2025 à 20:12
+-- Généré le : mar. 27 mai 2025 à 23:45
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `Image` varchar(255) NOT NULL,
   `IDAcheteurVendeur` int NOT NULL COMMENT 'Clé étrangère',
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `articles`
@@ -162,7 +162,17 @@ INSERT INTO `articles` (`ID`, `NomArticle`, `Categorie`, `DateAjout`, `PrixAchat
 (34, 'Epée d\'Askeladd', 'Premium', '1010-10-13', 400, 350, 330, '2025-05-27 08:50:05', 'Forgée dans les forges brumeuses des côtes galloises et trempée dans les mensonges d’un roi.\r\nCette arme aurait été utilisée dans plus de 36 duels malheureusement aucun témoin n\'a survécu.', 1, 0, 'images/articles/epee.askeladd.jpg', 12),
 (35, 'Haches miniatures de décoration', 'Commun', '1002-07-12', 53, 46, 40, '2025-06-10 08:54:25', 'Petites haches en bois gravées, à accrocher dans la maison ou à offrir pour prouver son courage.', 12, 3, 'images/articles/hachesmini.jpg', 11),
 (36, 'Les 10 grands secrets d\'un manipulateur', 'Commun', '1003-03-02', 24, 22, 17, '2025-06-02 08:57:10', 'Dans ce livre, Askeladd retrace les 10 plus grands secrets qui lui ont permis de conquérir le monde.\r\nEdition - Hachette ', 21, 8, 'images/articles/livre.askeladd.jpg', 11),
-(37, 'Parfum \"Essence de conquête\"', 'Rare', '1021-07-17', 180, 150, 120, '2025-05-31 09:01:07', 'Une mixture à base de pin nordique, de sueur de berserker et d’ambre. \"Pour imposer le respect sans lever la hache\"', 6, 1, 'images/articles/parfum.jpg', 13);
+(37, 'Parfum \"Essence de conquête\"', 'Rare', '1021-07-17', 180, 150, 120, '2025-05-31 09:01:07', 'Une mixture à base de pin nordique, de sueur de berserker et d’ambre. \"Pour imposer le respect sans lever la hache\"', 6, 1, 'images/articles/parfum.jpg', 13),
+(38, 'Pigeon Voyageur', 'Rare', '0401-01-06', 1000, 620, 870, '2025-06-02 20:30:00', 'Véritable pigeon voyageur\r\nDebit: jusqu\'à 2 enveloppes par jour\r\nPortée: environ 200km\r\nAutonomie: 10 ans environ\r\nGraines non fournies', 30, 14, 'images/articles/pigeon.jpg', 17),
+(39, 'Mirroir 8K 240fps latence 0ms', 'Rare', '0410-12-08', 120, 50, 100, '2025-06-05 14:00:00', 'Magnifique mirroir, écran 27 pouces. Existe aussi en version incurvée', 20, 3, 'images/articles/miroir.png', 14),
+(40, 'Comment apprendre à lire', 'Commun', '0360-04-26', 40, 15, 35, '2025-06-07 10:00:00', 'Les livres tuto de Hugo sont ravis de vous présenter cet ouvrage de 250 pages dans lequel vous allez apprendre à lire. Niveau Ultra débutant', 10, 0, 'images/articles/livre.jpg', 13),
+(41, '5 Tips pour sortir d\'un labyrinthe', 'Commun', '0361-02-27', 85, 30, 55, '2025-06-03 18:00:00', 'Apprenez à vous echapper des griffes du Minautaur. Cela peut toujours servir. Conseils testés par Thésée.', 40, 12, 'images/articles/livre_labyrinthe.png', 13),
+(42, 'Tablette en pierre', 'Commun', '0407-11-01', 450, 300, 390, '2025-06-10 16:30:00', ' édition limitée. Autonomie infinie. Nécessite un burin (non inclus).', 20, 5, 'images/articles/tablette.png', 12),
+(43, 'Wi-Fi 0.1', 'Rare', '0421-06-14', 300, 150, 260, '2025-06-04 12:45:00', 'Portée 5m. Transmission par signaux de fumée. Ne fonctionne pas les jours de pluie.', 25, 3, 'images/articles/wifi.jpg', 14),
+(44, 'RAM 64Ko – Rouleau à Manuscrit', 'Commun', '0403-01-31', 60, 25, 50, '2025-05-31 09:00:00', 'Gardez en mémoire vos données. Capacité: 64000 caractères (si vous écrivez petit).', 35, 7, 'images/articles/RAM_parchemin.png', 12),
+(45, 'Torche LED (Lumière Ephémère Douce)', 'Commun', '0409-03-09', 25, 10, 15, '2025-06-08 21:00:00', 'Luminosité: 0.05 Lumen. Pour ambiances tamisées ou grottes. Silex non inclus', 60, 28, 'images/articles/torche.jpg', 13),
+(46, 'LEGO – 3000 cailloux empilables', 'Rare', '0401-09-20', 150, 60, 110, '2025-06-13 19:00:00', 'Lot de 3000 cailloux empilables pour des construction. Stimule la créativité. Stimule aussi la douleur si on marche dessus.', 30, 5, 'images/articles/cadran_solaire.png', 14),
+(47, 'Meuble IKEA en pierre', 'Premium', '0407-05-18', 780, 400, 670, '2025-06-12 13:30:00', 'Institut des Konstructeurs de l\'Egypte Antique (IKEA) vous présente son dernier modèle. À monter soi-même. Manuel en Grec ou en Latin. Garantie 600 ans.', 10, 2, 'images/articles/meuble_pierre.png', 12);
 
 -- --------------------------------------------------------
 
