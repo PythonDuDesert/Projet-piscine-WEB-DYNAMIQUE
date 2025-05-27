@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 27 mai 2025 à 15:17
+-- Généré le : mar. 27 mai 2025 à 18:48
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `acheteurs_vendeurs` (
   `TypeCarte` tinyint NOT NULL,
   `NumeroCarte` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `acheteurs_vendeurs`
@@ -61,7 +61,11 @@ INSERT INTO `acheteurs_vendeurs` (`ID`, `Nom`, `Prenom`, `DateNaissance`, `Email
 (7, 'Isis', 'GrandeMagicienne', '0295-07-21', 'isis@agorafrancia.fr', '0654321987', 69000, '31 Palais de l’Est', 'isisis400', 'EpouseDeOsiris', 'images/Isis.png', '0400-05-27', 2510, 3, '3456 7890 1234 5678'),
 (8, 'Horus', 'FauconCeleste', '0305-11-11', 'horus@agorafrancia.fr', '0678901234', 31000, '40 Ciel d’Héliopolis', 'horusse400', 'FanDeFaucon', 'images/Horus.png', '0400-05-27', 4000, 1, '4567 8901 2345 6789'),
 (9, 'Seth', 'SeigneurDuDesert', '0280-09-09', 'seth@agorafrancia.fr', '0611122233', 60000, '55 Désert Rouge', 'sept400', 'sept777', 'images/Seth.png', '0400-05-27', 515, 2, '5678 9012 3456 7890'),
-(10, 'Re', 'SoleilEternel', '0275-12-25', 're@agorafrancia.fr', '0699998888', 33000, '68 Bateau Solaire', 'reflexion400', 'SuperSoleil', 'images/Re.png', '0400-05-27', 4785, 3, '6789 0123 4567 8901');
+(10, 'Re', 'SoleilEternel', '0275-12-25', 're@agorafrancia.fr', '0699998888', 33000, '68 Bateau Solaire', 'reflexion400', 'SuperSoleil', 'images/Re.png', '0400-05-27', 4785, 3, '6789 0123 4567 8901'),
+(13, 'Erikson', 'Leif', '0970-08-13', 'leif.erikson@gmail.com', '0722345487', 36110, '1 Rue de l\'expedition', 'Lexplorateur', 'Islande12', 'images/leif.jpg', '1002-04-27', 3254, 2, '4322 3245 4356 1254'),
+(14, 'Lucius Artorius Castus ', 'Askeladd', '0969-10-30', 'askeladd@agorafrancia.fr', '4567984190', 9988, '4 Rue du Jutland du Nord', 'Askeladd', 'Pirate3', 'images/askeladd.png', '1001-07-21', 12000, 3, '9171 9452 6821 1780 '),
+(15, 'Jarl', 'Ulf', '0976-03-05', 'ulf.leouf@gmail.com', '4587432192', 9990, '343 Rue du Vinland', 'LeNavigateur', 'ulfff', 'images/ulf.png', '1021-09-19', 8467, 1, '6305 1571 8000 5331'),
+(16, 'Knut', 'Knutsson', '0985-12-01', 'knut.legrand@agorafrancia.fr', '0612566360 ', 29000, '45 Avenue du Jelling ', 'KnutLeGrand', 'TheGreat', 'images/knut.jpg', '1017-09-23', 6000, 2, '5279 9917 4335 2424');
 
 -- --------------------------------------------------------
 
