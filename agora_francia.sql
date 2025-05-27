@@ -52,10 +52,10 @@ CREATE TABLE IF NOT EXISTS `acheteurs_vendeurs` (
 --
 
 INSERT INTO `acheteurs_vendeurs` (`ID`, `Nom`, `Prenom`, `DateNaissance`, `Email`, `Telephone`, `CodePostal`, `Adresse`, `Pseudo`, `MotDePasse`, `Photo`, `DateInscription`, `Solde`, `TypeCarte`, `NumeroCarte`) VALUES
-(1, 'Liquidation ', 'Poséidon ', '0355-05-03', 'poseidon.liquidation@gmail.com', '06 12 34 56 78', 75013, ' 7 Rue des Vagues', 'RoiDesOceans', 'Trident', 'images/Poseidon.jpg', '0400-07-18', 8000, 1, '4539 7582 1234 5678'),
-(2, 'Destock', 'Hercule ', '0365-05-03', 'hercule.destock@agorafrancia.gr', '06 12 34 56 78', 75012, '12 Rue des Travaux', 'HerculeLeCostaud', '12Travaux', 'images/Hercule', '0386-12-05', 7563, 3, '5578 1234 5987 8765'),
-(3, 'TroisPourLePrixDeDeux', 'Cerbère ', '0347-01-25', 'cerbere.soldes@agorafrancia.gr', '06 33 66 99 00', 69003, '3 Rue des Trois Têtes', 'CerbèreLeChien', 'AboiePas', 'images/Cerbere', '0396-04-19', 3333, 3, '3782 8224 3333 1005'),
-(4, 'Dépôt-vente', 'Hadès ', '0299-06-24', 'hades.depot@agorafrancia.gr', '06 98 76 54 32', 13001, '666 Avenue des Ombres', 'RoiDesEnfers', 'Enfer', 'images/Hades', '0336-06-06', 6666, 2, '3782 8224 6666 1005'),
+(1, 'Liquidation ', 'Poséidon ', '0355-05-03', 'poseidon.liquidation@gmail.com', '0612345678', 75013, ' 7 Rue des Vagues', 'RoiDesOceans', 'Trident', 'images/Poseidon.jpg', '0400-07-18', 8000, 1, '4539 7582 1234 5678'),
+(2, 'Destock', 'Hercule ', '0365-05-03', 'hercule.destock@agorafrancia.fr', '0612345678', 75012, '12 Rue des Travaux', 'HerculeLeCostaud', '12Travaux', 'images/Hercule.jpg', '0386-12-05', 7563, 3, '5578 1234 5987 8765'),
+(3, 'TroisPourLePrixDeDeux', 'Cerbère ', '0347-01-25', 'cerbere.soldes@agorafrancia.fr', '0633669900', 69003, '3 Rue des Trois Têtes', 'CerbèreLeChien', 'AboiePas', 'images/Cerbere.jpg', '0396-04-19', 3333, 3, '3782 8224 3333 1005'),
+(4, 'Dépôt-vente', 'Hadès ', '0299-06-24', 'hades.depot@agorafrancia.fr', '0698765432', 13001, '666 Avenue des Ombres', 'RoiDesEnfers', 'Enfer', 'images/Hades.jpg', '0336-06-06', 6666, 2, '3782 8224 6666 1005'),
 (5, 'Anubis', 'FilsDeChacal', '0300-01-01', 'anubis@agorafrancia.fr', '0601020304', 75001, '11 Nécropole du Nil', 'anubis400', 'DitLesTermesChacal', '', '0400-05-27', 3221, 1, '1234 5678 9012 3456'),
 (6, 'Osiris', 'SouverainDesMorts', '0290-03-15', 'osiris@agorafrancia.fr', '0612345678', 13001, '29 Temple du Delta', 'osiris400', 'EpouxDeIsis', '', '0400-05-27', 4870, 2, '2345 6789 0123 4567'),
 (7, 'Isis', 'GrandeMagicienne', '0295-07-21', 'isis@agorafrancia.fr', '0654321987', 69000, '31 Palais de l’Est', 'isisis400', 'EpouseDeOsiris', '', '0400-05-27', 2510, 3, '3456 7890 1234 5678'),
