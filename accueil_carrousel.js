@@ -5,7 +5,10 @@ $(document).ready(function() {
     let $currentImg = $img.eq(i); // enfin, on cible l'image courante, qui possède l'index i (0 pour l'instant) 
     $img.css('display', 'none'); // on cache les images 
     $currentImg.css('display', 'block'); // on affiche seulement l'image courante
+    $('#nom_article').text($currentImg.data('titre')); // on affiche le nom de l'image actuelle
+    $('#prix_article').text($img.eq(i).data('prix'));
     let transition_in_progress = 0;
+   
 
     $('#next').click(function(){ // image suivante 
         if (transition_in_progress==1) {
@@ -16,6 +19,8 @@ $(document).ready(function() {
             i++;  // on décrémente le compteur
             i = i%$img.length; // modulo pour la boucle
             $img.eq(i).fadeIn(300, function() {
+                $('#nom_article').text($img.eq(i).data('titre'));
+                $('#prix_article').text($img.eq(i).data('prix'));
                 transition_in_progress = 0;
             });
         });
@@ -30,6 +35,8 @@ $(document).ready(function() {
             i--;  // on décrémente le compteur
             i = (i+$img.length)%$img.length; // modulo pour la boucle
             $img.eq(i).fadeIn(300, function() {
+                $('#nom_article').text($img.eq(i).data('titre'));
+                $('#prix_article').text($img.eq(i).data('prix'));
                 transition_in_progress = 0;
             });
         });
@@ -42,8 +49,11 @@ $(document).ready(function() {
         }
         transition_in_progress = 1;
         $img.eq(i).fadeOut(300, function() {
+            i++;
             i = i%$img.length; // modulo pour la boucle
             $img.eq(i).fadeIn(300, function() {
+                $('#nom_article').text($img.eq(i).data('titre'));
+                $('#prix_article').text($img.eq(i).data('prix'));
                 transition_in_progress = 0;
                 setTimeout(slideImg, 4000);
             });
