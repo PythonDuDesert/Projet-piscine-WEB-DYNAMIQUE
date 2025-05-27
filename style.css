@@ -7,7 +7,7 @@ body {
 }
 
 
-/**************** header ****************/
+/******************************** header ********************************/
 header {
     display: flex;
     justify-content: center;
@@ -29,7 +29,7 @@ header h1 {
 }
 
 
-/**************** navigation ****************/
+/******************************** navigation ********************************/
 nav {
     display: flex;
     justify-content: center;
@@ -69,7 +69,7 @@ nav {
 }
 
 
-/**************** section ****************/
+/******************************** section ********************************/
 #overlay {  /* Grey overlay : filtre gris de taille de l'écran, fixe, en arrière plan (z-index: -1) */
     background-color: rgba(0, 0, 0, 0.6);
     width: 100vw;
@@ -85,6 +85,7 @@ section {
     margin: 50px;
 }
 
+/* Accueil */ 
 #description {
     font-size: x-large;
 }
@@ -176,7 +177,45 @@ section {
     transform: translateY(2px);
 }
 
-/* boutons compte */
+/* Parcourir */
+#container_shop {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-left: 9%;
+}
+
+.article {
+    display: inline-flex;
+}
+
+.article_description {
+    margin-left: 20px;
+    padding: 10px;
+}
+
+.article_img {
+    width: 15vw;
+    min-width: 300px;
+}
+
+.container_option_achat {
+    display: flex;
+    gap: 20px;
+}
+
+.option_achat {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 14px;
+}
+
+.achat_icone {
+    width: 20px;
+    margin-left: 10px;
+}
+
+/* Compte */
 #container_compte {
     margin: 150px auto;
 }
@@ -317,7 +356,8 @@ section {
     content: "ℹ️ ";
 }
 
-/**************** footer ****************/
+
+/******************************** footer ********************************/
 footer {
     background-color: rgba(30, 30, 30, 0.90);
     color: #ddd;

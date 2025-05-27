@@ -1,62 +1,62 @@
 <?php
-$database = "agora francia";
-$db_handle = mysqli_connect('localhost', 'root', '');
-$db_found = mysqli_select_db($db_handle, $database);
+    $database = "agora francia";
+    $db_handle = mysqli_connect('localhost', 'root', '');
+    $db_found = mysqli_select_db($db_handle, $database);
 
-// Récupération des données du formulaire
-$prenom = isset($_POST['prenom']) ? $_POST['prenom'] : '';
-$nom = isset($_POST['nom']) ? $_POST['nom'] : '';
-$pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
-$email = isset($_POST['email2']) ? $_POST['email2'] : '';
-$telephone = isset($_POST['telephone']) ? $_POST['telephone'] : '';
-$date_naissance = isset($_POST['date_naissance']) ? $_POST['date_naissance'] : '';
-$code_postal = isset($_POST['code_postal']) ? $_POST['code_postal'] : '';
-$adresse = isset($_POST['adresse']) ? $_POST['adresse'] : '';
-$photo = isset($_POST['photo']) ? $_POST['photo'] : '';
-$motdepasse = isset($_POST['password2']) ? $_POST['password2'] : '';
-$confirmemdp = isset($_POST['password2confirm']) ? $_POST['password2confirm'] : '';
-$solde = isset($_POST['solde']) ? $_POST['solde'] : 0;
-$type_carte = isset($_POST['type_carte']) ? $_POST['type_carte'] : '';
-$num_carte = isset($_POST['num_carte']) ? $_POST['num_carte'] : '';
+    // Récupération des données du formulaire
+    $prenom = isset($_POST['prenom']) ? $_POST['prenom'] : '';
+    $nom = isset($_POST['nom']) ? $_POST['nom'] : '';
+    $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
+    $email = isset($_POST['email2']) ? $_POST['email2'] : '';
+    $telephone = isset($_POST['telephone']) ? $_POST['telephone'] : '';
+    $date_naissance = isset($_POST['date_naissance']) ? $_POST['date_naissance'] : '';
+    $code_postal = isset($_POST['code_postal']) ? $_POST['code_postal'] : '';
+    $adresse = isset($_POST['adresse']) ? $_POST['adresse'] : '';
+    $photo = isset($_POST['photo']) ? $_POST['photo'] : '';
+    $motdepasse = isset($_POST['password2']) ? $_POST['password2'] : '';
+    $confirmemdp = isset($_POST['password2confirm']) ? $_POST['password2confirm'] : '';
+    $solde = isset($_POST['solde']) ? $_POST['solde'] : 0;
+    $type_carte = isset($_POST['type_carte']) ? $_POST['type_carte'] : '';
+    $num_carte = isset($_POST['num_carte']) ? $_POST['num_carte'] : '';
 
-$action = "";
-if (isset($_POST['Inscription'])) $action = "Inscription";
+    $action = "";
+    if (isset($_POST['Inscription'])) $action = "Inscription";
 
-$message = "";
+    $message = "";
 
-if ($db_found) {
-    if ($action == "Inscription") {
-          if (empty($prenom) || empty($nom) || empty($pseudo) || empty($email) || empty($telephone) || empty($date_naissance) || empty($code_postal) || empty($adresse) || empty($motdepasse)) {
-                $message = "Veuillez remplir tous les champs obligatoires";
-        }
-        elseif ($motdepasse !== $confirmemdp) {
-           $message = "Les mots de passe ne correspondent pas";
-        }
+    if ($db_found) {
+        if ($action == "Inscription") {
+            if (empty($prenom) || empty($nom) || empty($pseudo) || empty($email) || empty($telephone) || empty($date_naissance) || empty($code_postal) || empty($adresse) || empty($motdepasse)) {
+                    $message = "Veuillez remplir tous les champs obligatoires";
+            }
+            elseif ($motdepasse !== $confirmemdp) {
+            $message = "Les mots de passe ne correspondent pas";
+            }
 
-        else {
-            // Vérifier si l'utilisateur existe déjà
-            $sql = "SELECT * FROM acheteurs_vendeurs WHERE Email = '$email' OR Pseudo = '$pseudo'";
-            $resultat = mysqli_query($db_handle, $sql);
+            else {
+                // Vérifier si l'utilisateur existe déjà
+                $sql = "SELECT * FROM acheteurs_vendeurs WHERE Email = '$email' OR Pseudo = '$pseudo'";
+                $resultat = mysqli_query($db_handle, $sql);
 
-            if (mysqli_num_rows($resultat) > 0) {
-                 $message = "Un utilisateur avec cet email ou ce pseudo existe déjà";
-            } else {
-                // Insérer le nouvel utilisateur
-                $sql = "INSERT INTO acheteurs_vendeurs (Nom, Prenom, DateNaissance, Email, Telephone, CodePostal, Adresse, Pseudo, MotDePasse, Photo, DateInscription, Solde, TypeCarte, NumeroCarte) VALUES ('$nom', '$prenom', '$date_naissance', '$email', '$telephone', '$code_postal', '$adresse','$pseudo', '$motdepasse', '$photo', CURDATE(), '$solde', '$type_carte', '$num_carte'
-                )";
-                if (mysqli_query($db_handle, $sql)) {
-                    $message = "Inscription réussie ! Bienvenue $pseudo !";
+                if (mysqli_num_rows($resultat) > 0) {
+                    $message = "Un utilisateur avec cet email ou ce pseudo existe déjà";
                 } else {
-                     $message = "L'inscription a échoué";
+                    // Insérer le nouvel utilisateur
+                    $sql = "INSERT INTO acheteurs_vendeurs (Nom, Prenom, DateNaissance, Email, Telephone, CodePostal, Adresse, Pseudo, MotDePasse, Photo, DateInscription, Solde, TypeCarte, NumeroCarte) VALUES ('$nom', '$prenom', '$date_naissance', '$email', '$telephone', '$code_postal', '$adresse','$pseudo', '$motdepasse', '$photo', CURDATE(), '$solde', '$type_carte', '$num_carte'
+                    )";
+                    if (mysqli_query($db_handle, $sql)) {
+                        $message = "Inscription réussie ! Bienvenue $pseudo !";
+                    } else {
+                        $message = "L'inscription a échoué";
+                    }
                 }
             }
         }
+    } else {
+        $message = "Erreur de connexion à la base de données";
     }
-} else {
-    $message = "Erreur de connexion à la base de données";
-}
 
-mysqli_close($db_handle);
+    mysqli_close($db_handle);
 ?>
 
 <!DOCTYPE html>
