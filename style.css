@@ -298,6 +298,24 @@ section {
     background-color: #298e46;
 }
 
+.message {
+    margin: 20px auto;
+    padding: 15px;
+    max-width: 600px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.message:empty {
+    display: none;
+}
+
+.message:before {
+    content: "ℹ️ ";
+}
 
 /**************** footer ****************/
 footer {
