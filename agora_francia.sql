@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 26 mai 2025 à 19:59
+-- Généré le : mar. 27 mai 2025 à 00:10
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -45,17 +45,23 @@ CREATE TABLE IF NOT EXISTS `acheteurs_vendeurs` (
   `TypeCarte` tinyint NOT NULL,
   `NumeroCarte` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `acheteurs_vendeurs`
 --
 
 INSERT INTO `acheteurs_vendeurs` (`ID`, `Nom`, `Prenom`, `DateNaissance`, `Email`, `Telephone`, `CodePostal`, `Adresse`, `Pseudo`, `MotDePasse`, `Photo`, `DateInscription`, `Solde`, `TypeCarte`, `NumeroCarte`) VALUES
-(1, 'Liquidation ', 'Poséidon ', '0355-05-03', 'poseidon.liquidation@gmail.com', '06 12 34 56 78', 75013, ' 7 Rue des Vagues, 75013 Paris', 'RoiDesOceans', 'Trident', 'images/Poseidon.jpg', '0400-07-18', 8000, 1, '4539 7582 1234 5678'),
-(2, 'Destock', 'Hercule ', '0365-05-03', 'hercule.destock@agorafrancia.gr', '06 12 34 56 78', 75012, '12 Rue des Travaux, 75012 Paris', 'HerculeLeCostaud', '12Travaux', 'images/Hercule', '0386-12-05', 7563, 3, '5578 1234 5987 8765'),
-(3, 'TroisPourLePrixDeDeux', 'Cerbère ', '0347-01-25', 'cerbere.soldes@agorafrancia.gr', '06 33 66 99 00', 69003, '3 Rue des Trois Têtes, 69003 Lyon', 'CerbèreLeChien', 'AboiePas', 'images/Cerbere', '0396-04-19', 3333, 3, '3782 8224 3333 1005'),
-(4, 'Dépôt-vente', 'Hadès ', '0299-06-24', 'hades.depot@agorafrancia.gr', '06 98 76 54 32', 13001, '666 Avenue des Ombres, 13001 Marseille', 'RoiDesEnfers', 'Enfer', 'images/Hades', '0336-06-06', 6666, 2, '3782 8224 6666 1005');
+(1, 'Liquidation ', 'Poséidon ', '0355-05-03', 'poseidon.liquidation@gmail.com', '06 12 34 56 78', 75013, ' 7 Rue des Vagues', 'RoiDesOceans', 'Trident', 'images/Poseidon.jpg', '0400-07-18', 8000, 1, '4539 7582 1234 5678'),
+(2, 'Destock', 'Hercule ', '0365-05-03', 'hercule.destock@agorafrancia.gr', '06 12 34 56 78', 75012, '12 Rue des Travaux', 'HerculeLeCostaud', '12Travaux', 'images/Hercule', '0386-12-05', 7563, 3, '5578 1234 5987 8765'),
+(3, 'TroisPourLePrixDeDeux', 'Cerbère ', '0347-01-25', 'cerbere.soldes@agorafrancia.gr', '06 33 66 99 00', 69003, '3 Rue des Trois Têtes', 'CerbèreLeChien', 'AboiePas', 'images/Cerbere', '0396-04-19', 3333, 3, '3782 8224 3333 1005'),
+(4, 'Dépôt-vente', 'Hadès ', '0299-06-24', 'hades.depot@agorafrancia.gr', '06 98 76 54 32', 13001, '666 Avenue des Ombres', 'RoiDesEnfers', 'Enfer', 'images/Hades', '0336-06-06', 6666, 2, '3782 8224 6666 1005'),
+(5, 'Anubis', 'FilsDeChacal', '0300-01-01', 'anubis@agorafrancia.fr', '0601020304', 75001, '11 Nécropole du Nil', 'anubis400', 'DitLesTermesChacal', '', '0400-05-27', 3221, 1, '1234 5678 9012 3456'),
+(6, 'Osiris', 'SouverainDesMorts', '0290-03-15', 'osiris@agorafrancia.fr', '0612345678', 13001, '29 Temple du Delta', 'osiris400', 'EpouxDeIsis', '', '0400-05-27', 4870, 2, '2345 6789 0123 4567'),
+(7, 'Isis', 'GrandeMagicienne', '0295-07-21', 'isis@agorafrancia.fr', '0654321987', 69000, '31 Palais de l’Est', 'isisis400', 'EpouseDeOsiris', '', '0400-05-27', 2510, 3, '3456 7890 1234 5678'),
+(8, 'Horus', 'FauconCeleste', '0305-11-11', 'horus@agorafrancia.fr', '0678901234', 31000, '40 Ciel d’Héliopolis', 'horusse400', 'FanDeFaucon', '', '0400-05-27', 4000, 1, '4567 8901 2345 6789'),
+(9, 'Seth', 'SeigneurDuDesert', '0280-09-09', 'seth@agorafrancia.fr', '0611122233', 6000, '55 Désert Rouge', 'sept400', 'sept777', '', '0400-05-27', 515, 2, '5678 9012 3456 7890'),
+(10, 'Re', 'SoleilEternel', '0275-12-25', 're@agorafrancia.fr', '0699998888', 33000, '68 Bateau Solaire', 'reflexion400', 'SuperSoleil', '', '0400-05-27', 4785, 3, '6789 0123 4567 8901');
 
 -- --------------------------------------------------------
 
