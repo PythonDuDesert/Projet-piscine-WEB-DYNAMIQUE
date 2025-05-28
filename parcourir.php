@@ -7,7 +7,8 @@
     $i = isset($_GET['i']) ? $_GET['i'] : 1;
 
     if ($db_found) {
-        $sql = "SELECT * FROM articles WHERE 1"; //olivier j'ai mis WHERE 1 au lieu de WHERE articles.id parce que l'id bloquais tous mes tests
+        //$sql = "SELECT * FROM articles WHERE articles.ID >= $i AND articles.ID <= $i+9";
+        $sql = "SELECT * FROM articles WHERE 1"; //ça bloquait tous mes tests
         
         if (isset($_GET['search']) && !empty(trim($_GET['search']))) {
             $search = mysqli_real_escape_string($db_handle, $_GET['search']);
@@ -82,18 +83,17 @@
             <button type="button" id="toggle_filters">Filtrer</button>
 
             <div id="filters_form" style="display: none; margin-top: 10px;">
-                    <!-- Garder la recherche précédente si existante -->
+                <!--permet aussi de garder en memeoire les données du formulaire du filtre (mais ne marche pas quand on change de page... bref à finir) -->
 
                     <label for="min_price">Prix min :</label>
-                    <input type="number" name="min_price" id="min_price" min="0" step="0.01" value="<?php echo isset($_GET['min_price']) ? $_GET['min_price'] : ''; ?>">
+                    <input type="number" name="min_price" id="min_price" min="0" value="<?php echo isset($_GET['min_price']) ? $_GET['min_price'] : ''; ?>">
 
                     <label for="max_price">Prix max :</label>
-                    <input type="number" name="max_price" id="max_price" min="0" step="0.01" value="<?php echo isset($_GET['max_price']) ? $_GET['max_price'] : ''; ?>">
+                    <input type="number" name="max_price" id="max_price" min="0" value="<?php echo isset($_GET['max_price']) ? $_GET['max_price'] : ''; ?>">
 
                     <label for="categorie">Catégorie :</label>
                     <select name="categorie" id="categorie">
                         <option value="">Toutes</option>
-                        <!--permet de garder en memeoire les données du formulaire du filtre (mais ne marche pas quand on change de page... bref à finir) -->
                         <option value="commun" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="commun") echo "selected"; ?>>Commun</option>
                         <option value="rare" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="rare") echo "selected"; ?>>Rare</option>
                         <option value="premium" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="premium") echo "selected"; ?>>Premium</option>
