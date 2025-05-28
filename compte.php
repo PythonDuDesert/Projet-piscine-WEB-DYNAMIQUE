@@ -1,9 +1,17 @@
 <?php
+    session_start();
+
+    //Si l'utilisateur est déja connecté redirige vers la page profil.php
+    if (isset($_SESSION['user_id'])) {
+        header("Location: profil.php");
+        exit;
+    }
+    //Connexion à la base
     $database = "agora francia";
     $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
 
-    // Récupération des données du formulaire
+    // Récupération des données du formulaire d'inscription
     $prenom = isset($_POST['prenom']) ? $_POST['prenom'] : '';
     $nom = isset($_POST['nom']) ? $_POST['nom'] : '';
     $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
@@ -12,18 +20,25 @@
     $date_naissance = isset($_POST['date_naissance']) ? $_POST['date_naissance'] : '';
     $code_postal = isset($_POST['code_postal']) ? $_POST['code_postal'] : '';
     $adresse = isset($_POST['adresse']) ? $_POST['adresse'] : '';
-    $photo = isset($_POST['photo']) ? $_POST['photo'] : '';
     $motdepasse = isset($_POST['password2']) ? $_POST['password2'] : '';
     $confirmemdp = isset($_POST['password2confirm']) ? $_POST['password2confirm'] : '';
-    $solde = isset($_POST['solde']) ? $_POST['solde'] : 0;
-    $type_carte = isset($_POST['type_carte']) ? $_POST['type_carte'] : '';
-    $num_carte = isset($_POST['num_carte']) ? $_POST['num_carte'] : '';
+   
+    $photo = $_FILES['photo']['name'] ?? '';
+    $photo_temp = $_FILES['photo']['tmp_name'] ?? '';
+    $destination = "images/" . basename($photo);
 
+    // Récupération des données du formulaire de connexion
+    $email_con = isset($_POST['email1']) ? $_POST['email1'] : '';
+    $mdp_con = isset($_POST['password1']) ? $_POST['password1'] : '';
+    
+   
     $action = "";
     if (isset($_POST['Inscription'])) $action = "Inscription";
+    if (isset($_POST['Connexion'])) $action = "Connexion";
 
     $message = "";
 
+/** ------------------------------    INSCRIPTION  -------------------------------**/
     if ($db_found) {
         if ($action == "Inscription") {
             if (empty($prenom) || empty($nom) || empty($pseudo) || empty($email) || empty($telephone) || empty($date_naissance) || empty($code_postal) || empty($adresse) || empty($motdepasse)) {
@@ -41,9 +56,9 @@
                 if (mysqli_num_rows($resultat) > 0) {
                     $message = "Un utilisateur avec cet email ou ce pseudo existe déjà";
                 } else {
+                     move_uploaded_file($photo_temp, $destination);
                     // Insérer le nouvel utilisateur
-                    $sql = "INSERT INTO acheteurs_vendeurs (Nom, Prenom, DateNaissance, Email, Telephone, CodePostal, Adresse, Pseudo, MotDePasse, Photo, DateInscription, Solde, TypeCarte, NumeroCarte) VALUES ('$nom', '$prenom', '$date_naissance', '$email', '$telephone', '$code_postal', '$adresse','$pseudo', '$motdepasse', '$photo', CURDATE(), '$solde', '$type_carte', '$num_carte'
-                    )";
+                    $sql = "INSERT INTO acheteurs_vendeurs (Nom, Prenom, DateNaissance, Email, Telephone, CodePostal, Adresse, Pseudo, MotDePasse, Photo, DateInscription) VALUES ('$nom', '$prenom', '$date_naissance', '$email', '$telephone', '$code_postal', '$adresse','$pseudo', '$motdepasse', '$destination', CURDATE(),)";
                     if (mysqli_query($db_handle, $sql)) {
                         $message = "Inscription réussie ! Bienvenue $pseudo !";
                     } else {
@@ -56,6 +71,30 @@
         $message = "Erreur de connexion à la base de données";
     }
 
+/** ------------------------------    CONNEXION  -------------------------------**/
+    if ($action == "Connexion") {
+        
+        if ($db_found){
+            if (empty($email_con) || empty($mdp_con)){
+            $message = "Veuillez remplir tous les champs";
+            }
+            $sql = "SELECT * FROM acheteurs_vendeurs WHERE Email = '$email_con'";
+            $resultat = mysqli_query($db_handle, $sql);
+
+            if ($resultat && mysqli_num_rows($resultat) > 0) {
+                $user = mysqli_fetch_assoc($resultat);
+                if ($user['MotDePasse'] === $mdp_con) { 
+                    $_SESSION['user_id'] = $user['ID'];
+                   header("Location: profil.php");
+                   exit;
+                } else {
+                    $message = "Mot de passe incorrect";
+                }
+            } else {
+                $message = "Utilisateur introuvable";
+            }
+        } 
+}
     mysqli_close($db_handle);
 ?>
 
@@ -73,7 +112,7 @@
     $(document).ready(function() {
         setTimeout(function() {
             $(".message").fadeOut("slow");
-        }, 2000); //2 secondes
+        }, 2000); //Fondu de 2 secondes
     });
     </script>
     <script src="compte.js"></script>
@@ -88,8 +127,8 @@
     <nav>
         <a href="accueil.php"><button type="button" class="nav_button" id="acceuil">Accueil<img src="images/accueil.png" class="nav_icone"></button></a>
         <a href="parcourir.php"><button type="button" class="nav_button" id="parcourir">Tout Parcourir<img src="images/livre_ouvert.png" class="nav_icone"></button></a>
-        <a href="notifications.html"><button type="button" class="nav_button" id="notifs">Notifications<img src="images/notification.png" class="nav_icone"></button></a>
-        <a href="panier.html"><button type="button" class="nav_button" id="panier">Panier<img src="images/paniers.png" class="nav_icone"></button></a>
+        <a href="notifications.php"><button type="button" class="nav_button" id="notifs">Notifications<img src="images/notification.png" class="nav_icone"></button></a>
+        <a href="panier.php"><button type="button" class="nav_button" id="panier">Panier<img src="images/paniers.png" class="nav_icone"></button></a>
         <a href="compte.php"><button type="button" class="nav_button" id="compte" style="background-color: #392eff;">Votre compte<img src="images/utilisateur.png" class="nav_icone"></button></a>
     </nav>
 
@@ -104,7 +143,7 @@
         </div>
 
         <div id="container_connexion">
-            <form action="mon_compte.php" method="post">
+            <form action="" method="post">
                 <table class="table_inscription" border="1">
                     <tr>
                         <td>Email</td>
@@ -115,18 +154,18 @@
                         <td><input type="password" name="password1"></td>
                     </tr>
                 </table>
+                <div class="buttons_bar">
+                    <button type="button" class="button_compte retour">Retour</button>
+                    <button type="submit" class="button_compte" id="connexion" name ="Connexion">Connexion</button>
+                </div>
             </form>
-            <div class="buttons_bar">
-                <button type="button" class="button_compte retour">Retour</button>
-                <button type="submit" class="button_compte" id="connexion">Connexion</button>
-            </div>
             <div class="container_blur" id="container_blur1"></div>
         </div>
 
      
 
         <div id="container_inscription"> 
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <table class="table_inscription" border="1">
                     <tr>
                         <td>Prénom</td>
@@ -162,7 +201,7 @@
                     </tr>
                     <tr>
                         <td>Photo</td>
-                        <td><input type="text" name="photo"></td>
+                        <td><input type="FILE" name="photo"></td>
                     </tr>
                     <tr>
                         <td>Mot de passe</td>
@@ -172,26 +211,6 @@
                         <td>Confirmer Mot de passe</td>
                         <td><input type="password" name="password2confirm"></td>
                     </tr> <br>
-                    <tr>
-                        <td>Type de carte</td>
-                        <td>
-                            <select name="type_carte" required>
-                                <option value="">-- Sélectionnez un type de carte --</option>
-                                <option value="1">Visa</option>
-                                <option value="2">MasterCard</option>
-                                <option value="3">American Express</option>
-                                <option value="4">PayPal</option>
-                            </select>
-                        </td>
-                    </tr>
-                     <tr>
-                        <td>Numéro de carte</td>
-                        <td><input type="password" name="num_carte"></td>
-                    </tr>
-                     <tr>
-                        <td>Solde</td>
-                        <td><input type="number" name="solde"></td>
-                    </tr>
                 </table>
                 <div class="buttons_bar">
                     <button type="button" class="button_compte retour">Retour</button>

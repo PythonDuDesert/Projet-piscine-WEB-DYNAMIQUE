@@ -19,3 +19,4 @@ $(document).ready(function() {
         $('#container_inscription').hide();
     })
 });
+

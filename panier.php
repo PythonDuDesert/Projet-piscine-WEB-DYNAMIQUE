@@ -1,9 +1,13 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agora Francia - Notifications</title>
+    <title>Agora Francia - Pänier</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="images/logo_no_bg.ico" type="image/x-icon">
 </head>
@@ -16,8 +20,8 @@
     <nav>
         <a href="accueil.php"><button type="button" class="nav_button" id="acceuil">Accueil<img src="images/accueil.png" class="nav_icone"></button></a>
         <a href="parcourir.php"><button type="button" class="nav_button" id="parcourir">Tout Parcourir<img src="images/livre_ouvert.png" class="nav_icone"></button></a>
-        <a href="notifications.html"><button type="button" class="nav_button" id="notifs" style="background-color: #392eff;">Notifications<img src="images/notification.png" class="nav_icone"></button></a>
-        <a href="panier.html"><button type="button" class="nav_button" id="panier">Panier<img src="images/paniers.png" class="nav_icone"></button></a>
+        <a href="notifications.php"><button type="button" class="nav_button" id="notifs">Notifications<img src="images/notification.png" class="nav_icone"></button></a>
+        <a href="panier.php"><button type="button" class="nav_button" id="panier" style="background-color: #392eff;">Panier<img src="images/paniers.png" class="nav_icone"></button></a>
         <a href="compte.php"><button type="button" class="nav_button" id="compte">Votre compte<img src="images/utilisateur.png" class="nav_icone"></button></a>
     </nav>
 
