@@ -1,16 +1,15 @@
 <?php
     session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agora Francia - Accueil</title>
+    <title>Agora Francia - Pänier</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="images/logo_no_bg.ico" type="image/x-icon">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="accueil_carrousel.js"></script>
 </head>
 <body>
     <header>
@@ -19,29 +18,16 @@
     </header>
 
     <nav>
-        <a href="accueil.php"><button type="button" class="nav_button" id="acceuil" style="background-color: #392eff;">Accueil<img src="images/accueil.png" class="nav_icone"></button></a>
+        <a href="accueil.php"><button type="button" class="nav_button" id="acceuil">Accueil<img src="images/accueil.png" class="nav_icone"></button></a>
         <a href="parcourir.php"><button type="button" class="nav_button" id="parcourir">Tout Parcourir<img src="images/livre_ouvert.png" class="nav_icone"></button></a>
         <a href="notifications.php"><button type="button" class="nav_button" id="notifs">Notifications<img src="images/notification.png" class="nav_icone"></button></a>
-        <a href="panier.php"><button type="button" class="nav_button" id="panier">Panier<img src="images/paniers.png" class="nav_icone"></button></a>
+        <a href="panier.php"><button type="button" class="nav_button" id="panier" style="background-color: #392eff;">Panier<img src="images/paniers.png" class="nav_icone"></button></a>
         <a href="compte.php"><button type="button" class="nav_button" id="compte">Votre compte<img src="images/utilisateur.png" class="nav_icone"></button></a>
     </nav>
 
     <section>
         <div id="overlay"></div>
-        <p id="description"><strong><i>Agora Francia</i></strong> est une place de marché en ligne inspirée de l'agora grecque antique, un lieu d'échanges, de discussions et de commerce. Ouvert à tous, notre site offre une expérience de magasinage moderne, accessible et interactive pour le grand public.
-        <br>Achetez, vendez, négociez ou proposez votre meilleure offre sur une large sélection d'articles neufs, d'occasion ou uniques, grâce à nos trois modes de vente (vente immédiate, négociation, meilleure offre).
-        </p>
-        <br>
-        <div id="carrousel"> 
-            <h2>Sélection du jour</h2>
-            <?php include 'carrousel_articles.php'; ?>
-            <p id="nom_article"></p>
-            <p id="prix_article"></p>
-        </div>
-        <div id="carrousel_nav">
-            <button type="button" id="previous"><</button>
-            <button type="button" id="next">></button>
-        </div>
+
     </section>
 
     <footer>
