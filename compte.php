@@ -58,7 +58,7 @@
                 } else {
                      move_uploaded_file($photo_temp, $destination);
                     // Insérer le nouvel utilisateur
-                    $sql = "INSERT INTO acheteurs_vendeurs (Nom, Prenom, DateNaissance, Email, Telephone, CodePostal, Adresse, Pseudo, MotDePasse, Photo, DateInscription) VALUES ('$nom', '$prenom', '$date_naissance', '$email', '$telephone', '$code_postal', '$adresse','$pseudo', '$motdepasse', '$destination', CURDATE(),)";
+                    $sql = "INSERT INTO acheteurs_vendeurs (Nom, Prenom, DateNaissance, Email, Telephone, CodePostal, Adresse, Pseudo, MotDePasse, Photo, DateInscription) VALUES ('$nom', '$prenom', '$date_naissance', '$email', '$telephone', '$code_postal', '$adresse','$pseudo', '$motdepasse', '$destination', CURDATE())";
                     if (mysqli_query($db_handle, $sql)) {
                         $message = "Inscription réussie ! Bienvenue $pseudo !";
                     } else {
