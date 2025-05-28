@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 27 mai 2025 à 23:45
+-- Généré le : mar. 27 mai 2025 à 23:59
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -171,7 +171,7 @@ INSERT INTO `articles` (`ID`, `NomArticle`, `Categorie`, `DateAjout`, `PrixAchat
 (43, 'Wi-Fi 0.1', 'Rare', '0421-06-14', 300, 150, 260, '2025-06-04 12:45:00', 'Portée 5m. Transmission par signaux de fumée. Ne fonctionne pas les jours de pluie.', 25, 3, 'images/articles/wifi.jpg', 14),
 (44, 'RAM 64Ko – Rouleau à Manuscrit', 'Commun', '0403-01-31', 60, 25, 50, '2025-05-31 09:00:00', 'Gardez en mémoire vos données. Capacité: 64000 caractères (si vous écrivez petit).', 35, 7, 'images/articles/RAM_parchemin.png', 12),
 (45, 'Torche LED (Lumière Ephémère Douce)', 'Commun', '0409-03-09', 25, 10, 15, '2025-06-08 21:00:00', 'Luminosité: 0.05 Lumen. Pour ambiances tamisées ou grottes. Silex non inclus', 60, 28, 'images/articles/torche.jpg', 13),
-(46, 'LEGO – 3000 cailloux empilables', 'Rare', '0401-09-20', 150, 60, 110, '2025-06-13 19:00:00', 'Lot de 3000 cailloux empilables pour des construction. Stimule la créativité. Stimule aussi la douleur si on marche dessus.', 30, 5, 'images/articles/cadran_solaire.png', 14),
+(46, 'LEGO – 3000 cailloux empilables', 'Rare', '0401-09-20', 150, 60, 110, '2025-06-13 19:00:00', 'Lot de 3000 cailloux empilables pour des construction. Stimule la créativité. Stimule aussi la douleur si on marche dessus.', 30, 5, 'images/articles/lego.png', 14),
 (47, 'Meuble IKEA en pierre', 'Premium', '0407-05-18', 780, 400, 670, '2025-06-12 13:30:00', 'Institut des Konstructeurs de l\'Egypte Antique (IKEA) vous présente son dernier modèle. À monter soi-même. Manuel en Grec ou en Latin. Garantie 600 ans.', 10, 2, 'images/articles/meuble_pierre.png', 12);
 
 -- --------------------------------------------------------
