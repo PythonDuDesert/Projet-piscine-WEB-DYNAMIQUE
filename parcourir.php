@@ -1,10 +1,14 @@
 <?php
-    $database = "agora francia";
+    $database = "agora_francia";
     $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
 
     if ($db_found) {
         $sql = "SELECT * FROM articles";
+        if (isset($_GET['search']) && !empty(trim($_GET['search']))) {
+            $search = mysqli_real_escape_string($db_handle, $_GET['search']);
+            $sql .= " WHERE NomArticle LIKE '%$search%' OR Description LIKE '%$search%'";
+        }
         $result= mysqli_query($db_handle, $sql);
         if ($result) {
             $error = false;
@@ -44,6 +48,11 @@
         <div id="overlay"></div>
 
         <div id="search_menu"></div>
+
+        <form method="GET" action="parcourir.php" id="search_form">
+            <input type="text" name="search" placeholder="Rechercher un article..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+            <button type="submit">Rechercher</button>
+        </form>
 
         <div id="container_shop">
             <?php
