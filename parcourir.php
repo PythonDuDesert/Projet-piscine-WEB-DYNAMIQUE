@@ -66,6 +66,7 @@
                         <a href='article_detail.php?id=".$data['ID']."'><img src='".$data['Image']."' alt='".$data['Image']."' class='article_img'></a>
                         <div class='article_description'>
                             <h2><a href='article_detail.php?id=".$data['ID']."' class='title_article'>".$data['NomArticle']."</a></h2>
+                            <p>Catégorie : ".$data['Categorie']."
                             <p>Prix d'enchère : ".$data['PrixEnchere']." €
                             <br>Fin des enchères : ".$data['DateFinEnchere']."
                             <br>Prix d'achat immédiat : ".$data['PrixAchatImmediat']." €
