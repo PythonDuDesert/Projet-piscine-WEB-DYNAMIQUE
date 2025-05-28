@@ -373,6 +373,15 @@ section {
 #connexion:active, #inscription:active {
     background-color: #298e46;
 }
+#alerte{
+    background-color: lightblue;
+    color: black;
+    scale: 2;
+}
+#alerte:hover{
+    background-color: darkblue;
+    color: white;
+}
 
 .message {
     margin: 20px auto;
