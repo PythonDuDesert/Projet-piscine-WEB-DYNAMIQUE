@@ -31,7 +31,8 @@
     <title>Agora Francia - Parcourir</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="images/logo_no_bg.ico" type="image/x-icon">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="parcourir.js"></script>
 </head>
 <body>
     <header>
@@ -62,17 +63,17 @@
                 while ($data = mysqli_fetch_assoc($result)) {
                     echo 
                     "<div class='article'>
-                        <img src='".$data['Image']."' alt='".$data['Image']."' class='article_img'>
+                        <a href='article_detail.php?id=".$data['ID']."'><img src='".$data['Image']."' alt='".$data['Image']."' class='article_img'></a>
                         <div class='article_description'>
-                            <h2>".$data['NomArticle']."</h2
-                            <p>Prix d'enchère: ".$data['PrixEnchere']." €
-                            <br>Fin des enchères: ".$data['DateFinEnchere']."
-                            <br>Prix d'achat immédiat: ".$data['PrixAchatImmediat']." €
-                            <br>Prix en négociation: ".$data['PrixNegociation']." €
+                            <h2><a href='article_detail.php?id=".$data['ID']."' class='title_article'>".$data['NomArticle']."</a></h2>
+                            <p>Prix d'enchère : ".$data['PrixEnchere']." €
+                            <br>Fin des enchères : ".$data['DateFinEnchere']."
+                            <br>Prix d'achat immédiat : ".$data['PrixAchatImmediat']." €
+                            <br>Prix en négociation : ".$data['PrixNegociation']." €
                             </p>
                             <div class='container_option_achat'>
                                 <button type='button' class='option_achat'>Encherir<img src='images/encheres.png' class='achat_icone'></button>
-                                <button type='button' class='option_achat'>Acheter maintenant<img src='images/ajouter-au-panier.png' class='achat_icone'></button>
+                                <button type='button' class='option_achat'>Ajouter au panier<img src='images/ajouter-au-panier.png' class='achat_icone'></button>
                                 <button type='button' class='option_achat'>Négocier<img src='images/accord.png' class='achat_icone'></button>
                             </div>
                         </div>
