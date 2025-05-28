@@ -186,9 +186,13 @@ section {
 }
 
 .article {
-    display: inline-flex;
+    display: flex;
     padding-right: 10px;
-    /*background-color: rgba(255, 255, 255, 0.1);*/
+    align-items: center;
+}
+
+.article h2 {
+    margin-top: 0;
 }
 
 .article_description {
@@ -199,6 +203,13 @@ section {
 .article_img {
     width: 15vw;
     min-width: 300px;
+    min-height: 200px;
+    /*background-color: rgba(255, 255, 255, 0.1);*/
+}
+
+.title_article {
+    text-decoration: none;
+    color: white;
 }
 
 .container_option_achat {
@@ -214,7 +225,7 @@ section {
 
 .achat_icone {
     width: 20px;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 /* Navigation de parcourir */
@@ -225,7 +236,7 @@ section {
     gap: 20px;
 }
 
-.button_navigation {
+#page_navigation .button_navigation {
     padding: 10px;
     font-size: large;
     font-weight: 600;
@@ -233,9 +244,13 @@ section {
     cursor: pointer;
 }
 
+#page_navigation .button_navigation:active {
+    transform: translateY(2px);
+}
+
 #search_form {
     text-align: center;
-    margin: 20px 0;
+    margin-bottom: 50px;
 }
 
 #search_form input[type="text"] {
@@ -250,6 +265,10 @@ section {
     color: white;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#search_form button:active {
+    transform: translateY(2px);
 }
 
 /* Compte */
