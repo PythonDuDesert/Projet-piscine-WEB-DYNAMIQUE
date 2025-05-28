@@ -9,18 +9,28 @@
 
     $message = "";
 
+    if (!isset($_SESSION['user_id'])) {
+    // Si la session est vide, redirection
+    header("Location: compte.php");
+    exit;
+    }
+
     if ($db_found) {
         $id = $_SESSION['user_id'];
         $sql = "SELECT * FROM acheteurs_vendeurs WHERE ID = $id";
         $resultat = mysqli_query($db_handle, $sql);
+
         if ($resultat && mysqli_num_rows($resultat) > 0) {
             $user = mysqli_fetch_assoc($resultat);
         } else {
-            $message = "Utilisateur introuvable";
+            // Si l'utilisateur n'existe plus en BDD
+            session_unset();
+            session_destroy();
+            header("Location: compte.php");
             exit;
         }
     } else {
-        $message= "Erreur de connexion à la base de données";
+        $message = "Erreur de connexion à la base de données";
         exit;
     }
 
@@ -59,6 +69,44 @@
     }
 
 
+    /** ------------------------------ AJOUT ARTICLE ------------------------------- **/
+    if ($db_found && isset($_POST['Vendre'])) {
+        $nom_article = isset($_POST['nom_article']) ? $_POST['nom_article'] : '';
+        $categorie = isset($_POST['categorie']) ? $_POST['categorie'] : '';
+        $achat_immediat = isset($_POST['achat_immediat']) ? $_POST['achat_immediat'] : '';
+        $achat_enchere = isset($_POST['achat_enchere']) ? $_POST['achat_enchere'] : '';
+        $achat_negociation = isset($_POST['achat_negociation']) ? $_POST['achat_negociation'] : '';
+        $fin_enchere = isset($_POST['fin_enchere']) ? $_POST['fin_enchere'] : '';
+        $description = isset($_POST['description']) ? $_POST['description'] : '';
+        $stock = isset($_POST['stock']) ? $_POST['stock'] : '';
+
+       
+        $photo = $_FILES['photo']['name'] ?? '';
+        $photo_temp = $_FILES['photo']['tmp_name'] ?? '';
+        $destination = "images/articles/" . basename($photo);
+
+        if (
+            empty($nom_article) || empty($categorie) || empty($description) ||
+            ($achat_immediat == 0 && $achat_enchere == 0 && $achat_negociation == 0)
+        ) {
+            $message = "Veuillez remplir tous les champs obligatoires";
+        } else {
+            move_uploaded_file($photo_temp,"./images/articles/$photo");
+            $sql_article = "INSERT INTO articles (
+                NomArticle, Categorie, DateAjout, PrixAchatImmediat, PrixEnchere, PrixNegociation,
+                DateFinEnchere, Description, QuantiteStock, Image, IDAcheteurVendeur
+            ) VALUES (
+                '$nom_article', '$categorie', CURDATE(), '$achat_immediat', '$achat_enchere', '$achat_negociation',
+                '$fin_enchere', '$description', '$stock', '$destination', '$user_id'
+            )";
+
+            if (mysqli_query($db_handle, $sql_article)) {
+                $message = "Article ajouté avec succès !";
+            } else {
+                $message = "Erreur lors de l'ajout de l'article.";
+            }
+        }
+    }
     //Déconnection 
     if (isset($_GET['action'])) {
         session_unset();
@@ -120,6 +168,7 @@
         <div class="onglet">
             <button class="bouton" data-tab="infos">Vos informations personnelles</button>
             <button class="bouton" data-tab="banque">Informations bancaires</button>
+            <button class="bouton" data-tab="articles">Mettre en vente des articles</button>
             <button class="bouton" data-tab="messages">Messages</button>
         </div>
 
@@ -138,9 +187,9 @@
         </div>
 
         <div id="banque" class="contenu">
-            <h2>Modifier vos informations bancaires</h2>
-            <form action="" method="post">
-                <table class="table_inscription" border="1">
+              <h2>Modifier vos informations bancaires</h2>
+              <form action="" method="post">
+                <table class="table_articles" border="1">
                      <tr>
                         <td>Type de carte</td>
                         <td>
@@ -163,6 +212,58 @@
                     </tr>
                 </table>
                 <button type="submit" class="button_compte" id="connexion" name ="Enregistrer">Mettre à jour</button>
+            </form>
+        </div>
+
+        <div id="articles" class="contenu" enctype="multipart/form-data">
+            <h2>Vendre des articles</h2>
+            <form action="" method="post">
+                <table class="table_inscription" border="1">
+                    <tr>
+                        <td>Nom de l'article</td>
+                        <td><input type="text" name="nom_article"></td>
+                    </tr>
+                    <tr>
+                        <td>Catégorie</td>
+                        <td> 
+                            <select name="categorie">
+                                <option value="">-- Sélectionnez la rareté de l'article --</option>
+                                <option value="Commun">Commun</option>
+                                <option value="Rare">Rare</option>
+                                <option value="Prenium">Prenium</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Prix d'achat immédiat</td>
+                        <td><input type="number" name="achat_immediat"></td>
+                    </tr>
+                    <tr>
+                        <td>Prix d'enchère</td>
+                        <td><input type="number" name="achat_enchere"></td>
+                    </tr>
+                    <tr>
+                        <td>Prix de négociation</td>
+                        <td><input type="number" name="achat_negociation"></td>
+                    </tr>
+                    <tr>
+                        <td>Date de fin d'enchère</td>
+                        <td><input type="datetime-local" name="fin_enchere"></td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td><input type="text" name="description"></td>
+                    </tr>
+                    <tr>
+                        <td>Quantité en Stock</td>
+                        <td><input type="number" name="stock"></td>
+                    </tr>
+                    <tr>
+                        <td>Photo</td>
+                        <td><input type="FILE" name="photo"></td>
+                    </tr>
+                </table>
+                <button type="submit" class="button_compte" id="connexion" value="Vendre"name ="Vendre">Vendre</button>
             </form>
         </div>
 
