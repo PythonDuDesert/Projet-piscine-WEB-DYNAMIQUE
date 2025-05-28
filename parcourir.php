@@ -90,9 +90,17 @@
                 if ($i >= 11) {
                     $prev_i = $i-10;
                 }
+
+                $sql_count = "SELECT COUNT(*) FROM articles";
+                $result = mysqli_query($db_handle, $sql_count);
+                $row = mysqli_fetch_array($result);
+                $total_articles = $row[0];
+                $last_i = (intval($total_articles/10)*10)+1;
             ?>
+            <a href="parcourir.php"><button type="button" class="button_navigation"><<</button></a>
             <a href="parcourir.php?i=<?php echo $prev_i?>"><button type="button" class="button_navigation" id="previous_page">Page précédente</button></a>
             <a href="parcourir.php?i=<?php echo $next_i?>"><button type="button" class="button_navigation" id="next_page">Page suivante</button></a>
+            <a href="parcourir.php?i=<?php echo $last_i?>"><button type="button" class="button_navigation">>></button></a>
         </div>
     </section>
 
