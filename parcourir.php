@@ -7,10 +7,26 @@
     $i = isset($_GET['i']) ? $_GET['i'] : 1;
 
     if ($db_found) {
-        $sql = "SELECT * FROM articles WHERE articles.ID >= $i AND articles.ID <= $i+9";
+        $sql = "SELECT * FROM articles WHERE 1"; //olivier j'ai mis WHERE 1 au lieu de WHERE articles.id parce que l'id bloquais tous mes tests
+        
         if (isset($_GET['search']) && !empty(trim($_GET['search']))) {
             $search = mysqli_real_escape_string($db_handle, $_GET['search']);
-            $sql .= " AND NomArticle LIKE '%$search%' OR Description LIKE '%$search%'";
+            $sql .= " AND (NomArticle LIKE '%$search%')";
+        }
+
+        if (isset($_GET['min_price']) && is_numeric($_GET['min_price'])) {
+            $min = floatval($_GET['min_price']);
+            $sql .= " AND PrixAchatImmediat >= $min";
+        }
+
+        if (isset($_GET['max_price']) && is_numeric($_GET['max_price'])) {
+            $max = floatval($_GET['max_price']);
+            $sql .= " AND PrixAchatImmediat <= $max";
+        }
+
+        if (isset($_GET['categorie']) && in_array($_GET['categorie'], ['commun', 'rare', 'premium'])) {
+            $categorie = mysqli_real_escape_string($db_handle, $_GET['categorie']);
+            $sql .= " AND Categorie = '$categorie'";
         }
         $result= mysqli_query($db_handle, $sql);
         if ($result) {
@@ -33,6 +49,13 @@
     <link rel="shortcut icon" href="images/logo_no_bg.ico" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="parcourir.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#toggle_filters').click(function() {
+                $('#filters_form').toggle();
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -56,6 +79,28 @@
         <form method="GET" action="parcourir.php" id="search_form">
             <input type="text" name="search" placeholder="Rechercher un article..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
             <button type="submit">Rechercher</button>
+            <button type="button" id="toggle_filters">Filtrer</button>
+
+            <div id="filters_form" style="display: none; margin-top: 10px;">
+                    <!-- Garder la recherche précédente si existante -->
+
+                    <label for="min_price">Prix min :</label>
+                    <input type="number" name="min_price" id="min_price" min="0" step="0.01" value="<?php echo isset($_GET['min_price']) ? $_GET['min_price'] : ''; ?>">
+
+                    <label for="max_price">Prix max :</label>
+                    <input type="number" name="max_price" id="max_price" min="0" step="0.01" value="<?php echo isset($_GET['max_price']) ? $_GET['max_price'] : ''; ?>">
+
+                    <label for="categorie">Catégorie :</label>
+                    <select name="categorie" id="categorie">
+                        <option value="">Toutes</option>
+                        <!--permet de garder en memeoire les données du formulaire du filtre (mais ne marche pas quand on change de page... bref à finir) -->
+                        <option value="commun" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="commun") echo "selected"; ?>>Commun</option>
+                        <option value="rare" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="rare") echo "selected"; ?>>Rare</option>
+                        <option value="premium" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="premium") echo "selected"; ?>>Premium</option>
+                    </select>
+
+                    <button type="submit">Valider les filtres</button>
+            </div>
         </form>
 
         <div id="container_shop">
