@@ -27,6 +27,7 @@ Léonard FORESTIER - Mike LIN - Julien MENET - Olivier YAMMINE
     <br>-Poignée de main de partenariat icônes créées par Iconjam - Flaticon
     <br>-Ajouter au chariot icônes créées par Pixel perfect - Flaticon
     <br>-Enchères icônes créées par meaicon - Flaticon
+    <br>-Alerte icône créé par par Freepik - Flaticon
     <br>-Inspiration pour les boutons : https://getcssscan.com/css-buttons-examples
     <br>-https://www.naturabuy.fr/Statue-Anubis-socle-Egypte--item-11396744.html
     <br>https://fr.freepik.com/vecteurs-libre/illustration-vectorielle-vintage-pot-creme-remixee-partir-oeuvre-john-matulis_17201206.htm#from_element=cross_selling__vector
@@ -45,6 +46,8 @@ Léonard FORESTIER - Mike LIN - Julien MENET - Olivier YAMMINE
     <br>-https://fr.pngtree.com/freepng/old-book-cover-isolated-with-clipping-path-for-mockup_17407296.html
     <br>-https://fr.freepik.com/photos-gratuite/couverture-livre-vierge-antique-cuir-marron-espace-design_21631149.htm#fromView=search&page=1&position=4&uuid=df9d9ea8-5547-450a-bfa5-0d73f717e225&query=Livre+Ancien
     <br>-https://fr.freepik.com/photos-gratuite/marque-pages-lin-dans-vieux-cahier_2041514.htm#fromView=search&page=1&position=6&uuid=df9d9ea8-5547-450a-bfa5-0d73f717e225&query=Livre+Ancien
+    <br>-Augmentation de la taille du bouton d'alerte "scale();"
+    <br>-https://developer.mozilla.org/fr/docs/Web/CSS/transform-function/scale
 
     <br>-Réutilisation des TD/TP.
 
