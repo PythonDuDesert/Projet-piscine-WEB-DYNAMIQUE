@@ -215,9 +215,9 @@
             </form>
         </div>
 
-        <div id="articles" class="contenu" enctype="multipart/form-data">
+        <div id="articles" class="contenu">
             <h2>Vendre des articles</h2>
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <table class="table_inscription" border="1">
                     <tr>
                         <td>Nom de l'article</td>
