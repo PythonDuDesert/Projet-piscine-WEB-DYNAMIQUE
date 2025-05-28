@@ -49,10 +49,11 @@
             <?php
                 echo 
                 "<div class='article'>
-                    <img src='".$data['Image']."' alt='".$data['Image']."' class='article_img'>
+                    <img src='".$data['Image']."' alt='".$data['Image']."' class='article_img img_detail'>
                     <div class='article_description'>
                         <h2>".$data['NomArticle']."</h2>
                         <p>Description : ".$data['Description']."
+                        <p>Catégorie : ".$data['Categorie']."
                         <p>Prix d'enchère : ".$data['PrixEnchere']." €
                         <br>Fin des enchères : ".$data['DateFinEnchere']."
                         <br>Prix d'achat immédiat : ".$data['PrixAchatImmediat']." €
