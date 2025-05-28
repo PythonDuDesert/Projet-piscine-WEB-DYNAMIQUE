@@ -1,13 +1,14 @@
 <?php
-    $database = "agora_francia";
+    $database = "agora francia";
     $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
+    $i = isset($_GET['i']) ? $_GET['i'] : 1;
 
     if ($db_found) {
-        $sql = "SELECT * FROM articles";
+        $sql = "SELECT * FROM articles WHERE articles.ID >= $i AND articles.ID <= $i+9";
         if (isset($_GET['search']) && !empty(trim($_GET['search']))) {
             $search = mysqli_real_escape_string($db_handle, $_GET['search']);
-            $sql .= " WHERE NomArticle LIKE '%$search%' OR Description LIKE '%$search%'";
+            $sql .= " AND NomArticle LIKE '%$search%' OR Description LIKE '%$search%'";
         }
         $result= mysqli_query($db_handle, $sql);
         if ($result) {
@@ -76,6 +77,18 @@
                     </div>";
                 }
             ?>
+        </div>
+
+        <div id="page_navigation">
+            <?php
+                $next_i = $i+10;
+                $prev_i = 1;
+                if ($i >= 11) {
+                    $prev_i = $i-10;
+                }
+            ?>
+            <a href="parcourir.php?i=<?php echo $prev_i?>"><button type="button" class="button_navigation" id="previous_page">Page précédente</button></a>
+            <a href="parcourir.php?i=<?php echo $next_i?>"><button type="button" class="button_navigation" id="next_page">Page suivante</button></a>
         </div>
     </section>
 

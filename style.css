@@ -217,6 +217,22 @@ section {
     margin-left: 10px;
 }
 
+/* Navigation de parcourir */
+#page_navigation {
+    display: flex;
+    justify-content: center;
+    margin: 70px 0 100px 0;
+    gap: 20px;
+}
+
+.button_navigation {
+    padding: 10px;
+    font-size: large;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 #search_form {
     text-align: center;
     margin: 20px 0;
