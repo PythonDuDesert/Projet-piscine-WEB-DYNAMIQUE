@@ -56,7 +56,7 @@
                 if (mysqli_num_rows($resultat) > 0) {
                     $message = "Un utilisateur avec cet email ou ce pseudo existe déjà";
                 } else {
-                     move_uploaded_file($photo_temp, $destination);
+                     move_uploaded_file($photo_temp,"./images/$photo");
                     // Insérer le nouvel utilisateur
                     $sql = "INSERT INTO acheteurs_vendeurs (Nom, Prenom, DateNaissance, Email, Telephone, CodePostal, Adresse, Pseudo, MotDePasse, Photo, DateInscription) VALUES ('$nom', '$prenom', '$date_naissance', '$email', '$telephone', '$code_postal', '$adresse','$pseudo', '$motdepasse', '$destination', CURDATE())";
                     if (mysqli_query($db_handle, $sql)) {

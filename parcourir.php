@@ -4,14 +4,37 @@
     $database = "agora francia";
     $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
-    $i = isset($_GET['i']) ? $_GET['i'] : 1;
+    $i = isset($_GET['i']) ? $_GET['i'] : 0;  // offset
 
     if ($db_found) {
-        $sql = "SELECT * FROM articles WHERE articles.ID >= $i AND articles.ID <= $i+9";
-        if (isset($_GET['search']) && !empty(trim($_GET['search']))) {
-            $search = mysqli_real_escape_string($db_handle, $_GET['search']);
-            $sql .= " AND NomArticle LIKE '%$search%' OR Description LIKE '%$search%'";
+        $sql = "SELECT * FROM articles WHERE 1";
+        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+        $categorie = isset($_GET['categorie']) ? trim($_GET['categorie']) : '';
+        
+        if (!empty($search)) {
+            $search = mysqli_real_escape_string($db_handle, $search);
+            $sql .= " AND (NomArticle LIKE '%$search%')";
         }
+
+        if (isset($_GET['min_price']) && is_numeric($_GET['min_price'])) {
+            $min = floatval($_GET['min_price']);
+            $sql .= " AND PrixAchatImmediat >= $min";
+        }
+
+        if (isset($_GET['max_price']) && is_numeric($_GET['max_price'])) {
+            $max = floatval($_GET['max_price']);
+            $sql .= " AND PrixAchatImmediat <= $max";
+        }
+
+        if (in_array($categorie, ['commun', 'rare', 'premium'])) {
+            $categorie = mysqli_real_escape_string($db_handle, $_GET['categorie']);
+            $sql .= " AND Categorie = '$categorie'";
+        }
+        
+        if (empty($search) && !in_array($categorie, ['commun', 'rare', 'premium'])) {  // Si pas de recherche/filtre appliqué, on fait une pagination
+            $sql = "SELECT * FROM articles LIMIT 10 OFFSET $i";
+        }
+
         $result= mysqli_query($db_handle, $sql);
         if ($result) {
             $error = false;
@@ -33,6 +56,13 @@
     <link rel="shortcut icon" href="images/logo_no_bg.ico" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="parcourir.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#toggle_filters').click(function() {
+                $('#filters_form').toggle();
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -56,6 +86,27 @@
         <form method="GET" action="parcourir.php" id="search_form">
             <input type="text" name="search" placeholder="Rechercher un article..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
             <button type="submit">Rechercher</button>
+            <button type="button" id="toggle_filters">Filtrer</button>
+
+            <div id="filters_form" style="display: none; margin-top: 10px;">
+                <!--permet aussi de garder en memeoire les données du formulaire du filtre (mais ne marche pas quand on change de page... bref à finir) -->
+
+                    <label for="min_price">Prix min :</label>
+                    <input type="number" name="min_price" id="min_price" min="0" value="<?php echo isset($_GET['min_price']) ? $_GET['min_price'] : ''; ?>">
+
+                    <label for="max_price">Prix max :</label>
+                    <input type="number" name="max_price" id="max_price" min="0" value="<?php echo isset($_GET['max_price']) ? $_GET['max_price'] : ''; ?>">
+
+                    <label for="categorie">Catégorie :</label>
+                    <select name="categorie" id="categorie">
+                        <option value="">Toutes</option>
+                        <option value="commun" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="commun") echo "selected"; ?>>Commun</option>
+                        <option value="rare" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="rare") echo "selected"; ?>>Rare</option>
+                        <option value="premium" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="premium") echo "selected"; ?>>Premium</option>
+                    </select>
+
+                    <button type="submit">Valider les filtres</button>
+            </div>
         </form>
 
         <div id="container_shop">
@@ -74,8 +125,9 @@
                             </p>
                             <div class='container_option_achat'>
                                 <button type='button' class='option_achat'>Encherir<img src='images/encheres.png' class='achat_icone'></button>
-                                <button type='button' class='option_achat'>Ajouter au panier<img src='images/ajouter-au-panier.png' class='achat_icone'></button>
+                                <button type='button' class='option_achat'>Acheter maintenant<img src='images/cash.png' class='achat_icone'></button>
                                 <button type='button' class='option_achat'>Négocier<img src='images/accord.png' class='achat_icone'></button>
+                                <button type='button' class='option_achat'>Ajouter au panier<img src='images/ajouter-au-panier.png' class='achat_icone'></button>
                             </div>
                         </div>
                     </div>";
@@ -92,13 +144,17 @@
                 $last_i = (intval($total_articles/10)*10)+1;
 
                 $next_i = $i+10;
-                $prev_i = 1;
-                if ($i >= 11) {
+                $prev_i = 0;
+                if ($i >= 10) {
                     $prev_i = $i-10;
                 }
+
+                if (empty($search) && !in_array($categorie, ['commun', 'rare', 'premium'])) {
+                    echo "<a href='parcourir.php?i=$prev_i'><button type='button' class='button_navigation' id='previous_page'>Page précédente</button></a>
+                        <a href='parcourir.php?i=$next_i'><button type='button' class='button_navigation' id='next_page'>Page suivante</button></a>";
+                }
             ?>
-            <a href="parcourir.php?i=<?php echo $prev_i?>"><button type="button" class="button_navigation" id="previous_page">Page précédente</button></a>
-            <a href="parcourir.php?i=<?php echo $next_i?>"><button type="button" class="button_navigation" id="next_page">Page suivante</button></a>
+            
         </div>
     </section>
 
