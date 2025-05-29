@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 27 mai 2025 à 23:59
+-- Généré le : jeu. 29 mai 2025 à 22:34
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `Image` varchar(255) NOT NULL,
   `IDAcheteurVendeur` int NOT NULL COMMENT 'Clé étrangère',
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `articles`
@@ -150,7 +150,7 @@ INSERT INTO `articles` (`ID`, `NomArticle`, `Categorie`, `DateAjout`, `PrixAchat
 (22, 'Vase egyptien en terre cuite avec ances', 'Commun', '0390-05-06', 45, 60, 39, '2025-06-07 18:30:00', 'Vase egyptien en terre cuite clair avec ances pour le tenir.', 12, 11, 'images/articles/vase1.jpg', 8),
 (23, 'Vase egyptien en terre cuite avec ances et motifs', 'Commun', '0390-08-02', 45, 29, 40, '2025-06-07 19:00:00', 'Vase egyptien en terre cuite sombre avec ances et motifs egyptien gravés dessus.', 10, 12, 'images/articles/vase2.jpg', 9),
 (24, 'Vase egyptien avec  motifs peints', 'Commun', '0390-11-30', 40, 25, 30, '2025-06-07 12:30:00', 'Vase egyptien avec  motifs peints.', 17, 21, 'images/articles/vase3.jpg', 6),
-(25, 'Cube ancien mystique', 'Premium', '0390-08-15', 1500, 1300, 1430, '2025-06-07 13:10:00', 'Cube ancien mystique d\'origine inconnue.', 1, 0, 'images/articles/allspark.jpg', 10),
+(25, 'Cube ancien mystique Allspark', 'Premium', '0390-08-15', 4000, 3100, 3630, '2025-06-07 13:15:00', 'Cube ancien mystique d\'origine inconnue. Certains l\'appellent le Allspark...', 1, 0, 'images/articles/allspark.jpg', 10),
 (26, 'Agenda Runique', 'Rare', '1002-07-28', 100, 80, 75, '2025-06-01 08:20:27', 'Organiseur en cuir gravé de runes. Livré avec un caillou pour graver les tâches.', 4, 1, 'images/articles/agendarunique.jpg', 12),
 (27, 'Bouclier mural', 'Commun', '1021-09-21', 80, 68, 65, '2025-05-27 08:27:51', 'Bouclier mural décoratif datant des véritables Vikings. \r\nParfait en cas de manifestation.', 10, 3, 'images/articles/boucliermural.jpg', 13),
 (28, 'Carte marine du Vinland', 'Commun', '1002-08-23', 30, 27, 25, '2025-05-31 08:31:53', 'Reproduction (plus ou moins fidèle) d’une carte utilisée pour atteindre les terres inconnues de l’ouest. Légende incluse : \"Attention aux serpents de mer\".', 15, 6, 'images/articles/cartemarine.jpg', 11),
@@ -172,7 +172,8 @@ INSERT INTO `articles` (`ID`, `NomArticle`, `Categorie`, `DateAjout`, `PrixAchat
 (44, 'RAM 64Ko – Rouleau à Manuscrit', 'Commun', '0403-01-31', 60, 25, 50, '2025-05-31 09:00:00', 'Gardez en mémoire vos données. Capacité: 64000 caractères (si vous écrivez petit).', 35, 7, 'images/articles/RAM_parchemin.png', 12),
 (45, 'Torche LED (Lumière Ephémère Douce)', 'Commun', '0409-03-09', 25, 10, 15, '2025-06-08 21:00:00', 'Luminosité: 0.05 Lumen. Pour ambiances tamisées ou grottes. Silex non inclus', 60, 28, 'images/articles/torche.jpg', 13),
 (46, 'LEGO – 3000 cailloux empilables', 'Rare', '0401-09-20', 150, 60, 110, '2025-06-13 19:00:00', 'Lot de 3000 cailloux empilables pour des construction. Stimule la créativité. Stimule aussi la douleur si on marche dessus.', 30, 5, 'images/articles/lego.png', 14),
-(47, 'Meuble IKEA en pierre', 'Premium', '0407-05-18', 780, 400, 670, '2025-06-12 13:30:00', 'Institut des Konstructeurs de l\'Egypte Antique (IKEA) vous présente son dernier modèle. À monter soi-même. Manuel en Grec ou en Latin. Garantie 600 ans.', 10, 2, 'images/articles/meuble_pierre.png', 12);
+(47, 'Meuble IKEA en pierre', 'Premium', '0407-05-18', 780, 400, 670, '2025-06-12 13:30:00', 'Institut des Konstructeurs de l\'Egypte Antique (IKEA) vous présente son dernier modèle. À monter soi-même. Manuel en Grec ou en Latin. Garantie 600 ans.', 10, 2, 'images/articles/meuble_pierre.png', 12),
+(48, 'Epée du Jugement', 'Prenium', '0400-05-30', 3850, 3400, 3599, '2025-06-09 15:00:00', 'Epée du Jugement légendaire en titane très tranchant.', 1, 0, 'images/articles/Transformers_Last_Knight_Sword.jpg', 5);
 
 -- --------------------------------------------------------
 

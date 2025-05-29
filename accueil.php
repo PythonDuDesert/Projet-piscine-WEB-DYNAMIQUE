@@ -28,9 +28,11 @@
 
     <section>
         <div id="overlay"></div>
+
         <p id="description"><strong><i>Agora Francia</i></strong> est une place de marché en ligne inspirée de l'agora grecque antique, un lieu d'échanges, de discussions et de commerce. Ouvert à tous, notre site offre une expérience de magasinage moderne, accessible et interactive pour le grand public.
         <br>Achetez, vendez, négociez ou proposez votre meilleure offre sur une large sélection d'articles neufs, d'occasion ou uniques, grâce à nos trois modes de vente (vente immédiate, négociation, meilleure offre).
         </p>
+        
         <br>
         <div id="carrousel"> 
             <h2>Sélection du jour</h2>

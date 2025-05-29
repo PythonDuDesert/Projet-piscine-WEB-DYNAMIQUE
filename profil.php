@@ -122,16 +122,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agora Francia - Compte</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 2rem; }
-        .onglet { display: flex; gap: 1rem; margin-bottom: 1rem; }
-        .contenu { display: none; }
-        .contenu.active { display: block; }
-        .bouton { padding: 10px; cursor: pointer; background: #eee; border: none; }
-        .bouton:hover { background: #ddd; }
-    </style>
-    <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="images/logo_no_bg.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
      $(document).ready(function() {

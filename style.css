@@ -85,7 +85,7 @@ section {
     margin: 50px;
 }
 
-/* Accueil */ 
+/* accueil.php */ 
 #description {
     font-size: x-large;
 }
@@ -177,7 +177,7 @@ section {
     transform: translateY(2px);
 }
 
-/* Parcourir */
+/* parcourir.php */
 #container_shop {
     display: flex;
     flex-direction: column;
@@ -296,7 +296,39 @@ section {
     transform: translateY(2px);
 }
 
-/* Compte */
+/* notifications.php */
+#alerte{
+    margin-top: 20px;
+    background-color: lightblue;
+    color: black;
+    scale: 2;
+}
+
+#alerte:hover{
+    background-color: darkblue;
+    color: white;
+}
+
+.message {
+    margin: 20px auto;
+    padding: 15px;
+    max-width: 600px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.message:empty {
+    display: none;
+}
+
+.message:before {
+    content: "ℹ️ ";
+}
+
+/* compte.php */
 #container_compte {
     margin: 150px auto;
 }
@@ -406,48 +438,46 @@ section {
     background-color: rgb(130, 30, 30);
 }
 
-#connexion, #inscription {
+#connexion, #inscription, #valider {
     background-color: #2ea44f;
 }
 
-#connexion:hover, #inscription:hover {
+#connexion:hover, #inscription:hover, #valider:hover {
     background-color: #2c974b;
 }
 
-#connexion:active, #inscription:active {
+#connexion:active, #inscription:active, #valider:active {
     background-color: #298e46;
 }
 
-/* Notifications */
-#alerte{
-    margin-top: 20px;
-    background-color: lightblue;
-    color: black;
-    scale: 2;
+/* profil.php */
+.onglet {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
-#alerte:hover{
-    background-color: darkblue;
-    color: white;
-}
-
-.message {
-    margin: 20px auto;
-    padding: 15px;
-    max-width: 600px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.1rem;
-    border-radius: 8px;
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-.message:empty {
+.contenu {
     display: none;
+
+}
+.contenu.active {
+    display: block;
 }
 
-.message:before {
-    content: "ℹ️ ";
+.bouton {
+    padding: 10px;
+    background: #eee;
+    border: none;
+    cursor: pointer; 
+}
+
+.bouton:hover {
+    background: #ddd;
+}
+
+#modifier_infos_perso {
+    background-color: #ff7000;
 }
 
 
