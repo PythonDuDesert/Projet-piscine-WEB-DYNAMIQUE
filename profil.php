@@ -222,7 +222,7 @@
                                 <option value="">-- Sélectionnez la rareté de l'article --</option>
                                 <option value="Commun">Commun</option>
                                 <option value="Rare">Rare</option>
-                                <option value="Prenium">Prenium</option>
+                                <option value="Premium">Premium</option>
                             </select>
                         </td>
                     </tr>

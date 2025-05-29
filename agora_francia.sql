@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 29 mai 2025 à 22:34
+-- Généré le : jeu. 29 mai 2025 à 22:37
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -173,7 +173,7 @@ INSERT INTO `articles` (`ID`, `NomArticle`, `Categorie`, `DateAjout`, `PrixAchat
 (45, 'Torche LED (Lumière Ephémère Douce)', 'Commun', '0409-03-09', 25, 10, 15, '2025-06-08 21:00:00', 'Luminosité: 0.05 Lumen. Pour ambiances tamisées ou grottes. Silex non inclus', 60, 28, 'images/articles/torche.jpg', 13),
 (46, 'LEGO – 3000 cailloux empilables', 'Rare', '0401-09-20', 150, 60, 110, '2025-06-13 19:00:00', 'Lot de 3000 cailloux empilables pour des construction. Stimule la créativité. Stimule aussi la douleur si on marche dessus.', 30, 5, 'images/articles/lego.png', 14),
 (47, 'Meuble IKEA en pierre', 'Premium', '0407-05-18', 780, 400, 670, '2025-06-12 13:30:00', 'Institut des Konstructeurs de l\'Egypte Antique (IKEA) vous présente son dernier modèle. À monter soi-même. Manuel en Grec ou en Latin. Garantie 600 ans.', 10, 2, 'images/articles/meuble_pierre.png', 12),
-(48, 'Epée du Jugement', 'Prenium', '0400-05-30', 3850, 3400, 3599, '2025-06-09 15:00:00', 'Epée du Jugement légendaire en titane très tranchant.', 1, 0, 'images/articles/Transformers_Last_Knight_Sword.jpg', 5);
+(48, 'Epée du Jugement', 'Premium', '0500-05-30', 3850, 3400, 3599, '2025-06-09 15:00:00', 'Epée du Jugement légendaire en titane très tranchant.', 1, 0, 'images/articles/Transformers_Last_Knight_Sword.jpg', 5);
 
 -- --------------------------------------------------------
 
