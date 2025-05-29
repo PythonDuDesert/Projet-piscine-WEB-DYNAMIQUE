@@ -4,14 +4,15 @@
     $database = "agora francia";
     $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
-    $i = isset($_GET['i']) ? $_GET['i'] : 1;
+    $i = isset($_GET['i']) ? $_GET['i'] : 0;  // offset
 
     if ($db_found) {
-        //$sql = "SELECT * FROM articles WHERE articles.ID >= $i AND articles.ID <= $i+9";
-        $sql = "SELECT * FROM articles WHERE 1"; //ça bloquait tous mes tests
+        $sql = "SELECT * FROM articles WHERE 1";
+        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+        $categorie = isset($_GET['categorie']) ? trim($_GET['categorie']) : '';
         
-        if (isset($_GET['search']) && !empty(trim($_GET['search']))) {
-            $search = mysqli_real_escape_string($db_handle, $_GET['search']);
+        if (!empty($search)) {
+            $search = mysqli_real_escape_string($db_handle, $search);
             $sql .= " AND (NomArticle LIKE '%$search%')";
         }
 
@@ -25,10 +26,15 @@
             $sql .= " AND PrixAchatImmediat <= $max";
         }
 
-        if (isset($_GET['categorie']) && in_array($_GET['categorie'], ['commun', 'rare', 'premium'])) {
+        if (in_array($categorie, ['commun', 'rare', 'premium'])) {
             $categorie = mysqli_real_escape_string($db_handle, $_GET['categorie']);
             $sql .= " AND Categorie = '$categorie'";
         }
+        
+        if (empty($search) && !in_array($categorie, ['commun', 'rare', 'premium'])) {  // Si pas de recherche/filtre appliqué, on fait une pagination
+            $sql = "SELECT * FROM articles LIMIT 10 OFFSET $i";
+        }
+
         $result= mysqli_query($db_handle, $sql);
         if ($result) {
             $error = false;
@@ -119,8 +125,9 @@
                             </p>
                             <div class='container_option_achat'>
                                 <button type='button' class='option_achat'>Encherir<img src='images/encheres.png' class='achat_icone'></button>
-                                <button type='button' class='option_achat'>Ajouter au panier<img src='images/ajouter-au-panier.png' class='achat_icone'></button>
+                                <button type='button' class='option_achat'>Acheter maintenant<img src='images/cash.png' class='achat_icone'></button>
                                 <button type='button' class='option_achat'>Négocier<img src='images/accord.png' class='achat_icone'></button>
+                                <button type='button' class='option_achat'>Ajouter au panier<img src='images/ajouter-au-panier.png' class='achat_icone'></button>
                             </div>
                         </div>
                     </div>";
@@ -131,21 +138,17 @@
         <div id="page_navigation">
             <?php
                 $next_i = $i+10;
-                $prev_i = 1;
-                if ($i >= 11) {
+                $prev_i = 0;
+                if ($i >= 10) {
                     $prev_i = $i-10;
                 }
 
-                $sql_count = "SELECT COUNT(*) FROM articles";
-                $result = mysqli_query($db_handle, $sql_count);
-                $row = mysqli_fetch_array($result);
-                $total_articles = $row[0];
-                $last_i = (intval($total_articles/10)*10)+1;
+                if (empty($search) && !in_array($categorie, ['commun', 'rare', 'premium'])) {
+                    echo "<a href='parcourir.php?i=$prev_i'><button type='button' class='button_navigation' id='previous_page'>Page précédente</button></a>
+                        <a href='parcourir.php?i=$next_i'><button type='button' class='button_navigation' id='next_page'>Page suivante</button></a>";
+                }
             ?>
-            <a href="parcourir.php"><button type="button" class="button_navigation"><<</button></a>
-            <a href="parcourir.php?i=<?php echo $prev_i?>"><button type="button" class="button_navigation" id="previous_page">Page précédente</button></a>
-            <a href="parcourir.php?i=<?php echo $next_i?>"><button type="button" class="button_navigation" id="next_page">Page suivante</button></a>
-            <a href="parcourir.php?i=<?php echo $last_i?>"><button type="button" class="button_navigation">>></button></a>
+            
         </div>
     </section>
 

@@ -28,6 +28,8 @@ Léonard FORESTIER - Mike LIN - Julien MENET - Olivier YAMMINE
     <br>-Ajouter au chariot icônes créées par Pixel perfect - Flaticon
     <br>-Enchères icônes créées par meaicon - Flaticon
     <br>-Alerte icône créé par par Freepik - Flaticon
+    <br>-Cash icons created by kerismaker - Flaticon
+    <br>-Purchase icons created by Pixel perfect - Flaticon
     <br>-Inspiration pour les boutons : https://getcssscan.com/css-buttons-examples
     <br>-https://www.naturabuy.fr/Statue-Anubis-socle-Egypte--item-11396744.html
     <br>https://fr.freepik.com/vecteurs-libre/illustration-vectorielle-vintage-pot-creme-remixee-partir-oeuvre-john-matulis_17201206.htm#from_element=cross_selling__vector

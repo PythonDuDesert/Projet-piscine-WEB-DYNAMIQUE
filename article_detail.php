@@ -45,7 +45,7 @@
     <section>
         <div id="overlay"></div>
 
-        <div id="conainer_article_detail">
+        <div id="container_article_detail">
             <?php
                 echo 
                 "<div class='article'>
@@ -63,8 +63,9 @@
                         </p>
                         <div class='container_option_achat'>
                             <button type='button' class='option_achat'>Encherir<img src='images/encheres.png' class='achat_icone'></button>
-                            <button type='button' class='option_achat'>Ajouter au panier<img src='images/ajouter-au-panier.png' class='achat_icone'></button>
+                            <button type='button' class='option_achat'>Acheter maintenant<img src='images/cash.png' class='achat_icone'></button>
                             <button type='button' class='option_achat'>Négocier<img src='images/accord.png' class='achat_icone'></button>
+                            <button type='button' class='option_achat'>Ajouter au panier<img src='images/ajouter-au-panier.png' class='achat_icone'></button>
                         </div>
                     </div>
                 </div>";
