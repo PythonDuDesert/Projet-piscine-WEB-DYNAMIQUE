@@ -137,6 +137,12 @@
 
         <div id="page_navigation">
             <?php
+                $sql_count = "SELECT COUNT(*) FROM articles";
+                $result = mysqli_query($db_handle, $sql_count);
+                $row = mysqli_fetch_array($result);
+                $total_articles = $row[0];
+                $last_i = (intval($total_articles/10)*10)+1;
+
                 $next_i = $i+10;
                 $prev_i = 0;
                 if ($i >= 10) {

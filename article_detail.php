@@ -10,6 +10,12 @@
         $sql = "SELECT * FROM articles WHERE ID = $id_article";
         $result = mysqli_query($db_handle, $sql);
         $data = mysqli_fetch_assoc($result);
+
+        $search = mysqli_real_escape_string($db_handle, $data['NomArticle']);        
+        if (!empty($search)) {
+            $sql2 = "SELECT * FROM articles WHERE (NomArticle LIKE '%$search%' OR Categorie = '$data[Categorie]') AND ID != $id_article LIMIT 3";
+            $result2 = mysqli_query($db_handle, $sql2);
+        }
     }
     else {
         echo "<p>Erreur de connexion à la base de données</p>";
@@ -49,11 +55,11 @@
             <?php
                 echo 
                 "<div class='article'>
-                    <img src='".$data['Image']."' alt='".$data['Image']."' class='article_img img_detail'>
+                    <img src='".$data['Image']."' alt='".$data['NomArticle']."' class='article_img img_detail'>
                     <div class='article_description'>
                         <h2>".$data['NomArticle']."</h2>
-                        <p>Description : ".$data['Description']."
-                        <p>Catégorie : ".$data['Categorie']."
+                        <p>Description : ".$data['Description']."</p>
+                        <p>Catégorie : ".$data['Categorie']."</p>
                         <p>Prix d'enchère : ".$data['PrixEnchere']." €
                         <br>Fin des enchères : ".$data['DateFinEnchere']."
                         <br>Prix d'achat immédiat : ".$data['PrixAchatImmediat']." €
@@ -69,6 +75,26 @@
                         </div>
                     </div>
                 </div>";
+            ?>
+        </div>
+
+        <div id="container_articles_similaires">
+            <?php
+                while ($data2 = mysqli_fetch_assoc($result2)) {
+                    echo 
+                    "<div class='articles_similaires'>
+                        <a href='article_detail.php?id=".$data2['ID']."'><img src='".$data2['Image']."' alt='".$data2['NomArticle']."' class='article_img_similaire'></a>
+                        <div class='article_description'>
+                            <h2><a href='article_detail.php?id=".$data2['ID']."' class='title_article'>".$data2['NomArticle']."</a></h2>
+                            <p>Catégorie : ".$data2['Categorie']."</p>
+                            <p>Prix d'enchère : ".$data2['PrixEnchere']." €
+                            <br>Fin des enchères : ".$data2['DateFinEnchere']."
+                            <br>Prix d'achat immédiat : ".$data2['PrixAchatImmediat']." €
+                            <br>Prix en négociation : ".$data2['PrixNegociation']." €
+                            </p>
+                        </div>
+                    </div>";
+                }
             ?>
         </div>
     </section>

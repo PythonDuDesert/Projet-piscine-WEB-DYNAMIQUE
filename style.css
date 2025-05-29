@@ -234,6 +234,25 @@ section {
     margin-left: 5px;
 }
 
+/* articles similaires */
+#container_articles_similaires {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10px;
+    margin: 200px auto;
+}
+
+.articles_similaires {
+    display: flex;
+    padding-right: 10px;
+    align-items: center;
+}
+
+.article_img_similaire {
+    width: 12vw;
+    min-width: 150px;
+}
+
 /* Navigation de parcourir */
 #page_navigation {
     display: flex;
@@ -398,11 +417,15 @@ section {
 #connexion:active, #inscription:active {
     background-color: #298e46;
 }
+
+/* Notifications */
 #alerte{
+    margin-top: 20px;
     background-color: lightblue;
     color: black;
     scale: 2;
 }
+
 #alerte:hover{
     background-color: darkblue;
     color: white;

@@ -146,11 +146,11 @@
                 <table class="table_inscription" border="1">
                     <tr>
                         <td>Email</td>
-                        <td><input type="text" name="email1"></td>
+                        <td><input type="text" name="email1" required></td>
                     </tr>
                     <tr>
                         <td>Mot de passe</td>
-                        <td><input type="password" name="password1"></td>
+                        <td><input type="password" name="password1" required></td>
                     </tr>
                 </table>
                 <div class="buttons_bar">
