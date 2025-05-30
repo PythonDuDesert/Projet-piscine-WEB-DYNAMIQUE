@@ -34,7 +34,7 @@
         exit;
     }
 
-    
+     /** ------------------------------ AJOUT CARTE ------------------------------- **/
     if ($db_found) {
     $user_id = $_SESSION['user_id'];
     $solde = isset($_POST['solde']) ? $_POST['solde'] : 0;
@@ -87,9 +87,9 @@
 
         if (
             empty($nom_article) || empty($categorie) || empty($description) ||
-            ($achat_immediat == 0 && $achat_enchere == 0 && $achat_negociation == 0)
+            ($achat_immediat == 0 && $achat_enchere == 0 && $achat_negociation == 0 &&$stock == 0)
         ) {
-            $message = "Veuillez remplir tous les champs obligatoires";
+            $message = "Veuillez remplir tous les champs";
         } else {
             move_uploaded_file($photo_temp,"./images/articles/$photo");
             $sql_article = "INSERT INTO articles (
