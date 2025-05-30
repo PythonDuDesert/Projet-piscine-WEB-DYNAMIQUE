@@ -26,12 +26,17 @@
             $sql .= " AND PrixAchatImmediat <= $max";
         }
 
+        if (isset($_GET['quantite']) && is_numeric($_GET['quantite'])) {
+            $quantite = intval($_GET['quantite']);
+            $sql .= " AND QuantiteStock >= $quantite";
+        }
+
         if (in_array($categorie, ['commun', 'rare', 'premium'])) {
             $categorie = mysqli_real_escape_string($db_handle, $_GET['categorie']);
             $sql .= " AND Categorie = '$categorie'";
         }
         
-        if (empty($search) && !in_array($categorie, ['commun', 'rare', 'premium'])) {  // Si pas de recherche/filtre appliqué, on fait une pagination
+        if (empty($search) && !in_array($categorie, ['commun', 'rare', 'premium']) && !isset($_GET['min_price']) && !isset($_GET['max_price']) && !isset($_GET['QuantiteStock'])) {  // Si pas de recherche/filtre appliqué, on fait une pagination
             $sql = "SELECT * FROM articles LIMIT 10 OFFSET $i";
         }
 
@@ -97,6 +102,9 @@
                     <label for="max_price">Prix max :</label>
                     <input type="number" name="max_price" id="max_price" min="0" value="<?php echo isset($_GET['max_price']) ? $_GET['max_price'] : ''; ?>">
 
+                    <label for="quantite">Quantité min :</label>
+                    <input type="number" name="quantite" id="quantite" min="1" value="<?php echo isset($_GET['QuantiteStock']) ? $_GET['QuantiteStock'] : ''; ?>">
+                    
                     <label for="categorie">Catégorie :</label>
                     <select name="categorie" id="categorie">
                         <option value="">Toutes</option>
@@ -105,6 +113,7 @@
                         <option value="premium" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="premium") echo "selected"; ?>>Premium</option>
                     </select>
 
+                    <br>
                     <button type="submit">Valider les filtres</button>
             </div>
         </form>
