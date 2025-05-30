@@ -1,5 +1,9 @@
 <?php
     session_start();
+
+    $database = "agora francia";
+    $db_handle = mysqli_connect('localhost', 'root', '');
+    $db_found = mysqli_select_db($db_handle, $database);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,43 +31,92 @@
     <section>
         <div id="overlay"></div>
         <div id="container_inscription"> 
+            <h2>Activer l'alerte selon vos critères !</h2>
             <form action="" method="post">
                 <table class="table_inscription" border="1">
                     <tr>
                         <td>Catégorie d'article</td>
                         <td>
-                            <select name="type_article" required>
+                            <select name="categorie" required>
                                 <option value="">-- Sélectionnez un type d'article --</option>
-                                <option value="1">Commun</option>
-                                <option value="2">Rare</option>
-                                <option value="3">Premium</option>
+                                <option value="Commun">Commun</option>
+                                <option value="Rare">Rare</option>
+                                <option value="Premium">Premium</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>Prix</td>
                         <td>
-                            <select name="tranche_prix" required>
+                            <select name="prix" required>
                                 <option value="">-- Sélectionnez une tranche de prix --</option>
-                                <option value="1">0 à 50</option>
-                                <option value="2">50 à 100</option>
-                                <option value="3">100 à 500</option>
-                                <option value="4">500 et plus</option>
+                                <option value="0 à 50">0 à 50</option>
+                                <option value="50 à 100">50 à 100</option>
+                                <option value="100 à 500">100 à 500</option>
+                                <option value="500 et plus">500 et plus</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>Fin des enchères</td>
-                        <td><input type="date" name="date_fin_encheres"></td>
+                        <td><input type="date" name="fin_encheres"></td>
+                    </tr>
+                    <tr>
+                        <td>Quantité en stock</td>
+                        <td><select name="stock" required>
+                                <option value="">-- Sélectionnez une quantité --</option>
+                                <option value="0 à 15">0 à 5</option>
+                                <option value="6 à 10">6 à 10</option>
+                                <option value="11 à 20">11 à 20</option>
+                                <option value="20 et plus">20 et plus</option>
+                        </select></td>
                     </tr>
                 </table>
+                <br><br>
                 <div class="buttons_bar">
-                    <a href="notifications.php"><button type="submit" class="nav_button" id="alerte" value="Alerte" name="alerte">Activer l'alerte<img src="images/alerte.png" class="nav_icone"></button></a>
+                    <button type="submit" class="nav_button" id="alerte" name="alerte">Activer l'alerte<img src="images/alerte.png" class="nav_icone"></button>
                 </div>
             </form>
             <div class="container_blur" id="container_blur2"></div>
         </div>
+        <div id="container_formulaire">
+            <?php
+                if(isset($_POST["alerte"])) {
+                    if ($db_found){
+                        $categorie = $_POST["categorie"];
+                        $prix = $_POST["prix"];
+                        $fin_encheres = $_POST["fin_encheres"];
+                        $stock = $_POST["stock"];
 
+                         
+
+                        $sql = "INSERT INTO alertes_utilisateur (categorie, prix, fin_encheres, quantite) VALUES ('$categorie', '$prix', '$fin_encheres', '$stock')";
+
+                        $result = mysqli_query($db_handle, $sql); 
+
+                        if ($result) {
+                            echo "<h2>Vous avez activé l'alerte !</h2><br>";
+
+                            $sql = "SELECT * FROM alertes_utilisateur WHERE categorie='$categorie' AND prix='$prix' AND fin_encheres='$fin_encheres' AND quantite='$stock'";
+                            $result = mysqli_query($db_handle, $sql);
+
+                            echo "<table border='1'>";
+                            echo "<tr><th>Categorie</th><th>Prix</th><th>Date fin enchères</th><th>Quantité en stock</th></tr>";
+                            while ($data = mysqli_fetch_assoc($result)) {
+                                echo "<tr>";
+                                echo "<td>" . $data['categorie'] . "</td>";
+                                echo "<td>" . $data['prix'] . "</td>";
+                                echo "<td>" . $data['fin_encheres'] . "</td>";
+                                echo "<td>" . $data['quantite'] . "</td>";
+                                echo "</tr>";
+                            }
+                            echo "</table>";
+                            echo "Vous recevrez une notification sur votre compte Agora Francia si un article correspond à vos critères.";
+                        }
+                    }
+                }
+            ?>            
+        </div>
     </section>
 
     <footer>
