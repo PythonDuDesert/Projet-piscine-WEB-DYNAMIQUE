@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 29 mai 2025 à 22:37
+-- Généré le : ven. 30 mai 2025 à 14:13
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -183,12 +183,15 @@ INSERT INTO `articles` (`ID`, `NomArticle`, `Categorie`, `DateAjout`, `PrixAchat
 
 DROP TABLE IF EXISTS `commandes`;
 CREATE TABLE IF NOT EXISTS `commandes` (
-  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID_commande` int NOT NULL AUTO_INCREMENT,
   `ID_article` int NOT NULL COMMENT 'Clé étrangère',
   `DateAchat` datetime NOT NULL,
   `PrixAchat` decimal(10,0) UNSIGNED NOT NULL,
   `MoyenPayement` varchar(255) NOT NULL,
-  PRIMARY KEY (`ID`)
+  `ID_acheteur` int NOT NULL,
+  `Type_achat` varchar(255) NOT NULL,
+  `Payement_effectue` tinyint(1) NOT NULL,
+  PRIMARY KEY (`ID_commande`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
 
