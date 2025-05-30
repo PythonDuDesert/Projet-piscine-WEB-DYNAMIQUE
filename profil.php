@@ -34,6 +34,47 @@
         exit;
     }
 
+    if ($db_found){
+        $prenom = isset($_POST['prenom']) ? $_POST['prenom'] : '';
+        $nom = isset($_POST['nom']) ? $_POST['nom'] : '';
+        $telephone = isset($_POST['telephone']) ? $_POST['telephone'] : '';
+        $date_naissance = isset($_POST['date_naissance']) ? $_POST['date_naissance'] : '';
+        $code_postal = isset($_POST['code_postal']) ? $_POST['code_postal'] : '';
+        $adresse = isset($_POST['adresse']) ? $_POST['adresse'] : '';
+        $motdepasse = isset($_POST['password']) ? $_POST['password'] : '';
+        $user_id = $_SESSION['user_id'];
+
+        if (isset($_POST['ModifierInfos'])) {
+            if ($prenom && $nom && $telephone && $adresse && $code_postal && $date_naissance&& $motdepasse ) {
+                $sql_update = "UPDATE acheteurs_vendeurs SET 
+                    Nom = '$nom',
+                    Prenom = '$prenom',
+                    MotDePasse = '$motdepasse',
+                    Telephone = '$telephone',
+                    Adresse = '$adresse',
+                    CodePostal = '$code_postal',
+                    DateNaissance = '$date_naissance'
+                    WHERE ID = $user_id";
+            
+                if (mysqli_query($db_handle, $sql_update)) {
+                    $message = "Vos informations ont été mises à jour.";
+                    $sql = "SELECT * FROM acheteurs_vendeurs WHERE ID = $user_id";
+                    $resultat = mysqli_query($db_handle, $sql);
+                    if ($resultat && mysqli_num_rows($resultat) > 0) {
+                        $user = mysqli_fetch_assoc($resultat);
+                    }
+                    // Redirection pour éviter la resoumission
+                    header("Location: profil.php");
+                    exit;
+                } else {
+                    $message = "Erreur lors de la mise à jour.";
+                }
+            }else {
+                $message = "Tous les champs doivent être remplis.";
+            }
+    }
+}
+
      /** ------------------------------ AJOUT CARTE ------------------------------- **/
     if ($db_found) {
     $user_id = $_SESSION['user_id'];
@@ -164,19 +205,41 @@
             <button class="bouton" data-tab="messages">Messages</button>
         </div>
 
-        <div id="infos" class="contenu active">
-            <h2>Informations personnelles</h2>
-            <p><strong>Nom :</strong> <?= ($user['Nom']) ?></p>
-            <p><strong>Prénom :</strong> <?= ($user['Prenom']) ?></p>
-            <p><strong>Email :</strong> <?= ($user['Email']) ?></p>
-            <p><strong>Pseudo :</strong> <?= ($user['Pseudo']) ?></p>
-            <p><strong>Téléphone :</strong> <?= ($user['Telephone']) ?></p>
-            <p><strong>Adresse :</strong> <?= ($user['Adresse']) ?></p>
-            <p><strong>Code postal :</strong> <?= ($user['CodePostal']) ?></p>
-            <p><strong>Date de naissance :</strong> <?= ($user['DateNaissance']) ?></p>
-            <p><strong>Solde :</strong> <?= ($user['Solde']) ?> €</p>
-           
+      <div id="infos" class="contenu active">
+        <h2>Informations personnelles</h2>
+
+            <?php if (!isset($_GET['edit'])): ?>
+                <p><strong>Nom :</strong> <?= htmlspecialchars($user['Nom']) ?></p>
+                <p><strong>Prénom :</strong> <?= htmlspecialchars($user['Prenom']) ?></p>
+                <p><strong>Email :</strong> <?= htmlspecialchars($user['Email']) ?></p>
+                <p><strong>Pseudo :</strong> <?= htmlspecialchars($user['Pseudo']) ?></p>
+                <p><strong>Téléphone :</strong> <?= htmlspecialchars($user['Telephone']) ?></p>
+                <p><strong>Adresse :</strong> <?= htmlspecialchars($user['Adresse']) ?></p>
+                <p><strong>Code postal :</strong> <?= htmlspecialchars($user['CodePostal']) ?></p>
+                <p><strong>Date de naissance :</strong> <?= htmlspecialchars($user['DateNaissance']) ?></p>
+
+                <form method="get" action="">
+                    <input type="hidden" name="edit" value="1">
+                    <button type="submit" class="button_compte">Modifier mes informations</button>
+                </form>
+
+            <?php else: ?>
+                <form method="post">
+                    <table class="table_inscription" border="1">
+                        <tr><td>Nom</td><td><input type="text" name="nom" value="<?= htmlspecialchars($user['Nom']) ?>"></td></tr>
+                        <tr><td>Prénom</td><td><input type="text" name="prenom" value="<?= htmlspecialchars($user['Prenom']) ?>"></td></tr>
+                        <tr><td>Téléphone</td><td><input type="tel" name="telephone" value="<?= htmlspecialchars($user['Telephone']) ?>"></td></tr>
+                        <tr><td>Adresse</td><td><input type="text" name="adresse" value="<?= htmlspecialchars($user['Adresse']) ?>"></td></tr>
+                        <tr><td>Code postal</td><td><input type="text" name="code_postal" value="<?= htmlspecialchars($user['CodePostal']) ?>"></td></tr>
+                        <tr><td>Mot de passe</td><td><input type="text" name="password" value="<?= htmlspecialchars($user['MotDePasse']) ?>"></td></tr>
+                        <tr><td>Date de naissance</td><td><input type="date" name="date_naissance" value="<?= htmlspecialchars($user['DateNaissance']) ?>"></td></tr>
+                    </table>
+                    <button type="submit" class="button_compte" name="ModifierInfos">Enregistrer</button>
+                     <a href="profil.php"><button type="button" class="button_compte" style="background-color: grey;">Retour</button></a>
+                </form>
+            <?php endif; ?>
         </div>
+
 
         <div id="banque" class="contenu">
               <h2>Modifier vos informations bancaires</h2>
