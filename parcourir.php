@@ -114,7 +114,7 @@
                     </select>
 
                     <br>
-                    <button type="submit">Valider les filtres</button>
+                    <button type="submit" style="margin-top: 10px;">Valider les filtres</button>
             </div>
         </form>
 
@@ -132,12 +132,18 @@
                             <br>Prix d'achat immédiat : ".$data['PrixAchatImmediat']." €
                             <br>Prix en négociation : ".$data['PrixNegociation']." €
                             </p>
-                            <div class='container_option_achat'>
-                                <button type='button' class='option_achat'>Encherir<img src='images/encheres.png' class='achat_icone'></button>
-                                <button type='button' class='option_achat'>Acheter maintenant<img src='images/cash.png' class='achat_icone'></button>
-                                <button type='button' class='option_achat'>Négocier<img src='images/accord.png' class='achat_icone'></button>
-                                <button type='button' class='option_achat'>Ajouter au panier<img src='images/ajouter-au-panier.png' class='achat_icone'></button>
-                            </div>
+                            <form action='achat.php' method='post' class='container_option_achat'>
+                                <input type='hidden' name='id' value='<?= htmlspecialchars(".$data['ID'].") ?>'>
+                                <button type='submit' name='encherir' class='option_achat' id='encherir'>
+                                    Enchérir<img src='images/encheres.png' class='achat_icone'>
+                                </button>
+                                <button type='submit' name='encherir' class='option_achat' id='negocier'>
+                                    Negocier <img src='images/accord.png' class='achat_icone'>
+                                </button>
+                                <button type='submit' name='encherir' class='option_achat' id='ajouter_panier'>
+                                    Ajouter au panier<img src='images/ajouter-au-panier.png' class='achat_icone'>
+                                </button>
+                            </form>
                         </div>
                     </div>";
                 }

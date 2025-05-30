@@ -6,34 +6,60 @@
     $db_found = mysqli_select_db($db_handle, $database);
     $id_article = isset($_GET['id']) ? $_GET['id'] : 1;
 
-    /* Affichage articles similaires */
+    /* Actions d'achats */
+    $action = "";
+    if (isset($_POST['encherir'])) {
+        $action = "encherir";
+    }
+    else if (isset($_POST['négocier'])) {
+        $action = "négocier";
+    }
+
     if ($db_found) {
+        /* article */
         $sql = "SELECT * FROM articles WHERE ID = $id_article";
         $result = mysqli_query($db_handle, $sql);
         $data = mysqli_fetch_assoc($result);
 
-        $search = mysqli_real_escape_string($db_handle, $data['NomArticle']);        
-        if (!empty($search)) {
-            $sql2 = "SELECT * FROM articles WHERE (NomArticle LIKE '%$search%' OR Categorie = '$data[Categorie]') AND ID != $id_article LIMIT 3";
-            $result2 = mysqli_query($db_handle, $sql2);
+        /* acheteur */
+        $id_acheteur = intval($_SESSION['user_id']);
+        $sql_acheteur = "SELECT * FROM acheteurs_vendeurs WHERE ID = $id_acheteur";
+        $result_acheteur = mysqli_query($db_handle, $sql_acheteur);
+        $data_acheteur = mysqli_fetch_assoc($result_acheteur);
+
+        if ($action == "encherir") {
+            $now = new DateTime(); // Date et heure actuelles
+            $end = new DateTime($data['DateFinEnchere']); // Date de fin des enchères
+            if ($now < $end) {
+                $time_valid = true;
+            }
+            else {
+                $time_valid = false;
+            }
+        }
+
+        if (isset($_POST['valider_enchere'])) {
+            if (isset($_POST['slider_enchere'])) {
+                $new_price = $_POST['slider_enchere'];
+                $sql_new_price = "UPDATE articles SET PrixEnchere = $new_price";
+                $result_new_price = mysqli_query($db_handle, $sql_new_price);
+            }
         }
     }
     else {
         echo "<p>Erreur de connexion à la base de données</p>";
     }
-?>
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agora Francia - Parcourir</title>
+    <title>Agora Francia - Achat</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="images/logo_no_bg.ico" type="image/x-icon">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="parcourir.js"></script>
 </head>
 <body>
     <header>
@@ -50,6 +76,7 @@
     </nav>
 
     <section>
+        <h2 style="margin-bottom: 50px;"><u>Enchères cet article :</u></h2>
         <div id="overlay"></div>
 
         <div id="container_article_detail">
@@ -68,42 +95,19 @@
                         <br>Date d'ajout : ".$data['DateAjout']."
                         <br>Quantité en stock : ".$data['QuantiteStock']." / Quantité vendue: ".$data['QuantiteVendue']."
                         </p>
-                        <form action='achat.php' method='post' class='container_option_achat'>
-                            <input type='hidden' name='id' value='<?= htmlspecialchars(".$data['ID'].") ?>'>
-                            <button type='submit' name='encherir' class='option_achat' id='encherir'>
-                                Enchérir<img src='images/encheres.png' class='achat_icone'>
-                            </button>
-                            <button type='submit' name='encherir' class='option_achat' id='negocier'>
-                                Negocier <img src='images/accord.png' class='achat_icone'>
-                            </button>
-                            <button type='submit' name='encherir' class='option_achat' id='ajouter_panier'>
-                                Ajouter au panier<img src='images/ajouter-au-panier.png' class='achat_icone'>
-                            </button>
-                        </form>
                     </div>
                 </div>";
             ?>
         </div>
 
-        <div id="container_articles_similaires">
-            <?php
-                while ($data2 = mysqli_fetch_assoc($result2)) {
-                    echo 
-                    "<div class='articles_similaires'>
-                        <a href='article_detail.php?id=".$data2['ID']."'><img src='".$data2['Image']."' alt='".$data2['NomArticle']."' class='article_img_similaire'></a>
-                        <div class='article_description'>
-                            <h2><a href='article_detail.php?id=".$data2['ID']."' class='title_article'>".$data2['NomArticle']."</a></h2>
-                            <p>Catégorie : ".$data2['Categorie']."</p>
-                            <p>Prix d'enchère : ".$data2['PrixEnchere']." €
-                            <br>Fin des enchères : ".$data2['DateFinEnchere']."
-                            <br>Prix d'achat immédiat : ".$data2['PrixAchatImmediat']." €
-                            <br>Prix en négociation : ".$data2['PrixNegociation']." €
-                            </p>
-                        </div>
-                    </div>";
-                }
-            ?>
-        </div>
+        <form action='achat.php' method='post' id='container_enchere'>
+            <span id="mini"><?php echo $data['PrixEnchere'] + 1; ?></span>    
+            <input type="range" name="slider_enchere" min="<?php echo $data['PrixEnchere']+1; ?>" max="<?php echo $data_acheteur['Solde']; ?>" value="<?php echo $data['PrixEnchere'] + 1; ?>" oninput="document.getElementById('currentValue').textContent = this.value">
+            <span id="maxi"><?php echo $data_acheteur['Solde']; ?></span>
+
+            <div>Votre nouvelle enchère: <span id="currentValue"><?php echo $data['PrixEnchere'] + 1; ?>€</span></div>
+            <input type="submit" value="Enchérir" name="valider_enchere">
+        </form>
     </section>
 
     <footer>
