@@ -75,6 +75,17 @@
     }
 }
 
+    if (isset($_POST['SupprimerArticle']) && isset($_POST['id_article_supprimer'])) {
+        $id_article = intval($_POST['id_article_supprimer']);
+        $sql_del = "DELETE FROM articles WHERE ID = $id_article AND IDAcheteurVendeur = $user_id";
+        if (mysqli_query($db_handle, $sql_del)) {
+            $message = "Article supprimé avec succès.";
+            $_POST['AfficherArticles'] = true; // Pour forcer l'affichage de la liste
+        } else {
+            $message = "Erreur lors de la suppression.";
+        }
+    }
+
      /** ------------------------------ AJOUT CARTE ------------------------------- **/
     if ($db_found) {
     $user_id = $_SESSION['user_id'];
@@ -272,6 +283,7 @@
 
         <div id="articles" class="contenu">
             <h2>Vendre des articles</h2>
+            <div id="form_vente">
             <form action="" method="post" enctype="multipart/form-data">
                 <table class="table_inscription" border="1">
                     <tr>
@@ -320,6 +332,44 @@
                 </table>
                 <button type="submit" class="button_compte" id="connexion" value="Vendre"name ="Vendre">Vendre</button>
             </form>
+              <button type="button" class="button_compte" id="btn_afficher_articles" style="margin-top: 10px;">
+            Afficher mes articles
+            </button>
+            </div>
+            
+            <div id="mes_articles" style="display: none;">
+           
+            <?php
+            // Affichage des articles (sans besoin de bouton intermédiaire)
+            $sql_articles = "SELECT * FROM articles WHERE IDAcheteurVendeur = $user_id";
+            $res_articles = mysqli_query($db_handle, $sql_articles);
+
+            if ($res_articles && mysqli_num_rows($res_articles) > 0) {
+                echo "<table class='table_inscription' border='1'>";
+                echo "<tr><th>Nom</th><th>Catégorie</th><th>Prix immédiat</th><th>Stock</th><th>Action</th></tr>";
+
+                while ($art = mysqli_fetch_assoc($res_articles)) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($art['NomArticle']) . "</td>";
+                    echo "<td>" . htmlspecialchars($art['Categorie']) . "</td>";
+                    echo "<td>" . htmlspecialchars($art['PrixAchatImmediat']) . " €</td>";
+                    echo "<td>" . htmlspecialchars($art['QuantiteStock']) . "</td>";
+                    echo "<td>
+                            <form method='post' style='display:inline'>
+                                <input type='hidden' name='id_article_supprimer' value='" . $art['ID'] . "'>
+                                <button type='submit' name='SupprimerArticle' style='background-color:red; color:white;'>Supprimer</button>
+                            </form>
+                          </td>";
+                    echo "</tr>";
+                }
+
+                echo "</table>";
+            } else {
+                echo "<p>Aucun article trouvé.</p>";
+            }
+            ?>
+             <button class="button_compte" id="btn_retour_vente" style="background-color: gray;">Retour</button>
+            </div>
         </div>
 
         <div id="messages" class="contenu">
@@ -343,6 +393,22 @@
                     document.getElementById(tab.dataset.tab).classList.add("active");
                 });
             });
+        </script>
+       <script>
+        const formVente = document.getElementById("form_vente");
+        const mesArticles = document.getElementById("mes_articles");
+        const btnAfficher = document.getElementById("btn_afficher_articles");
+        const btnRetour = document.getElementById("btn_retour_vente");
+
+        btnAfficher.addEventListener("click", () => {
+            formVente.style.display = "none";
+            mesArticles.style.display = "block";
+        });
+
+        btnRetour.addEventListener("click", () => {
+            mesArticles.style.display = "none";
+            formVente.style.display = "block";
+        });
         </script>
     </section>
     <footer>
