@@ -1,53 +1,54 @@
 <?php
-session_start();
+    session_start();
 
-$database = "agora francia";
-$db_handle = mysqli_connect('localhost', 'root', '');
-$db_found = mysqli_select_db($db_handle, $database);
-$i = isset($_GET['i']) ? $_GET['i'] : 0;  // offset
+    $database = "agora francia";
+    $db_handle = mysqli_connect('localhost', 'root', '');
+    $db_found = mysqli_select_db($db_handle, $database);
+    $i = isset($_GET['i']) ? $_GET['i'] : 0;  // offset
 
-if ($db_found) {
-    $sql = "SELECT * FROM articles WHERE 1";
-    $search = isset($_GET['search']) ? trim($_GET['search']) : '';
-    $categorie = isset($_GET['categorie']) ? trim($_GET['categorie']) : '';
-    date_default_timezone_set('Europe/Paris');
+    if ($db_found) {
+        $sql = "SELECT * FROM articles WHERE 1";
+        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+        $categorie = isset($_GET['categorie']) ? trim($_GET['categorie']) : '';
+        date_default_timezone_set('Europe/Paris');
 
-    if (!empty($search)) {
-        $search = mysqli_real_escape_string($db_handle, $search);
-        $sql .= " AND (NomArticle LIKE '%$search%')";
+        if (!empty($search)) {
+            $search = mysqli_real_escape_string($db_handle, $search);
+            $sql .= " AND (NomArticle LIKE '%$search%')";
+        }
+
+        if (isset($_GET['min_price']) && is_numeric($_GET['min_price'])) {
+            $min = floatval($_GET['min_price']);
+            $sql .= " AND PrixAchatImmediat >= $min";
+        }
+
+        if (isset($_GET['max_price']) && is_numeric($_GET['max_price'])) {
+            $max = floatval($_GET['max_price']);
+            $sql .= " AND PrixAchatImmediat <= $max";
+        }
+
+        if (isset($_GET['quantite']) && is_numeric($_GET['quantite'])) {
+            $quantite = intval($_GET['quantite']);
+            $sql .= " AND QuantiteStock >= $quantite";
+        }
+
+        if (in_array($categorie, ['commun', 'rare', 'premium'])) {
+            $categorie = mysqli_real_escape_string($db_handle, $_GET['categorie']);
+            $sql .= " AND Categorie = '$categorie'";
+        }
+
+        if (empty($search) && !in_array($categorie, ['commun', 'rare', 'premium']) && !isset($_GET['min_price']) && !isset($_GET['max_price']) && !isset($_GET['QuantiteStock'])) {  // Si pas de recherche/filtre appliqué, on fait une pagination
+            $sql = "SELECT * FROM articles LIMIT 10 OFFSET $i";
+        }
+
+        $result = mysqli_query($db_handle, $sql);
+        if ($result) {
+            $error = false;
+        }
     }
-
-    if (isset($_GET['min_price']) && is_numeric($_GET['min_price'])) {
-        $min = floatval($_GET['min_price']);
-        $sql .= " AND PrixAchatImmediat >= $min";
+    else {
+        echo "<p>Erreur de connexion à la base de données</p>";
     }
-
-    if (isset($_GET['max_price']) && is_numeric($_GET['max_price'])) {
-        $max = floatval($_GET['max_price']);
-        $sql .= " AND PrixAchatImmediat <= $max";
-    }
-
-    if (isset($_GET['quantite']) && is_numeric($_GET['quantite'])) {
-        $quantite = intval($_GET['quantite']);
-        $sql .= " AND QuantiteStock >= $quantite";
-    }
-
-    if (in_array($categorie, ['commun', 'rare', 'premium'])) {
-        $categorie = mysqli_real_escape_string($db_handle, $_GET['categorie']);
-        $sql .= " AND Categorie = '$categorie'";
-    }
-
-    if (empty($search) && !in_array($categorie, ['commun', 'rare', 'premium']) && !isset($_GET['min_price']) && !isset($_GET['max_price']) && !isset($_GET['QuantiteStock'])) {  // Si pas de recherche/filtre appliqué, on fait une pagination
-        $sql = "SELECT * FROM articles LIMIT 10 OFFSET $i";
-    }
-
-    $result = mysqli_query($db_handle, $sql);
-    if ($result) {
-        $error = false;
-    }
-} else {
-    echo "<p>Erreur de connexion à la base de données</p>";
-}
 ?>
 
 
@@ -132,12 +133,12 @@ if ($db_found) {
                 }
             ?>
                 <div class="article">
-                    <a href="article_detail.php?id=<?= urlencode($data['ID']) ?>">
+                    <a href="article_detail.php?id=<?= $data['ID'] ?>">
                         <img src="<?= htmlspecialchars($data['Image']) ?>" alt="<?= htmlspecialchars($data['NomArticle']) ?>" class="article_img">
                     </a>
                     <div class="article_description">
                         <h2>
-                            <a href="article_detail.php?id=<?= urlencode($data['ID']) ?>" class="title_article">
+                            <a href="article_detail.php?id=<?= $data['ID'] ?>" class="title_article">
                                 <?= htmlspecialchars($data['NomArticle']) ?>
                             </a>
                         </h2>
@@ -148,7 +149,7 @@ if ($db_found) {
                             <br>Prix d'achat immédiat : <?= htmlspecialchars($data['PrixAchatImmediat']) ?> €
                             <br>Prix en négociation : <?= htmlspecialchars($data['PrixNegociation']) ?> €
                         </p>
-                        <form action="achat.php?id=<?= urlencode($data['ID']) ?>" method="post" class="container_option_achat">
+                        <form action="achat.php?id=<?= $data['ID'] ?>" method="post" class="container_option_achat">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($data['ID']) ?>">
 
                             <?php if ($time_valid === true): ?>

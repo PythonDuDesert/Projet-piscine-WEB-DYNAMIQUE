@@ -1,35 +1,36 @@
 <?php
-session_start();
+    session_start();
 
-$database = "agora francia";
-$db_handle = mysqli_connect('localhost', 'root', '');
-$db_found = mysqli_select_db($db_handle, $database);
-$id_article = isset($_GET['id']) ? $_GET['id'] : 1;
+    $database = "agora francia";
+    $db_handle = mysqli_connect('localhost', 'root', '');
+    $db_found = mysqli_select_db($db_handle, $database);
+    $id_article = isset($_GET['id']) ? $_GET['id'] : 1;
 
-/* Affichage articles similaires */
-if ($db_found) {
-    $sql = "SELECT * FROM articles WHERE ID = $id_article";
-    $result = mysqli_query($db_handle, $sql);
-    $data = mysqli_fetch_assoc($result);
+    /* Affichage articles similaires */
+    if ($db_found) {
+        $sql = "SELECT * FROM articles WHERE ID = $id_article";
+        $result = mysqli_query($db_handle, $sql);
+        $data = mysqli_fetch_assoc($result);
 
-    date_default_timezone_set('Europe/Paris');
-    $now = new DateTime(); // Date et heure actuelles
-    $end = new DateTime($data['DateFinEnchere']); // Date de fin des enchères
-    $time_valid = false;
-    if ($now < $end) {
-        $time_valid = true;
-    } else {
+        date_default_timezone_set('Europe/Paris');
+        $now = new DateTime(); // Date et heure actuelles
+        $end = new DateTime($data['DateFinEnchere']); // Date de fin des enchères
         $time_valid = false;
-    }
+        if ($now < $end) {
+            $time_valid = true;
+        } else {
+            $time_valid = false;
+        }
 
-    $search = mysqli_real_escape_string($db_handle, $data['NomArticle']);
-    if (!empty($search)) {
-        $sql2 = "SELECT * FROM articles WHERE (NomArticle LIKE '%$search%' OR Categorie = '$data[Categorie]') AND ID != $id_article LIMIT 3";
-        $result2 = mysqli_query($db_handle, $sql2);
+        $search = mysqli_real_escape_string($db_handle, $data['NomArticle']);
+        if (!empty($search)) {
+            $sql2 = "SELECT * FROM articles WHERE (NomArticle LIKE '%$search%' OR Categorie = '$data[Categorie]') AND ID != $id_article LIMIT 6";
+            $result2 = mysqli_query($db_handle, $sql2);
+        }
     }
-} else {
-    echo "<p>Erreur de connexion à la base de données</p>";
-}
+    else {
+        echo "<p>Erreur de connexion à la base de données</p>";
+    }
 ?>
 
 
@@ -90,7 +91,7 @@ if ($db_found) {
                         <button type="submit" name="negocier" class="option_achat" id="negocier">
                             Negocier <img src="images/accord.png" class="achat_icone">
                         </button>
-                        
+
                         <button type="submit" name="ajouter_panier" class="option_achat" id="ajouter_panier">
                             Ajouter au panier<img src="images/ajouter-au-panier.png" class="achat_icone">
                         </button>
@@ -104,17 +105,17 @@ if ($db_found) {
             while ($data2 = mysqli_fetch_assoc($result2)) {
                 echo
                 "<div class='articles_similaires'>
-                        <a href='article_detail.php?id=" . $data2['ID'] . "'><img src='" . $data2['Image'] . "' alt='" . $data2['NomArticle'] . "' class='article_img_similaire'></a>
-                        <div class='article_description'>
-                            <h2><a href='article_detail.php?id=" . $data2['ID'] . "' class='title_article'>" . $data2['NomArticle'] . "</a></h2>
-                            <p>Catégorie : " . $data2['Categorie'] . "</p>
-                            <p>Prix d'enchère : " . $data2['PrixEnchere'] . " €
-                            <br>Fin des enchères : " . $data2['DateFinEnchere'] . "
-                            <br>Prix d'achat immédiat : " . $data2['PrixAchatImmediat'] . " €
-                            <br>Prix en négociation : " . $data2['PrixNegociation'] . " €
-                            </p>
-                        </div>
-                    </div>";
+                    <a href='article_detail.php?id=" . $data2['ID'] . "'><img src='" . $data2['Image'] . "' alt='" . $data2['NomArticle'] . "' class='article_img_similaire'></a>
+                    <div class='article_description'>
+                        <h2><a href='article_detail.php?id=" . $data2['ID'] . "' class='title_article'>" . $data2['NomArticle'] . "</a></h2>
+                        <p>Catégorie : " . $data2['Categorie'] . "</p>
+                        <p>Prix d'enchère : " . $data2['PrixEnchere'] . " €
+                        <br>Fin des enchères : " . $data2['DateFinEnchere'] . "
+                        <br>Prix d'achat immédiat : " . $data2['PrixAchatImmediat'] . " €
+                        <br>Prix en négociation : " . $data2['PrixNegociation'] . " €
+                        </p>
+                    </div>
+                </div>";
             }
             ?>
         </div>
