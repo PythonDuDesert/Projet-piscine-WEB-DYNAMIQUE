@@ -240,6 +240,9 @@ section {
     justify-content: space-evenly;
     gap: 10px;
     margin: 200px auto;
+    padding: 20px 10px;
+    border: 5px solid black;
+    border-radius: 20px;
 }
 
 .articles_similaires {
@@ -295,9 +298,6 @@ section {
 #search_form button:active {
     transform: translateY(2px);
 }
-
-/* Enchères */
-
 
 /* notifications.php */
 #alerte{

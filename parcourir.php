@@ -132,7 +132,7 @@
                             <br>Prix d'achat immédiat : ".$data['PrixAchatImmediat']." €
                             <br>Prix en négociation : ".$data['PrixNegociation']." €
                             </p>
-                            <form action='achat.php' method='post' class='container_option_achat'>
+                            <form action='achat.php?id=".$data['ID']."' method='post' class='container_option_achat'>
                                 <input type='hidden' name='id' value='<?= htmlspecialchars(".$data['ID'].") ?>'>
                                 <button type='submit' name='encherir' class='option_achat' id='encherir'>
                                     Enchérir<img src='images/encheres.png' class='achat_icone'>
