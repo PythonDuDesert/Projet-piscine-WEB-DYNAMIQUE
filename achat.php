@@ -17,6 +17,8 @@ if (isset($_POST['encherir'])) {
     $action = "encherir";
 } else if (isset($_POST['negocier'])) {
     $action = "negocier";
+} else if (isset($_GET['action'])) {
+    $action = $_GET['action'];
 }
 
 if ($db_found) {
@@ -74,7 +76,7 @@ if ($db_found) {
                 }
             }
 
-            header("Location: achat.php?id=" . $id_article . ""); // refresh de la page
+            header("Location: achat.php?id=".$id_article."&action=encherir"); // refresh de la page
             exit();
         }
     }
@@ -150,7 +152,7 @@ if ($db_found) {
             date_default_timezone_set('Europe/Paris');
             $now = new DateTime(); // Date et heure actuelles
             $now_str = $now->format('Y-m-d H:i:s'); // Pour le SQL
-            $sql_commande = "INSERT INTO commandes (ID_article, DateAchat, PrixAchat, MoyenPayement, ID_acheteur, Type_achat, Payement_effectue) VALUES ('$id_article','$now_str','$new_price','$type_carte','$id_acheteur','Enchere','0')";
+            $sql_commande = "INSERT INTO commandes (ID_article, DateAchat, PrixAchat, MoyenPayement, ID_acheteur, Type_achat, Payement_effectue) VALUES ('$id_article','$now_str','$new_price','$type_carte','$id_acheteur','Negociation','0')";
             $result_commande = mysqli_query($db_handle, $sql_commande);
             if (!$result_commande) {
                 echo "Erreur SQL : " . mysqli_error($db_handle);
@@ -172,7 +174,6 @@ if ($db_found) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -244,7 +245,6 @@ if ($db_found) {
 
     </script>
 </head>
-
 <body>
     <header>
         <h1>Agora Francia</h1>
@@ -320,5 +320,4 @@ if ($db_found) {
         <p>&copy; 2025 Agora Francia. Tous droits réservés.</p>
     </footer>
 </body>
-
 </html>
