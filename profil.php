@@ -228,7 +228,7 @@
                 <p><strong>Téléphone :</strong> <?= htmlspecialchars($user['Telephone']) ?></p>
                 <p><strong>Adresse :</strong> <?= htmlspecialchars($user['Adresse']) ?></p>
                 <p><strong>Code postal :</strong> <?= htmlspecialchars($user['CodePostal']) ?></p>
-                <p><strong>Solde :</strong> <?= htmlspecialchars($user['Solde']) ?>€</p>
+                <p><strong>Solde :</strong> <?= htmlspecialchars($user['Solde']) ?> €</p>
 
                 <form method="get" action="">
                     <input type="hidden" name="edit" value="1">

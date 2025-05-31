@@ -36,6 +36,13 @@
         $result_acheteur = mysqli_query($db_handle, $sql_acheteur);
         $data_acheteur = mysqli_fetch_assoc($result_acheteur);
 
+        $sql_historique_commandes = "SELECT PrixAchat FROM commandes WHERE ID_acheteur = $id_acheteur AND ID_article != $id_article";
+        $result_historique_commandes = mysqli_query($db_handle, $sql_historique_commandes);
+        $solde_temp = 0;
+        while ($data_historique_commandes = mysqli_fetch_assoc($result_historique_commandes)) {
+            $solde_temp += $data_historique_commandes['PrixAchat'];
+        }
+
         /* action */
         if (isset($_POST['valider_enchere'])) {
             if (isset($_POST['slider_enchere'])) {
@@ -165,7 +172,7 @@
             <form action='achat.php' method='post' class="container_enchere">
                 <input type="hidden" name="id" value="<?php echo $id_article; ?>">
 
-                <input type="range" name="slider_enchere" min="<?php echo $data['PrixEnchere'] + 1; ?>" max="<?php echo $data_acheteur['Solde']; ?>" value="<?php echo $data['PrixEnchere'] + 1; ?>" oninput="document.getElementById('currentValue').textContent = this.value">
+                <input type="range" name="slider_enchere" min="<?php echo $data['PrixEnchere'] + 1; ?>" max="<?php echo $solde_temp; ?>" value="<?php echo $data['PrixEnchere'] + 1; ?>" oninput="document.getElementById('currentValue').textContent = this.value">
 
                 <div>Votre nouvelle enchère: <strong><span id="currentValue"><?php echo $data['PrixEnchere'] + 1; ?>€</span></strong></div>
                 <input type="submit" value="Enchérir" name="valider_enchere" class='option_achat'>
