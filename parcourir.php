@@ -181,25 +181,27 @@
                             <br>Prix d'achat immédiat : <?= htmlspecialchars($data['PrixAchatImmediat']) ?> €
                             <br>Prix en négociation : <?= htmlspecialchars($data['PrixNegociation']) ?> €
                         </p>
+                        <div class="container_option_achat">
                         <form action="achat.php?id=<?= $data['ID'] ?>" method="post" class="container_option_achat">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($data['ID']) ?>">
-
                             <?php if ($time_valid === true): ?>
                                 <button type="submit" name="encherir" class="option_achat" id="encherir">
                                     Enchérir<img src="images/encheres.png" class="achat_icone">
                                 </button>
                             <?php endif; ?>
+                        </form>
 
+                        <form action="achat.php?id=<?= $data['ID'] ?>" method="post" class="container_option_achat">
+                        <input type="hidden" name="id" value="<?= htmlspecialchars($data['ID']) ?>">
                             <button type="submit" name="negocier" class="option_achat" id="negocier">
                                 Negocier <img src="images/accord.png" class="achat_icone">
-                            </button>
+                            </button>                            
                         </form>
-                        <form action="parcourir.php" method="post">
-                            <input type="hidden" name="ajouter_panier" value="<?= htmlspecialchars($data['ID']) ?>">
-                            <button type="submit" class="option_achat" id="ajouter_panier">
-                                Ajouter au panier <img src="images/ajouter-au-panier.png" class="achat_icone">
-                            </button>
-                        </form>
+                        
+                        <button type="submit" name="ajouter_panier" class="option_achat" id="ajouter_panier">
+                            Ajouter au panier<img src="images/ajouter-au-panier.png" class="achat_icone">
+                        </button>
+                    </div>
                     </div>
                 </div>
             <?php endwhile; ?>
