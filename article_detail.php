@@ -95,10 +95,13 @@
                                 Negocier <img src="images/accord.png" class="achat_icone">
                             </button>                            
                         </form>
-                        
-                        <button type="submit" name="ajouter_panier" class="option_achat" id="ajouter_panier">
-                            Ajouter au panier<img src="images/ajouter-au-panier.png" class="achat_icone">
-                        </button>
+
+                        <form action="parcourir.php" method="post">
+                            <input type="hidden" name="ajouter_panier" value="<?= htmlspecialchars($data['ID']) ?>">
+                            <button type="submit" class="option_achat" id="ajouter_panier">
+                                Ajouter au panier <img src="images/ajouter-au-panier.png" class="achat_icone">
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
