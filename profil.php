@@ -224,10 +224,11 @@
                 <p><strong>Prénom :</strong> <?= htmlspecialchars($user['Prenom']) ?></p>
                 <p><strong>Email :</strong> <?= htmlspecialchars($user['Email']) ?></p>
                 <p><strong>Pseudo :</strong> <?= htmlspecialchars($user['Pseudo']) ?></p>
+                <p><strong>Date de naissance :</strong> <?= htmlspecialchars($user['DateNaissance']) ?></p>
                 <p><strong>Téléphone :</strong> <?= htmlspecialchars($user['Telephone']) ?></p>
                 <p><strong>Adresse :</strong> <?= htmlspecialchars($user['Adresse']) ?></p>
                 <p><strong>Code postal :</strong> <?= htmlspecialchars($user['CodePostal']) ?></p>
-                <p><strong>Date de naissance :</strong> <?= htmlspecialchars($user['DateNaissance']) ?></p>
+                <p><strong>Solde :</strong> <?= htmlspecialchars($user['Solde']) ?></p>
 
                 <form method="get" action="">
                     <input type="hidden" name="edit" value="1">
