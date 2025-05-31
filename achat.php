@@ -37,10 +37,6 @@
         $data_acheteur = mysqli_fetch_assoc($result_acheteur);
 
         /* action */
-        date_default_timezone_set('Europe/Paris');
-        $now = new DateTime(); // Date et heure actuelles
-        $now_str = $now->format('Y-m-d H:i:s'); // Pour le SQL
-
         if (isset($_POST['valider_enchere'])) {
             if (isset($_POST['slider_enchere'])) {
                 $new_price = $_POST['slider_enchere'];
@@ -61,6 +57,9 @@
                         $row = mysqli_fetch_assoc($resultat_type_carte);
                         $type_carte = $row['TypeCarte'];
                     }
+                    date_default_timezone_set('Europe/Paris');
+                    $now = new DateTime(); // Date et heure actuelles
+                    $now_str = $now->format('Y-m-d H:i:s'); // Pour le SQL
                     $sql_commande = "INSERT INTO commandes (ID_article, DateAchat, PrixAchat, MoyenPayement, ID_acheteur, Type_achat, Payement_effectue) VALUES ('$id_article','$now_str','$new_price','$type_carte','$id_acheteur','Enchere','0')";
                     $result_commande = mysqli_query($db_handle, $sql_commande);
                     if (!$result_commande) {
