@@ -79,23 +79,27 @@
                         <br>Date d'ajout : <?= htmlspecialchars($data['DateAjout']) ?>
                         <br>Quantité en stock : <?= htmlspecialchars($data['QuantiteStock']) ?> / Quantité vendue : <?= htmlspecialchars($data['QuantiteVendue']) ?>
                     </p>
-                    <form action="achat.php?id=<?= urlencode($data['ID']) ?>" method="post" class="container_option_achat">
+                    <div class="container_option_achat">
+                        <form action="achat.php?id=<?= $data['ID'] ?>" method="post" class="container_option_achat">
+                            <input type="hidden" name="id" value="<?= htmlspecialchars($data['ID']) ?>">
+                            <?php if ($time_valid === true): ?>
+                                <button type="submit" name="encherir" class="option_achat" id="encherir">
+                                    Enchérir<img src="images/encheres.png" class="achat_icone">
+                                </button>
+                            <?php endif; ?>
+                        </form>
+
+                        <form action="achat.php?id=<?= $data['ID'] ?>" method="post" class="container_option_achat">
                         <input type="hidden" name="id" value="<?= htmlspecialchars($data['ID']) ?>">
-
-                        <?php if ($time_valid === true): ?>
-                            <button type="submit" name="encherir" class="option_achat" id="encherir">
-                                Enchérir<img src="images/encheres.png" class="achat_icone">
-                            </button>
-                        <?php endif; ?>
-
-                        <button type="submit" name="negocier" class="option_achat" id="negocier">
-                            Negocier <img src="images/accord.png" class="achat_icone">
-                        </button>
-
+                            <button type="submit" name="negocier" class="option_achat" id="negocier">
+                                Negocier <img src="images/accord.png" class="achat_icone">
+                            </button>                            
+                        </form>
+                        
                         <button type="submit" name="ajouter_panier" class="option_achat" id="ajouter_panier">
                             Ajouter au panier<img src="images/ajouter-au-panier.png" class="achat_icone">
                         </button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

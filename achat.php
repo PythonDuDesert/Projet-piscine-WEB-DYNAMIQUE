@@ -1,87 +1,173 @@
 <?php
-    session_start();
+session_start();
 
-    $database = "agora francia";
-    $db_handle = mysqli_connect('localhost', 'root', '');
-    $db_found = mysqli_select_db($db_handle, $database);
-    $id_article = null;
-    if (isset($_POST['valider_enchere']) && isset($_POST['id'])) {
-        $id_article = intval($_POST['id']);
-    } else if (isset($_GET['id'])) {
-        $id_article = intval($_GET['id']);
+$database = "agora francia";
+$db_handle = mysqli_connect('localhost', 'root', '');
+$db_found = mysqli_select_db($db_handle, $database);
+$id_article = null;
+if ((isset($_POST['valider_enchere']) && isset($_POST['id'])) || (isset($_POST['valider_negociation']) && isset($_POST['id']))) {
+    $id_article = intval($_POST['id']);
+} else if (isset($_GET['id'])) {
+    $id_article = intval($_GET['id']);
+}
+
+/* Actions d'achats */
+$action = "";
+if (isset($_POST['encherir'])) {
+    $action = "encherir";
+} else if (isset($_POST['negocier'])) {
+    $action = "negocier";
+}
+
+if ($db_found) {
+    /* article */
+    $sql = "SELECT * FROM articles WHERE ID = $id_article";
+    $result = mysqli_query($db_handle, $sql);
+    $data = mysqli_fetch_assoc($result);
+    $time_valid = false;
+
+    /* acheteur */
+    $id_acheteur = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : 0;
+    if ($id_acheteur === 0) {
+        header("Location: compte.php"); // Rediriger vers la page de connexion
+        exit();
+    }
+    $sql_acheteur = "SELECT * FROM acheteurs_vendeurs WHERE ID = $id_acheteur";
+    $result_acheteur = mysqli_query($db_handle, $sql_acheteur);
+    $data_acheteur = mysqli_fetch_assoc($result_acheteur);
+
+    $sql_historique_commandes = "SELECT PrixAchat FROM commandes WHERE ID_acheteur = $id_acheteur AND ID_article != $id_article";
+    $result_historique_commandes = mysqli_query($db_handle, $sql_historique_commandes);
+    $solde_temp = 0;
+    while ($data_historique_commandes = mysqli_fetch_assoc($result_historique_commandes)) {
+        $solde_temp += $data_historique_commandes['PrixAchat'];
     }
 
-    /* Actions d'achats */
-    $action = "";
-    if (isset($_POST['encherir'])) {
-        $action = "encherir";
-    } else if (isset($_POST['negocier'])) {
-        $action = "negocier";
-    }
+    /* action */
+    if (isset($_POST['valider_enchere'])) {
+        if (isset($_POST['slider_enchere'])) {
+            $new_price = $_POST['slider_enchere'];
+            $sql_new_price = "UPDATE articles SET PrixEnchere = $new_price WHERE ID = $id_article";
+            $result_new_price = mysqli_query($db_handle, $sql_new_price);
 
-    if ($db_found) {
-        /* article */
-        $sql = "SELECT * FROM articles WHERE ID = $id_article";
-        $result = mysqli_query($db_handle, $sql);
-        $data = mysqli_fetch_assoc($result);
-        $time_valid = false;
+            $sql_commande = "SELECT * FROM commandes WHERE ID_article = $id_article AND ID_acheteur = $id_acheteur";
+            $result_commande = mysqli_query($db_handle, $sql_commande);
+            if (mysqli_num_rows($result_commande) > 0) {
+                $sql_commande = "UPDATE commandes SET PrixAchat = '$new_price' WHERE ID_article = $id_article AND ID_acheteur = $id_acheteur";
+                $result_commande = mysqli_query($db_handle, $sql_commande);
+            } else {
+                $sql_type_carte = "SELECT TypeCarte FROM acheteurs_vendeurs WHERE ID = $id_acheteur";
+                $resultat_type_carte = mysqli_query($db_handle, $sql_type_carte);
+                $type_carte = '';
+                if (mysqli_num_rows($resultat_type_carte) > 0) {
+                    $row = mysqli_fetch_assoc($resultat_type_carte);
+                    $type_carte = $row['TypeCarte'];
+                }
+                
+                date_default_timezone_set('Europe/Paris');
+                $now = new DateTime(); // Date et heure actuelles
+                $now_str = $now->format('Y-m-d H:i:s'); // Pour le SQL
+                $sql_commande = "INSERT INTO commandes (ID_article, DateAchat, PrixAchat, MoyenPayement, ID_acheteur, Type_achat, Payement_effectue) VALUES ('$id_article','$now_str','$new_price','$type_carte','$id_acheteur','Enchere','0')";
+                $result_commande = mysqli_query($db_handle, $sql_commande);
+                if (!$result_commande) {
+                    echo "Erreur SQL : " . mysqli_error($db_handle);
+                }
+            }
 
-        /* acheteur */
-        $id_acheteur = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : 0;
-        if ($id_acheteur === 0) {
-            header("Location: compte.php"); // Rediriger vers la page de connexion
+            header("Location: achat.php?id=" . $id_article . ""); // refresh de la page
             exit();
         }
-        $sql_acheteur = "SELECT * FROM acheteurs_vendeurs WHERE ID = $id_acheteur";
-        $result_acheteur = mysqli_query($db_handle, $sql_acheteur);
-        $data_acheteur = mysqli_fetch_assoc($result_acheteur);
-
-        $sql_historique_commandes = "SELECT PrixAchat FROM commandes WHERE ID_acheteur = $id_acheteur AND ID_article != $id_article";
-        $result_historique_commandes = mysqli_query($db_handle, $sql_historique_commandes);
-        $solde_temp = 0;
-        while ($data_historique_commandes = mysqli_fetch_assoc($result_historique_commandes)) {
-            $solde_temp += $data_historique_commandes['PrixAchat'];
-        }
-
-        /* action */
-        if (isset($_POST['valider_enchere'])) {
-            if (isset($_POST['slider_enchere'])) {
-                $new_price = $_POST['slider_enchere'];
-                $sql_new_price = "UPDATE articles SET PrixEnchere = $new_price WHERE ID = $id_article";
-                $result_new_price = mysqli_query($db_handle, $sql_new_price);
-
-                $sql_commande = "SELECT * FROM commandes WHERE ID_article = $id_article AND ID_acheteur = $id_acheteur";
-                $result_commande = mysqli_query($db_handle, $sql_commande);
-                if (mysqli_num_rows($result_commande)>0) {
-                    $sql_commande = "UPDATE commandes SET PrixAchat = '$new_price' WHERE ID_article = $id_article AND ID_acheteur = $id_acheteur";
-                    $result_commande = mysqli_query($db_handle, $sql_commande);
-                }
-                else {
-                    $sql_type_carte = "SELECT TypeCarte FROM acheteurs_vendeurs WHERE ID = $id_acheteur";
-                    $resultat_type_carte = mysqli_query($db_handle, $sql_type_carte);
-                    $type_carte = '';
-                    if (mysqli_num_rows($resultat_type_carte) > 0) {
-                        $row = mysqli_fetch_assoc($resultat_type_carte);
-                        $type_carte = $row['TypeCarte'];
-                    }
-                    date_default_timezone_set('Europe/Paris');
-                    $now = new DateTime(); // Date et heure actuelles
-                    $now_str = $now->format('Y-m-d H:i:s'); // Pour le SQL
-                    $sql_commande = "INSERT INTO commandes (ID_article, DateAchat, PrixAchat, MoyenPayement, ID_acheteur, Type_achat, Payement_effectue) VALUES ('$id_article','$now_str','$new_price','$type_carte','$id_acheteur','Enchere','0')";
-                    $result_commande = mysqli_query($db_handle, $sql_commande);
-                    if (!$result_commande) {
-                        echo "Erreur SQL : " . mysqli_error($db_handle);
-                    }
-                }
-
-                header("Location: achat.php?id=".$id_article.""); // refresh de la page
-                exit();
-            }
-        }
-
-    } else {
-        echo "<p>Erreur de connexion à la base de données</p>";
     }
+
+    if (!isset($_SESSION['tentatives_negociation'])) {
+        $_SESSION['tentatives_negociation'] = [];
+    }
+    
+    if (isset($_POST['valider_negociation'])) {
+        $tentatives = $_SESSION['tentatives_negociation'][$id_article] ?? 0;
+    
+        if ($tentatives >= 5) {
+            echo "<script>alert('Vous avez atteint le nombre maximal de 5 tentatives de négociation pour cet article.'); window.location.href='achat.php?id=$id_article';</script>";
+            exit();
+        }
+    
+        $offre = intval($_POST['offre']);
+        $categorie = $data['Categorie'];
+    
+        $acceptation = false;
+        $contre_offre = $offre;
+    
+        switch (strtolower($categorie)) {
+            case 'commun':
+                $proba_acceptation = rand(1, 100);
+                if ($proba_acceptation <= 50) {
+                    $acceptation = true;
+                } else {
+                    $contre_offre += rand(10, 50);
+                    if ($contre_offre > $data['PrixAchatImmediat']) {
+                        $contre_offre = $data['PrixAchatImmediat'];
+                    }
+                }
+                break;
+            case 'rare':
+                $proba_acceptation = rand(1, 100);
+                if ($proba_acceptation <= 40) {
+                    $acceptation = true;
+                } else {
+                    $contre_offre += rand(50, 200);
+                    if ($contre_offre > $data['PrixAchatImmediat']) {
+                        $contre_offre = $data['PrixAchatImmediat'];
+                    }
+                }
+                break;
+            case 'premium':
+                $proba_acceptation = rand(1, 100);
+                if ($proba_acceptation <= 25) {
+                    $acceptation = true;
+                } else {
+                    $contre_offre += rand(400, 800);
+                    if ($contre_offre > $data['PrixAchatImmediat']) {
+                        $contre_offre = $data['PrixAchatImmediat'];
+                    }
+                }
+                break;
+            default:
+                $acceptation = true;
+                break;
+        }
+    
+        if ($acceptation) {
+            unset($_SESSION['tentatives_negociation'][$id_article]);
+    
+            $sql_type_carte = "SELECT TypeCarte FROM acheteurs_vendeurs WHERE ID = $id_acheteur";
+            $resultat_type_carte = mysqli_query($db_handle, $sql_type_carte);
+            $type_carte = '';
+            if (mysqli_num_rows($resultat_type_carte) > 0) {
+                $row = mysqli_fetch_assoc($resultat_type_carte);
+                $type_carte = $row['TypeCarte'];
+            }
+
+            date_default_timezone_set('Europe/Paris');
+            $now = new DateTime(); // Date et heure actuelles
+            $now_str = $now->format('Y-m-d H:i:s'); // Pour le SQL
+            $sql_commande = "INSERT INTO commandes (ID_article, DateAchat, PrixAchat, MoyenPayement, ID_acheteur, Type_achat, Payement_effectue) VALUES ('$id_article','$now_str','$new_price','$type_carte','$id_acheteur','Enchere','0')";
+            $result_commande = mysqli_query($db_handle, $sql_commande);
+            if (!$result_commande) {
+                echo "Erreur SQL : " . mysqli_error($db_handle);
+            }
+            echo "<script>alert('Félicitations ! Le vendeur a accepté votre offre de $offre €'); window.location.href='achat.php?id=$id_article';</script>";
+            exit();
+        } else {
+            // Incrémenter compteur
+            $_SESSION['tentatives_negociation'][$id_article] = $tentatives + 1;
+            echo "<script>alert('Le vendeur a refusé votre offre. Il vous propose un nouveau prix de $contre_offre €'); window.location.href='achat.php?id=$id_article&contre_offre=$contre_offre';</script>";
+            exit();
+        }
+    }
+    
+}else {
+    echo "<p>Erreur de connexion à la base de données</p>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -106,18 +192,21 @@
             margin: 20px auto;
         }
 
-        .container_enchere div { /* Votre nouvelle enchère : prix */
+        .container_enchere div {
+            /* Votre nouvelle enchère : prix */
             margin: 10px 0;
             font-size: large;
             color: #333;
         }
 
-        .container_enchere input[type="range"] { /* slider */
+        .container_enchere input[type="range"] {
+            /* slider */
             margin-top: -10px;
             width: 400px;
         }
 
-        .container_enchere input[type="submit"] { /* bouton Enchérir */
+        .container_enchere input[type="submit"] {
+            /* bouton Enchérir */
             background-color: #392eff;
             color: white;
             border: none;
@@ -126,7 +215,34 @@
             padding: 10px 200px;
             cursor: pointer;
         }
+
+        .container_negociation {
+            display: flex;
+            align-items: center;
+            background-color: #f4f4fc;
+            width: fit-content;
+            padding: 30px 10px 20px 10px;
+            border-radius: 12px;
+            margin: 20px auto;
+        }
+
+        .container_negociation input[type="number"] {
+            width: 200px;
+        }
+
+        .container_negociation input[type="submit"] {
+            background-color: #392eff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: large;
+            padding: 10px 100px;
+            cursor: pointer;
+        }
     </style>
+    <script>
+
+    </script>
 </head>
 
 <body>
@@ -151,33 +267,47 @@
             <?php
             echo
             "<div class='article'>
-                    <img src='".$data['Image']."' alt='".$data['NomArticle']."' class='article_img img_detail'>
-                    <div class='article_description'>
-                        <h2>".$data['NomArticle']."</h2>
-                        <p>Description : ".$data['Description']."</p>
-                        <p>Catégorie : ".$data['Categorie']."</p>
-                        <p>Prix d'enchère : ".$data['PrixEnchere']." €
-                        <br>Fin des enchères : ".$data['DateFinEnchere']."
-                        <br>Prix d'achat immédiat : ".$data['PrixAchatImmediat']." €
-                        <br>Prix en négociation : ".$data['PrixNegociation']." €
-                        <br>Date d'ajout : ".$data['DateAjout']."
-                        <br>Quantité en stock : ".$data['QuantiteStock']." / Quantité vendue : ".$data['QuantiteVendue']."
-                        </p>
-                    </div>
-                </div>";
+                <img src='" . $data['Image'] . "' alt='" . $data['NomArticle'] . "' class='article_img img_detail'>
+                <div class='article_description'>
+                    <h2>" . $data['NomArticle'] . "</h2>
+                    <p>Description : " . $data['Description'] . "</p>
+                    <p>Catégorie : " . $data['Categorie'] . "</p>
+                    <p>Prix d'enchère : " . $data['PrixEnchere'] . " €
+                    <br>Fin des enchères : " . $data['DateFinEnchere'] . "
+                    <br>Prix d'achat immédiat : " . $data['PrixAchatImmediat'] . " €
+                    <br>Prix en négociation : " . $data['PrixNegociation'] . " €
+                    <br>Date d'ajout : " . $data['DateAjout'] . "
+                    <br>Quantité en stock : " . $data['QuantiteStock'] . " / Quantité vendue : " . $data['QuantiteVendue'] . "
+                    </p>
+                </div>
+            </div>";
             ?>
         </div>
 
-        <div class="container_enchere">
-            <form action='achat.php' method='post' class="container_enchere">
-                <input type="hidden" name="id" value="<?php echo $id_article; ?>">
+        <?php if ($action == "encherir"): ?>
+            <!-- Formulaire d'enchère -->
+            <div class="container_enchere">
+                <form action='achat.php' method='post' class="container_enchere">
+                    <input type="hidden" name="id" value="<?php echo $id_article; ?>">
 
-                <input type="range" name="slider_enchere" min="<?php echo $data['PrixEnchere'] + 1; ?>" max="<?php echo $data_acheteur['Solde']-$solde_temp; ?>" value="<?php echo $data['PrixEnchere'] + 1; ?>" oninput="document.getElementById('currentValue').textContent = this.value">
+                    <input type="range" name="slider_enchere" min="<?php echo $data['PrixEnchere'] + 1; ?>" max="<?php echo $data_acheteur['Solde'] - $solde_temp; ?>" value="<?php echo $data['PrixEnchere'] + 1; ?>" oninput="document.getElementById('currentValue').textContent = this.value">
 
-                <div>Votre nouvelle enchère: <strong><span id="currentValue"><?php echo $data['PrixEnchere'] + 1; ?>€</span></strong></div>
-                <input type="submit" value="Enchérir" name="valider_enchere" class='option_achat'>
-            </form>
-        </div>
+                    <div>Votre nouvelle enchère: <strong><span id="currentValue"><?php echo $data['PrixEnchere'] + 1; ?>€</span></strong></div>
+                    <input type="submit" value="Enchérir" name="valider_enchere" class='option_achat'>
+                </form>
+            </div>
+        <?php elseif ($action == "negocier"): ?>
+            <!-- Formulaire de négociation -->
+            <div class="container_negociation">
+                <form action='achat.php' method='post'>
+                    <input type="hidden" name="id" value="<?php echo $id_article; ?>">
+                    <label for="offre">Proposez un prix :</label>
+                    <?php  $offre_auto = isset($_GET['contre_offre']) ? intval($_GET['contre_offre']) : ''; ?>
+                    <input type="number" name="offre" min="1" max="<?php echo $data_acheteur['Solde'] - $solde_temp; ?>" required value="<?php echo $offre_auto; ?>">
+                    <input type="submit" value="Proposer un prix" name="valider_negociation">
+                </form>
+            </div>
+        <?php endif; ?>
     </section>
 
     <footer>
