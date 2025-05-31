@@ -123,6 +123,7 @@
 
         <div id="container_shop">
             <?php while ($data = mysqli_fetch_assoc($result)):
+                date_default_timezone_set('Europe/Paris');
                 $now = new DateTime(); // Date et heure actuelles
                 $end = new DateTime($data['DateFinEnchere']); // Date de fin des enchères
                 $time_valid = false;
