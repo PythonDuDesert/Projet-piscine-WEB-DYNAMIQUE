@@ -172,7 +172,7 @@
             <form action='achat.php' method='post' class="container_enchere">
                 <input type="hidden" name="id" value="<?php echo $id_article; ?>">
 
-                <input type="range" name="slider_enchere" min="<?php echo $data['PrixEnchere'] + 1; ?>" max="<?php echo $solde_temp; ?>" value="<?php echo $data['PrixEnchere'] + 1; ?>" oninput="document.getElementById('currentValue').textContent = this.value">
+                <input type="range" name="slider_enchere" min="<?php echo $data['PrixEnchere'] + 1; ?>" max="<?php echo $data_acheteur['Solde']-$solde_temp; ?>" value="<?php echo $data['PrixEnchere'] + 1; ?>" oninput="document.getElementById('currentValue').textContent = this.value">
 
                 <div>Votre nouvelle enchère: <strong><span id="currentValue"><?php echo $data['PrixEnchere'] + 1; ?>€</span></strong></div>
                 <input type="submit" value="Enchérir" name="valider_enchere" class='option_achat'>
