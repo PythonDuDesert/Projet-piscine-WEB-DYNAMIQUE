@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 30 mai 2025 à 14:13
+-- Généré le : sam. 31 mai 2025 à 09:49
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `acheteurs_vendeurs` (
   `TypeCarte` tinyint NOT NULL,
   `NumeroCarte` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `acheteurs_vendeurs`
@@ -69,7 +69,8 @@ INSERT INTO `acheteurs_vendeurs` (`ID`, `Nom`, `Prenom`, `DateNaissance`, `Email
 (17, 'Einsteinus', 'Albertus', '0341-03-10', 'albertus.einsteinus@agorafrancia.gr', '07 64 43 19 22', 35000, '12 Rue des inventions', 'Albertus', 'emc2', '/images/albertus_einsteinus.jpg', '0382-06-01', 650, 2, '4109 3489 1007 9848'),
 (18, 'Stote', 'Harry', '0380-07-31', 'harry.stote@agorafrancia.gr', '06 12 34 56 78', 33000, '9 Rue de la Magie Antique', 'SavantUltime', 'SavantUltime123', '/images/aristote.jpg', '0401-11-01', 1500, 3, '3115 1234 3231 6458'),
 (19, 'Couchoud', 'Nicolas', '0372-05-15', 'nicolas.couchoud@agorafrancia.gr', '07 89 65 43 21', 78100, '21 Rue des Parchemins', 'MrCouchoud', 'Electromag123', '/images/nicolas_Couchoud.png', '0400-09-15', 720, 2, '1462 7548 3265 8958'),
-(20, 'Hugo', 'Victorius', '0320-02-26', 'victorius.hugo@agorafrancia.gr', '06 01 23 45 67', 75000, '5 Impasse des Ecrivains', 'HugoAstuces', 'miserables123', '/images/victorius_hugo.jpg', '0350-12-25', 800, 1, '1643 4976 1872 2983');
+(20, 'Hugo', 'Victorius', '0320-02-26', 'victorius.hugo@agorafrancia.gr', '06 01 23 45 67', 75000, '5 Impasse des Ecrivains', 'HugoAstuces', 'miserables123', '/images/victorius_hugo.jpg', '0350-12-25', 800, 1, '1643 4976 1872 2983'),
+(21, 'boob', 'bobo', '2000-06-15', 'bo@gmail.com', '0677777777', 60100, '4 Rue du Bo', 'bobobo', 'bobobo', 'images/', '2025-05-31', 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -96,6 +97,28 @@ INSERT INTO `admin` (`ID`, `Prenom`, `Nom`, `Email`, `MotDePasse`) VALUES
 (2, 'Leonard', 'FORESTIER', 'leonard.forestier@edu.ece.fr', 'leonard1234'),
 (3, 'Julien', 'MENET', 'julien.menet2@edu.ece.fr', 'julien1234'),
 (4, 'Mike', 'LIN', 'mike.lin@edu.ece.fr', 'mike1234');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `alertes_utilisateur`
+--
+
+DROP TABLE IF EXISTS `alertes_utilisateur`;
+CREATE TABLE IF NOT EXISTS `alertes_utilisateur` (
+  `id_utilisateur` int NOT NULL,
+  `categorie` enum('Commun','Rare','Premium') NOT NULL,
+  `prix` enum('0 à 50','50 à 100','100 à 500','500 et plus') NOT NULL,
+  `fin_encheres` date NOT NULL,
+  `quantite` enum('0 à 5','6 à 10','11 à 20','20 et plus') NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `alertes_utilisateur`
+--
+
+INSERT INTO `alertes_utilisateur` (`id_utilisateur`, `categorie`, `prix`, `fin_encheres`, `quantite`) VALUES
+(0, 'Premium', '500 et plus', '2025-05-28', '');
 
 -- --------------------------------------------------------
 

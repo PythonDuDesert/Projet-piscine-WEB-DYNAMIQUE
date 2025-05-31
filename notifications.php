@@ -83,6 +83,7 @@
             <?php
                 if(isset($_POST["alerte"])) {
                     if ($db_found){
+                        $id_utilisateur = $_SESSION['user_id'];
                         $categorie = $_POST["categorie"];
                         $prix = $_POST["prix"];
                         $fin_encheres = $_POST["fin_encheres"];
@@ -90,7 +91,7 @@
 
                          
 
-                        $sql = "INSERT INTO alertes_utilisateur (categorie, prix, fin_encheres, quantite) VALUES ('$categorie', '$prix', '$fin_encheres', '$stock')";
+                        $sql = "INSERT INTO alertes_utilisateur (id_utilisateur, categorie, prix, fin_encheres, quantite) VALUES ('$id_utilisateur','$categorie', '$prix', '$fin_encheres', '$stock')";
 
                         $result = mysqli_query($db_handle, $sql); 
 

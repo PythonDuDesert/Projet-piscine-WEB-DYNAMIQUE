@@ -373,9 +373,57 @@
             </div>
         </div>
 
-        <div id="messages" class="contenu">
-            <h2>Vos messages</h2>
-        </div>
+            <?php 
+            if ($db_found && isset($_SESSION['user_id'])) {
+                $id_utilisateur = $_SESSION['user_id'];
+                
+                $sql = "SELECT * FROM alertes_utilisateur WHERE id_utilisateur = $id_utilisateur ";
+                $result = mysqli_query($db_handle,$sql);
+
+                echo'<div id="messages" class="contenu">';
+                echo '<h2>Vos messages</h2>';
+
+                if (mysqli_num_rows($result)>0) {
+                    while ($alerte = mysqli_fetch_assoc($result))  {
+                        $categorie = $alerte['categorie'];
+                        $prix = $alerte['prix'];
+                        $fin_encheres = $alerte['fin_encheres'];
+                        $quantite = $alerte['quantite'];
+
+                        $condition_prix = "";
+                        if ($prix == "0 à 50") $condition_prix = "prix <= 50";
+                        elseif($prix == "50 à 100") $condition_prix = "prix > 50 AND prix <=100";
+                        elseif ($prix == "100 à 500") $condition_prix="prix > 100 AND prix <= 500"; 
+                        elseif($prix == "500 et plus") $condition_prix="prix > 500";
+
+                        $condition_quantite = "";
+                        if ($quantite == "0 à 5") $condition_quantite = "quantite <= 5";
+                        elseif($quantite == "6 à 10") $condition_quantite = "quantite > 5 AND quantite <=10";
+                        elseif ($quantite == "11 à 20") $condition_quantite="quantite > 10 AND quantite <= 20"; 
+                        elseif($quantite == "20 et plus") $condition_quantite="quantite > 20";
+
+                        $sql_article = "SELECT * FROM articles WHERE categorie ='$categorie' AND $condition_prix AND DateFinEnchere <= '$fin_encheres' AND $condition_quantite";
+                        $result_article = mysqli_query($db_handle,$sql_article);
+
+                        if (mysqli_num_rows($result_article)>0) {
+                            while($data = mysqli_fetch_assoc($result_article)){
+                                echo "<div>";
+                                echo "Un article correspond à vos critères !<br>";
+                                echo "Nom : " . $data['categorie'] . "<br>";
+                                echo "Prix :" . $data['prix'] . "<br>";
+                                echo "Date fin enchere :" . $data['fin_encheres'] . "<br>";
+                                echo "Quantite :" . $data['quantite'] . "<br>";
+
+                            }
+                        } else{
+                            echo "Aucune notifications pour vos critères sélectionnés !";
+                    }    
+                }
+            } else {
+                echo "Aucune alerte activée";
+            } echo "</div>";
+        }
+        ?>
 
         <br>
         <form method="get" action="profil.php" style="display:inline;">
