@@ -1,65 +1,83 @@
 <?php
-session_start();
+    session_start();
 
-$database = "agora francia";
-$db_handle = mysqli_connect('localhost', 'root', '');
-$db_found = mysqli_select_db($db_handle, $database);
-$id_article = null;
-if (isset($_POST['valider_enchere']) && isset($_POST['id'])) {
-    $id_article = intval($_POST['id']);
-} else if (isset($_GET['id'])) {
-    $id_article = intval($_GET['id']);
-}
-if ($id_article === null) {
-    die("ID article manquant.");
-}
-
-/* Actions d'achats */
-$action = "";
-if (isset($_POST['encherir'])) {
-    $action = "encherir";
-} else if (isset($_POST['negocier'])) {
-    $action = "negocier";
-}
-
-if ($db_found) {
-    /* article */
-    $sql = "SELECT * FROM articles WHERE ID = $id_article";
-    $result = mysqli_query($db_handle, $sql);
-    $data = mysqli_fetch_assoc($result);
-
-    /* acheteur */
-    $id_acheteur = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : 0;
-    if ($id_acheteur === 0) {
-        header("Location: compte.php"); // Rediriger vers la page de connexion
-        exit();
+    $database = "agora francia";
+    $db_handle = mysqli_connect('localhost', 'root', '');
+    $db_found = mysqli_select_db($db_handle, $database);
+    $id_article = null;
+    if (isset($_POST['valider_enchere']) && isset($_POST['id'])) {
+        $id_article = intval($_POST['id']);
+    } else if (isset($_GET['id'])) {
+        $id_article = intval($_GET['id']);
     }
-    $sql_acheteur = "SELECT * FROM acheteurs_vendeurs WHERE ID = $id_acheteur";
-    $result_acheteur = mysqli_query($db_handle, $sql_acheteur);
-    $data_acheteur = mysqli_fetch_assoc($result_acheteur);
-
-    if ($action == "encherir") {
-        $now = new DateTime(); // Date et heure actuelles
-        $end = new DateTime($data['DateFinEnchere']); // Date de fin des enchères
-        if ($now < $end) {
-            $time_valid = true;
-        } else {
-            $time_valid = false;
-        }
+    if ($id_article === null) {
+        die("ID article manquant.");
     }
 
-    if (isset($_POST['valider_enchere'])) {
-        if (isset($_POST['slider_enchere'])) {
-            $new_price = $_POST['slider_enchere'];
-            $sql_new_price = "UPDATE articles SET PrixEnchere = $new_price WHERE ID = $id_article";
-            $result_new_price = mysqli_query($db_handle, $sql_new_price);
-            header("Location: achat.php?id=".$id_article.""); // refresh de la page
+    /* Actions d'achats */
+    $action = "";
+    if (isset($_POST['encherir'])) {
+        $action = "encherir";
+    } else if (isset($_POST['negocier'])) {
+        $action = "negocier";
+    }
+
+    if ($db_found) {
+        /* article */
+        $sql = "SELECT * FROM articles WHERE ID = $id_article";
+        $result = mysqli_query($db_handle, $sql);
+        $data = mysqli_fetch_assoc($result);
+        $time_valid = false;
+
+        /* acheteur */
+        $id_acheteur = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : 0;
+        if ($id_acheteur === 0) {
+            header("Location: compte.php"); // Rediriger vers la page de connexion
             exit();
         }
+        $sql_acheteur = "SELECT * FROM acheteurs_vendeurs WHERE ID = $id_acheteur";
+        $result_acheteur = mysqli_query($db_handle, $sql_acheteur);
+        $data_acheteur = mysqli_fetch_assoc($result_acheteur);
+
+        /* action */
+        if ($action == "encherir") {
+            date_default_timezone_set('Europe/Paris');
+            $now = new DateTime(); // Date et heure actuelles
+            $now_str = $now->format('Y-m-d H:i:s'); // Pour le SQL
+        }
+
+        if (isset($_POST['valider_enchere'])) {
+            if (isset($_POST['slider_enchere'])) {
+                $new_price = $_POST['slider_enchere'];
+                $sql_new_price = "UPDATE articles SET PrixEnchere = $new_price WHERE ID = $id_article";
+                $result_new_price = mysqli_query($db_handle, $sql_new_price);
+
+                $sql_commande = "SELECT * FROM commandes WHERE ID_article = $id_article AND ID_acheteur = $id_acheteur";
+                $result_commande = mysqli_query($db_handle, $sql_commande);
+                if (mysqli_num_rows($result_commande)>0) {
+                    $sql_commande = "UPDATE commandes SET PrixAchat = '$new_price' WHERE ID_article = $id_article AND ID_acheteur = $id_acheteur";
+                    $result_commande = mysqli_query($db_handle, $sql_commande);
+                }
+                else {
+                    $sql_type_carte = "SELECT TypeCarte FROM acheteurs_vendeurs WHERE ID = $id_acheteur";
+                    $resultat_type_carte = mysqli_query($db_handle, $sql_type_carte);
+                    $type_carte = '';
+                    if (mysqli_num_rows($resultat_type_carte) > 0) {
+                        $row = mysqli_fetch_assoc($resultat_type_carte);
+                        $type_carte = $row['TypeCarte'];
+                    }
+                    $sql_commande = "INSERT INTO commandes (ID_article, DateAchat, PrixAchat, MoyenPayement, ID_acheteur, Type_achat, Payement_effectue) VALUES ('$id_article','$now_str','$new_price','$type_carte','$id_acheteur','Enchere','0')";
+                    $result_commande = mysqli_query($db_handle, $sql_commande);
+                }
+
+                header("Location: achat.php?id=".$id_article.""); // refresh de la page
+                exit();
+            }
+        }
+
+    } else {
+        echo "<p>Erreur de connexion à la base de données</p>";
     }
-} else {
-    echo "<p>Erreur de connexion à la base de données</p>";
-}
 ?>
 
 <!DOCTYPE html>
