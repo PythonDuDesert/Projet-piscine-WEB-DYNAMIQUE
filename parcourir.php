@@ -10,7 +10,8 @@
         $sql = "SELECT * FROM articles WHERE 1";
         $search = isset($_GET['search']) ? trim($_GET['search']) : '';
         $categorie = isset($_GET['categorie']) ? trim($_GET['categorie']) : '';
-        
+        date_default_timezone_set('Europe/Paris');
+
         if (!empty($search)) {
             $search = mysqli_real_escape_string($db_handle, $search);
             $sql .= " AND (NomArticle LIKE '%$search%')";
@@ -35,12 +36,12 @@
             $categorie = mysqli_real_escape_string($db_handle, $_GET['categorie']);
             $sql .= " AND Categorie = '$categorie'";
         }
-        
+
         if (empty($search) && !in_array($categorie, ['commun', 'rare', 'premium']) && !isset($_GET['min_price']) && !isset($_GET['max_price']) && !isset($_GET['QuantiteStock'])) {  // Si pas de recherche/filtre appliqué, on fait une pagination
             $sql = "SELECT * FROM articles LIMIT 10 OFFSET $i";
         }
 
-        $result= mysqli_query($db_handle, $sql);
+        $result = mysqli_query($db_handle, $sql);
         if ($result) {
             $error = false;
         }
@@ -53,6 +54,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,6 +71,7 @@
         });
     </script>
 </head>
+
 <body>
     <header>
         <h1>Agora Francia</h1>
@@ -96,74 +99,98 @@
             <div id="filters_form" style="display: none; margin-top: 10px;">
                 <!--permet aussi de garder en memeoire les données du formulaire du filtre (mais ne marche pas quand on change de page... bref à finir) -->
 
-                    <label for="min_price">Prix min :</label>
-                    <input type="number" name="min_price" id="min_price" min="0" value="<?php echo isset($_GET['min_price']) ? $_GET['min_price'] : ''; ?>">
+                <label for="min_price">Prix min :</label>
+                <input type="number" name="min_price" id="min_price" min="0" value="<?php echo isset($_GET['min_price']) ? $_GET['min_price'] : ''; ?>">
 
-                    <label for="max_price">Prix max :</label>
-                    <input type="number" name="max_price" id="max_price" min="0" value="<?php echo isset($_GET['max_price']) ? $_GET['max_price'] : ''; ?>">
+                <label for="max_price">Prix max :</label>
+                <input type="number" name="max_price" id="max_price" min="0" value="<?php echo isset($_GET['max_price']) ? $_GET['max_price'] : ''; ?>">
 
-                    <label for="quantite">Quantité min :</label>
-                    <input type="number" name="quantite" id="quantite" min="1" value="<?php echo isset($_GET['QuantiteStock']) ? $_GET['QuantiteStock'] : ''; ?>">
-                    
-                    <label for="categorie">Catégorie :</label>
-                    <select name="categorie" id="categorie">
-                        <option value="">Toutes</option>
-                        <option value="commun" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="commun") echo "selected"; ?>>Commun</option>
-                        <option value="rare" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="rare") echo "selected"; ?>>Rare</option>
-                        <option value="premium" <?php if(isset($_GET['categorie']) && $_GET['categorie']=="premium") echo "selected"; ?>>Premium</option>
-                    </select>
+                <label for="quantite">Quantité min :</label>
+                <input type="number" name="quantite" id="quantite" min="1" value="<?php echo isset($_GET['QuantiteStock']) ? $_GET['QuantiteStock'] : ''; ?>">
 
-                    <br>
-                    <button type="submit">Valider les filtres</button>
+                <label for="categorie">Catégorie :</label>
+                <select name="categorie" id="categorie">
+                    <option value="">Toutes</option>
+                    <option value="commun" <?php if (isset($_GET['categorie']) && $_GET['categorie'] == "commun") echo "selected"; ?>>Commun</option>
+                    <option value="rare" <?php if (isset($_GET['categorie']) && $_GET['categorie'] == "rare") echo "selected"; ?>>Rare</option>
+                    <option value="premium" <?php if (isset($_GET['categorie']) && $_GET['categorie'] == "premium") echo "selected"; ?>>Premium</option>
+                </select>
+
+                <br>
+                <button type="submit" style="margin-top: 10px;">Valider les filtres</button>
             </div>
         </form>
 
         <div id="container_shop">
-            <?php
-                while ($data = mysqli_fetch_assoc($result)) {
-                    echo 
-                    "<div class='article'>
-                        <a href='article_detail.php?id=".$data['ID']."'><img src='".$data['Image']."' alt='".$data['Image']."' class='article_img'></a>
-                        <div class='article_description'>
-                            <h2><a href='article_detail.php?id=".$data['ID']."' class='title_article'>".$data['NomArticle']."</a></h2>
-                            <p>Catégorie : ".$data['Categorie']."
-                            <p>Prix d'enchère : ".$data['PrixEnchere']." €
-                            <br>Fin des enchères : ".$data['DateFinEnchere']."
-                            <br>Prix d'achat immédiat : ".$data['PrixAchatImmediat']." €
-                            <br>Prix en négociation : ".$data['PrixNegociation']." €
-                            </p>
-                            <div class='container_option_achat'>
-                                <button type='button' class='option_achat'>Encherir<img src='images/encheres.png' class='achat_icone'></button>
-                                <button type='button' class='option_achat'>Acheter maintenant<img src='images/cash.png' class='achat_icone'></button>
-                                <button type='button' class='option_achat'>Négocier<img src='images/accord.png' class='achat_icone'></button>
-                                <button type='button' class='option_achat'>Ajouter au panier<img src='images/ajouter-au-panier.png' class='achat_icone'></button>
-                            </div>
-                        </div>
-                    </div>";
+            <?php while ($data = mysqli_fetch_assoc($result)):
+                $now = new DateTime(); // Date et heure actuelles
+                $end = new DateTime($data['DateFinEnchere']); // Date de fin des enchères
+                $time_valid = false;
+                if ($now < $end) {
+                    $time_valid = true;
+                } else {
+                    $time_valid = false;
                 }
             ?>
+                <div class="article">
+                    <a href="article_detail.php?id=<?= $data['ID'] ?>">
+                        <img src="<?= htmlspecialchars($data['Image']) ?>" alt="<?= htmlspecialchars($data['NomArticle']) ?>" class="article_img">
+                    </a>
+                    <div class="article_description">
+                        <h2>
+                            <a href="article_detail.php?id=<?= $data['ID'] ?>" class="title_article">
+                                <?= htmlspecialchars($data['NomArticle']) ?>
+                            </a>
+                        </h2>
+                        <p>Catégorie : <?= htmlspecialchars($data['Categorie']) ?></p>
+                        <p>
+                            Prix d'enchère : <?= htmlspecialchars($data['PrixEnchere']) ?> €
+                            <br>Fin des enchères : <?= htmlspecialchars($data['DateFinEnchere']) ?>
+                            <br>Prix d'achat immédiat : <?= htmlspecialchars($data['PrixAchatImmediat']) ?> €
+                            <br>Prix en négociation : <?= htmlspecialchars($data['PrixNegociation']) ?> €
+                        </p>
+                        <form action="achat.php?id=<?= $data['ID'] ?>" method="post" class="container_option_achat">
+                            <input type="hidden" name="id" value="<?= htmlspecialchars($data['ID']) ?>">
+
+                            <?php if ($time_valid === true): ?>
+                                <button type="submit" name="encherir" class="option_achat" id="encherir">
+                                    Enchérir<img src="images/encheres.png" class="achat_icone">
+                                </button>
+                            <?php endif; ?>
+
+                            <button type="submit" name="negocier" class="option_achat" id="negocier">
+                                Negocier <img src="images/accord.png" class="achat_icone">
+                            </button>
+
+                            <button type="submit" name="ajouter_panier" class="option_achat" id="ajouter_panier">
+                                Ajouter au panier<img src="images/ajouter-au-panier.png" class="achat_icone">
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <?php endwhile; ?>
         </div>
 
         <div id="page_navigation">
             <?php
-                $sql_count = "SELECT COUNT(*) FROM articles";
-                $result = mysqli_query($db_handle, $sql_count);
-                $row = mysqli_fetch_array($result);
-                $total_articles = $row[0];
-                $last_i = (intval($total_articles/10)*10)+1;
+            $sql_count = "SELECT COUNT(*) FROM articles";
+            $result = mysqli_query($db_handle, $sql_count);
+            $row = mysqli_fetch_array($result);
+            $total_articles = $row[0];
+            $last_i = (intval($total_articles / 10) * 10) + 1;
 
-                $next_i = $i+10;
-                $prev_i = 0;
-                if ($i >= 10) {
-                    $prev_i = $i-10;
-                }
+            $next_i = $i + 10;
+            $prev_i = 0;
+            if ($i >= 10) {
+                $prev_i = $i - 10;
+            }
 
-                if (empty($search) && !in_array($categorie, ['commun', 'rare', 'premium'])) {
-                    echo "<a href='parcourir.php?i=$prev_i'><button type='button' class='button_navigation' id='previous_page'>Page précédente</button></a>
+            if (empty($search) && !in_array($categorie, ['commun', 'rare', 'premium'])) {
+                echo "<a href='parcourir.php?i=$prev_i'><button type='button' class='button_navigation' id='previous_page'>Page précédente</button></a>
                         <a href='parcourir.php?i=$next_i'><button type='button' class='button_navigation' id='next_page'>Page suivante</button></a>";
-                }
+            }
             ?>
-            
+
         </div>
     </section>
 
@@ -177,4 +204,5 @@
         <p>&copy; 2025 Agora Francia. Tous droits réservés.</p>
     </footer>
 </body>
+
 </html>

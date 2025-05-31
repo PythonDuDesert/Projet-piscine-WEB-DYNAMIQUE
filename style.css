@@ -237,15 +237,21 @@ section {
 /* articles similaires */
 #container_articles_similaires {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     gap: 10px;
     margin: 200px auto;
+    padding: 20px 10px;
+    border: 5px solid black;
+    border-radius: 20px;
 }
 
 .articles_similaires {
     display: flex;
+    flex: 1 1 calc(33% - 20px); /* 3 par ligne */
     padding-right: 10px;
     align-items: center;
+    margin: 20px 0;
 }
 
 .article_img_similaire {

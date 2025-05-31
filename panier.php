@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agora Francia - Pänier</title>
+    <title>Agora Francia - Panier</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="images/logo_no_bg.ico" type="image/x-icon">
 </head>
@@ -28,6 +28,7 @@
     <section>
         <div id="overlay"></div>
 
+        
     </section>
 
     <footer>

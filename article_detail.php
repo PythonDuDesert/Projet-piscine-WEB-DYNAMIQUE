@@ -6,14 +6,25 @@
     $db_found = mysqli_select_db($db_handle, $database);
     $id_article = isset($_GET['id']) ? $_GET['id'] : 1;
 
+    /* Affichage articles similaires */
     if ($db_found) {
         $sql = "SELECT * FROM articles WHERE ID = $id_article";
         $result = mysqli_query($db_handle, $sql);
         $data = mysqli_fetch_assoc($result);
 
-        $search = mysqli_real_escape_string($db_handle, $data['NomArticle']);        
+        date_default_timezone_set('Europe/Paris');
+        $now = new DateTime(); // Date et heure actuelles
+        $end = new DateTime($data['DateFinEnchere']); // Date de fin des enchères
+        $time_valid = false;
+        if ($now < $end) {
+            $time_valid = true;
+        } else {
+            $time_valid = false;
+        }
+
+        $search = mysqli_real_escape_string($db_handle, $data['NomArticle']);
         if (!empty($search)) {
-            $sql2 = "SELECT * FROM articles WHERE (NomArticle LIKE '%$search%' OR Categorie = '$data[Categorie]') AND ID != $id_article LIMIT 3";
+            $sql2 = "SELECT * FROM articles WHERE (NomArticle LIKE '%$search%' OR Categorie = '$data[Categorie]') AND ID != $id_article LIMIT 6";
             $result2 = mysqli_query($db_handle, $sql2);
         }
     }
@@ -25,6 +36,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,6 +46,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="parcourir.js"></script>
 </head>
+
 <body>
     <header>
         <h1>Agora Francia</h1>
@@ -52,49 +65,58 @@
         <div id="overlay"></div>
 
         <div id="container_article_detail">
-            <?php
-                echo 
-                "<div class='article'>
-                    <img src='".$data['Image']."' alt='".$data['NomArticle']."' class='article_img img_detail'>
-                    <div class='article_description'>
-                        <h2>".$data['NomArticle']."</h2>
-                        <p>Description : ".$data['Description']."</p>
-                        <p>Catégorie : ".$data['Categorie']."</p>
-                        <p>Prix d'enchère : ".$data['PrixEnchere']." €
-                        <br>Fin des enchères : ".$data['DateFinEnchere']."
-                        <br>Prix d'achat immédiat : ".$data['PrixAchatImmediat']." €
-                        <br>Prix en négociation : ".$data['PrixNegociation']." €
-                        <br>Date d'ajout : ".$data['DateAjout']."
-                        <br>Quantité en stock : ".$data['QuantiteStock']." / Quantité vendue: ".$data['QuantiteVendue']."
-                        </p>
-                        <div class='container_option_achat'>
-                            <button type='button' class='option_achat'>Encherir<img src='images/encheres.png' class='achat_icone'></button>
-                            <button type='button' class='option_achat'>Acheter maintenant<img src='images/cash.png' class='achat_icone'></button>
-                            <button type='button' class='option_achat'>Négocier<img src='images/accord.png' class='achat_icone'></button>
-                            <button type='button' class='option_achat'>Ajouter au panier<img src='images/ajouter-au-panier.png' class='achat_icone'></button>
-                        </div>
-                    </div>
-                </div>";
-            ?>
+            <div class="article">
+                <img src="<?= htmlspecialchars($data['Image']) ?>" alt="<?= htmlspecialchars($data['NomArticle']) ?>" class="article_img img_detail">
+                <div class="article_description">
+                    <h2><?= htmlspecialchars($data['NomArticle']) ?></h2>
+                    <p>Description : <?= htmlspecialchars($data['Description']) ?></p>
+                    <p>Catégorie : <?= htmlspecialchars($data['Categorie']) ?></p>
+                    <p>
+                        Prix d'enchère : <?= htmlspecialchars($data['PrixEnchere']) ?> €
+                        <br>Fin des enchères : <?= htmlspecialchars($data['DateFinEnchere']) ?>
+                        <br>Prix d'achat immédiat : <?= htmlspecialchars($data['PrixAchatImmediat']) ?> €
+                        <br>Prix en négociation : <?= htmlspecialchars($data['PrixNegociation']) ?> €
+                        <br>Date d'ajout : <?= htmlspecialchars($data['DateAjout']) ?>
+                        <br>Quantité en stock : <?= htmlspecialchars($data['QuantiteStock']) ?> / Quantité vendue : <?= htmlspecialchars($data['QuantiteVendue']) ?>
+                    </p>
+                    <form action="achat.php?id=<?= urlencode($data['ID']) ?>" method="post" class="container_option_achat">
+                        <input type="hidden" name="id" value="<?= htmlspecialchars($data['ID']) ?>">
+
+                        <?php if ($time_valid === true): ?>
+                            <button type="submit" name="encherir" class="option_achat" id="encherir">
+                                Enchérir<img src="images/encheres.png" class="achat_icone">
+                            </button>
+                        <?php endif; ?>
+
+                        <button type="submit" name="negocier" class="option_achat" id="negocier">
+                            Negocier <img src="images/accord.png" class="achat_icone">
+                        </button>
+
+                        <button type="submit" name="ajouter_panier" class="option_achat" id="ajouter_panier">
+                            Ajouter au panier<img src="images/ajouter-au-panier.png" class="achat_icone">
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <div id="container_articles_similaires">
             <?php
-                while ($data2 = mysqli_fetch_assoc($result2)) {
-                    echo 
-                    "<div class='articles_similaires'>
-                        <a href='article_detail.php?id=".$data2['ID']."'><img src='".$data2['Image']."' alt='".$data2['NomArticle']."' class='article_img_similaire'></a>
-                        <div class='article_description'>
-                            <h2><a href='article_detail.php?id=".$data2['ID']."' class='title_article'>".$data2['NomArticle']."</a></h2>
-                            <p>Catégorie : ".$data2['Categorie']."</p>
-                            <p>Prix d'enchère : ".$data2['PrixEnchere']." €
-                            <br>Fin des enchères : ".$data2['DateFinEnchere']."
-                            <br>Prix d'achat immédiat : ".$data2['PrixAchatImmediat']." €
-                            <br>Prix en négociation : ".$data2['PrixNegociation']." €
-                            </p>
-                        </div>
-                    </div>";
-                }
+            while ($data2 = mysqli_fetch_assoc($result2)) {
+                echo
+                "<div class='articles_similaires'>
+                    <a href='article_detail.php?id=" . $data2['ID'] . "'><img src='" . $data2['Image'] . "' alt='" . $data2['NomArticle'] . "' class='article_img_similaire'></a>
+                    <div class='article_description'>
+                        <h2><a href='article_detail.php?id=" . $data2['ID'] . "' class='title_article'>" . $data2['NomArticle'] . "</a></h2>
+                        <p>Catégorie : " . $data2['Categorie'] . "</p>
+                        <p>Prix d'enchère : " . $data2['PrixEnchere'] . " €
+                        <br>Fin des enchères : " . $data2['DateFinEnchere'] . "
+                        <br>Prix d'achat immédiat : " . $data2['PrixAchatImmediat'] . " €
+                        <br>Prix en négociation : " . $data2['PrixNegociation'] . " €
+                        </p>
+                    </div>
+                </div>";
+            }
             ?>
         </div>
     </section>
@@ -109,4 +131,5 @@
         <p>&copy; 2025 Agora Francia. Tous droits réservés.</p>
     </footer>
 </body>
+
 </html>
