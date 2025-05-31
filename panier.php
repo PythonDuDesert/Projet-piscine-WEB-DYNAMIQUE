@@ -27,6 +27,61 @@
 
     <section>
         <div id="overlay"></div>
+        <h2>Votre panier</h2>
+
+        <?php
+            if (!isset($_SESSION['user_id'])) {
+                echo "<p>Veuillez vous connecter pour accéder à votre panier.</p>";
+            } else {
+                //connexion base de données
+                $db_handle = mysqli_connect("localhost", "root", "", "agora francia");
+                if (!$db_handle) {
+                    echo "Erreur de connexion à la base de données.";
+                    exit();
+                }
+
+                $userID = $_SESSION['user_id'];
+
+                //on récupere les commandes de l'utilisateur dont le paiement n'a pas été effectué
+                $sql = "SELECT a.* FROM articles a 
+                        JOIN commandes c ON a.ID = c.ID_article 
+                        WHERE c.ID_acheteur = $userID AND c.Payement_effectue = 0";
+                $result = mysqli_query($db_handle, $sql);
+
+                if (mysqli_num_rows($result) == 0) {
+                    echo "<p>Votre panier est vide.</p>";
+                } else {
+                    echo "<div id='container_shop'>";
+                    while ($data = mysqli_fetch_assoc($result)) {
+                        echo "<div class='article'>
+                                <a href='article_detail.php?id=" . $data['ID'] . "'>
+                                    <img src='" . $data['Image'] . "' alt='" . $data['NomArticle'] . "' class='article_img'>
+                                </a>
+                                <div class='article_description'>
+                                    <h2>
+                                        <a href='article_detail.php?id=" . $data['ID'] . "' class='title_article'>" . $data['NomArticle'] . "</a>
+                                    </h2>
+                                    <p>Catégorie : " . $data['Categorie'] . "</p>
+                                    <p>
+                                        Prix d'enchère : " . $data['PrixEnchere'] . " €<br>
+                                        Fin des enchères : " . $data['DateFinEnchere'] . "<br>
+                                        Prix d'achat immédiat : " . $data['PrixAchatImmediat'] . " €<br>
+                                        Prix en négociation : " . $data['PrixNegociation'] . " €
+                                    </p>
+                                    <div class='container_option_achat'>
+                                        <button type='button' class='option_achat'>Enchérir<img src='images/encheres.png' class='achat_icone'></button>
+                                        <button type='button' class='option_achat'>Acheter maintenant<img src='images/cash.png' class='achat_icone'></button>
+                                        <button type='button' class='option_achat'>Négocier<img src='images/accord.png' class='achat_icone'></button>
+                                    </div>
+                                </div>
+                            </div>";
+                    }
+                    echo "</div>";
+                }
+
+                mysqli_close($db_handle);
+            }
+        ?>
 
         
     </section>

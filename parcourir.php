@@ -7,6 +7,37 @@
     $i = isset($_GET['i']) ? $_GET['i'] : 0;  // offset
 
     if ($db_found) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter_panier'])) {
+            if (!isset($_SESSION['user_id'])) {
+                echo "<p style='color:red;'>Vous devez être connecté pour ajouter un article au panier.</p>";
+                exit();
+            }
+
+            $id_article = intval($_POST['ajouter_panier']);
+            $id_acheteur = intval($_SESSION['user_id']);
+            $type_payement = 'carte';
+            $type_achat = 1; // panier
+            $payement_effectue = 0;
+
+            $sql = "SELECT PrixAchatImmediat FROM articles WHERE ID = $id_article";
+            $result = mysqli_query($db_handle, $sql);
+
+            if ($data = mysqli_fetch_assoc($result)) {
+                $prix = floatval($data['PrixAchatImmediat']);
+                $date = date('Y-m-d H:i:s');
+
+                $sql_insert = "INSERT INTO commandes (ID_article, DateAchat, PrixAchat, MoyenPayement, ID_acheteur, Type_achat, Payement_effectue)
+                            VALUES ($id_article, '$date', $prix, '$type_payement', $id_acheteur, $type_achat, $payement_effectue)";
+                
+                if (!mysqli_query($db_handle, $sql_insert)) {
+                    echo "<p style='color:red;'>Erreur : " . mysqli_error($db_handle) . "</p>";
+                } else {
+                    echo "<p style='color:green;'>Article ajouté au panier !</p>";
+                }
+            } else {
+                echo "<p style='color:red;'>Article introuvable.</p>";
+            }
+        }
         $sql = "SELECT * FROM articles WHERE 1";
         $search = isset($_GET['search']) ? trim($_GET['search']) : '';
         $categorie = isset($_GET['categorie']) ? trim($_GET['categorie']) : '';
@@ -162,9 +193,11 @@
                             <button type="submit" name="negocier" class="option_achat" id="negocier">
                                 Negocier <img src="images/accord.png" class="achat_icone">
                             </button>
-
-                            <button type="submit" name="ajouter_panier" class="option_achat" id="ajouter_panier">
-                                Ajouter au panier<img src="images/ajouter-au-panier.png" class="achat_icone">
+                        </form>
+                        <form action="parcourir.php" method="post">
+                            <input type="hidden" name="ajouter_panier" value="<?= htmlspecialchars($data['ID']) ?>">
+                            <button type="submit" class="option_achat" id="ajouter_panier">
+                                Ajouter au panier <img src="images/ajouter-au-panier.png" class="achat_icone">
                             </button>
                         </form>
                     </div>
