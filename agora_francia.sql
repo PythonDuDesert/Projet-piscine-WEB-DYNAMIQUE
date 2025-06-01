@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 31 mai 2025 à 09:49
+-- Généré le : dim. 01 juin 2025 à 08:35
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -107,18 +107,23 @@ INSERT INTO `admin` (`ID`, `Prenom`, `Nom`, `Email`, `MotDePasse`) VALUES
 DROP TABLE IF EXISTS `alertes_utilisateur`;
 CREATE TABLE IF NOT EXISTS `alertes_utilisateur` (
   `id_utilisateur` int NOT NULL,
+  `id_alerte` int NOT NULL AUTO_INCREMENT,
   `categorie` enum('Commun','Rare','Premium') NOT NULL,
   `prix` enum('0 à 50','50 à 100','100 à 500','500 et plus') NOT NULL,
   `fin_encheres` date NOT NULL,
-  `quantite` enum('0 à 5','6 à 10','11 à 20','20 et plus') NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `quantite` enum('0 à 5','6 à 10','11 à 20','20 et plus') NOT NULL,
+  PRIMARY KEY (`id_alerte`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `alertes_utilisateur`
 --
 
-INSERT INTO `alertes_utilisateur` (`id_utilisateur`, `categorie`, `prix`, `fin_encheres`, `quantite`) VALUES
-(0, 'Premium', '500 et plus', '2025-05-28', '');
+INSERT INTO `alertes_utilisateur` (`id_utilisateur`, `id_alerte`, `categorie`, `prix`, `fin_encheres`, `quantite`) VALUES
+(21, 2, 'Commun', '0 à 50', '2025-06-15', '6 à 10'),
+(21, 6, 'Commun', '50 à 100', '2025-07-16', '6 à 10'),
+(21, 5, 'Premium', '100 à 500', '2025-06-16', '0 à 5'),
+(21, 7, 'Commun', '50 à 100', '2025-07-16', '6 à 10');
 
 -- --------------------------------------------------------
 
