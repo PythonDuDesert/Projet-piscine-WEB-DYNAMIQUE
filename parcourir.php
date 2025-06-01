@@ -104,7 +104,6 @@ if ($db_found) {
 
 <body>
     <header>
-        <h1>Agora Francia</h1>
         <a href="accueil.php"><img src="images/logo_no_bg.png" alt="logo" id="logo"></a>
     </header>
 
