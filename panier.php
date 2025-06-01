@@ -1,5 +1,26 @@
 <?php
     session_start();
+
+    $database = "agora francia";
+    $db_handle = mysqli_connect('localhost', 'root', '');
+    $db_found = mysqli_select_db($db_handle, $database);
+
+    if ($db_found) {
+        if (isset($_POST['payer'])) {
+            $userID = $_SESSION['user_id'];
+            $sql_solde_debt = "SELECT PrixAchat FROM commandes WHERE ID_acheteur = $userID AND Type_achat = '1'";
+            $result_solde_debt = mysqli_query($db_handle, $sql_solde_debt);
+            $solde_debt = 0;
+            while ($data = mysqli_fetch_assoc($result_solde_debt)) {
+                $solde_debt += $data['PrixAchat'];
+            }
+            $sql_solde_debt = "UPDATE acheteurs_vendeurs SET Solde = Solde - '$solde_debt'";
+            $result_solde_debt = mysqli_query($db_handle, $sql_solde_debt);
+
+            $sql = "UPDATE commandes SET Payement_effectue = '1' WHERE ID_acheteur = $userID AND Type_achat = '1'";
+            $result = mysqli_query($db_handle, $sql);
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +31,32 @@
     <title>Agora Francia - Panier</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="images/logo_no_bg.ico" type="image/x-icon">
+    <style>
+        #container_payer {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto 40px auto;
+        }
+        
+        #payer {
+            padding: 20px 70px;
+            background-color: #194f08;
+            color: white;
+            border-radius: 20px;
+            font-size: x-large;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        #payer:hover {
+            background-color: #154002;
+        }
+
+        #payer:active {
+            transform: translateY(2px);
+        }
+
+    </style>
 </head>
 <body>
     <header>
@@ -50,28 +97,34 @@
                 if (mysqli_num_rows($result) == 0) {
                     echo "<p>Votre panier est vide.</p>";
                 } else {
+                    $sql_solde_debt = "SELECT PrixAchat FROM commandes WHERE ID_acheteur = $userID AND Type_achat = '1' AND Payement_effectue = '0'";
+                    $result_solde_debt = mysqli_query($db_handle, $sql_solde_debt);
+                    $solde_debt = 0;
+                    while ($data = mysqli_fetch_assoc($result_solde_debt)) {
+                        $solde_debt += $data['PrixAchat'];
+                    }
+                    echo "<div id='container_payer'>
+                            <form action='panier.php' method='post'>
+                                <button type='submit' id='payer' name='payer'>PAYER ".$solde_debt." €</button>
+                            </form>
+                        </div>";
                     echo "<div id='container_shop'>";
                     while ($data = mysqli_fetch_assoc($result)) {
                         echo "<div class='article'>
-                                <a href='article_detail.php?id=" . $data['ID'] . "'>
-                                    <img src='" . $data['Image'] . "' alt='" . $data['NomArticle'] . "' class='article_img'>
+                                <a href='article_detail.php?id=".$data['ID']."'>
+                                    <img src='".$data['Image']."' alt='".$data['NomArticle']."' class='article_img'>
                                 </a>
                                 <div class='article_description'>
                                     <h2>
-                                        <a href='article_detail.php?id=" . $data['ID'] . "' class='title_article'>" . $data['NomArticle'] . "</a>
+                                        <a href='article_detail.php?id=".$data['ID']."' class='title_article'>".$data['NomArticle']."</a>
                                     </h2>
-                                    <p>Catégorie : " . $data['Categorie'] . "</p>
+                                    <p>Catégorie : ".$data['Categorie']."</p>
                                     <p>
-                                        Prix d'enchère : " . $data['PrixEnchere'] . " €<br>
-                                        Fin des enchères : " . $data['DateFinEnchere'] . "<br>
-                                        Prix d'achat immédiat : " . $data['PrixAchatImmediat'] . " €<br>
-                                        Prix en négociation : " . $data['PrixNegociation'] . " €
+                                        Prix d'enchère : ".$data['PrixEnchere']." €<br>
+                                        Fin des enchères : ".$data['DateFinEnchere']."<br>
+                                        Prix d'achat immédiat : ".$data['PrixAchatImmediat']." €<br>
+                                        Prix en négociation : ".$data['PrixNegociation']." €
                                     </p>
-                                    <div class='container_option_achat'>
-                                        <button type='button' class='option_achat'>Enchérir<img src='images/encheres.png' class='achat_icone'></button>
-                                        <button type='button' class='option_achat'>Acheter maintenant<img src='images/cash.png' class='achat_icone'></button>
-                                        <button type='button' class='option_achat'>Négocier<img src='images/accord.png' class='achat_icone'></button>
-                                    </div>
                                 </div>
                             </div>";
                     }
@@ -81,8 +134,6 @@
                 mysqli_close($db_handle);
             }
         ?>
-
-        
     </section>
 
     <footer>
