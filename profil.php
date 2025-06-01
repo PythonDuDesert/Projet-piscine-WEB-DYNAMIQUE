@@ -15,6 +15,7 @@
     exit;
     }
 
+    // Sécurité : vérifie si l'utilisateur existe toujours dans la bdd
     if ($db_found) {
         $id = $_SESSION['user_id'];
         $sql = "SELECT * FROM acheteurs_vendeurs WHERE ID = $id";
@@ -23,7 +24,7 @@
         if ($resultat && mysqli_num_rows($resultat) > 0) {
             $user = mysqli_fetch_assoc($resultat);
         } else {
-            // Si l'utilisateur n'existe plus en BDD
+            // Si l'utilisateur n'existe plus en BDD, on revient a la page compte.php
             session_unset();
             session_destroy();
             header("Location: compte.php");
@@ -33,7 +34,7 @@
         $message = "Erreur de connexion à la base de données";
         exit;
     }
-
+     /** ------------------------------ MAJ INFOS PERSONNELLES ------------------------------- **/
     if ($db_found){
         $prenom = isset($_POST['prenom']) ? $_POST['prenom'] : '';
         $nom = isset($_POST['nom']) ? $_POST['nom'] : '';
@@ -46,7 +47,7 @@
 
         if (isset($_POST['ModifierInfos'])) {
             if ($prenom && $nom && $telephone && $adresse && $code_postal && $date_naissance&& $motdepasse ) {
-                $sql_update = "UPDATE acheteurs_vendeurs SET 
+                $sql_maj = "UPDATE acheteurs_vendeurs SET 
                     Nom = '$nom',
                     Prenom = '$prenom',
                     MotDePasse = '$motdepasse',
@@ -56,29 +57,28 @@
                     DateNaissance = '$date_naissance'
                     WHERE ID = $user_id";
             
-                if (mysqli_query($db_handle, $sql_update)) {
-                    $message = "Vos informations ont été mises à jour.";
+                if (mysqli_query($db_handle, $sql_maj)) {
+                    $message = "Vos informations ont été mises à jour";
                     $sql = "SELECT * FROM acheteurs_vendeurs WHERE ID = $user_id";
                     $resultat = mysqli_query($db_handle, $sql);
                     if ($resultat && mysqli_num_rows($resultat) > 0) {
                         $user = mysqli_fetch_assoc($resultat);
                     }
-                    // Redirection pour éviter la resoumission
                     header("Location: profil.php");
                     exit;
                 } else {
-                    $message = "Erreur lors de la mise à jour.";
+                    $message = "Erreur lors de la mise à jour";
                 }
             }else {
-                $message = "Tous les champs doivent être remplis.";
+                $message = "Tous les champs doivent être remplis";
             }
     }
 }
-
+ /** ------------------------------ SUPPRESSION ARTICLES ------------------------------- **/
     if (isset($_POST['SupprimerArticle']) && isset($_POST['id_article_supprimer'])) {
         $id_article = intval($_POST['id_article_supprimer']);
-        $sql_del = "DELETE FROM articles WHERE ID = $id_article AND IDAcheteurVendeur = $user_id";
-        if (mysqli_query($db_handle, $sql_del)) {
+        $sql_supp = "DELETE FROM articles WHERE ID = $id_article AND IDAcheteurVendeur = $user_id";
+        if (mysqli_query($db_handle, $sql_supp)) {
             $message = "Article supprimé avec succès.";
             $_POST['AfficherArticles'] = true; // Pour forcer l'affichage de la liste
         } else {
@@ -104,9 +104,9 @@
 
             if ($resultat && mysqli_num_rows($resultat) > 0) {
                 // Mise à jour des infos bancaires
-                $sql_update = "UPDATE acheteurs_vendeurs SET Solde = '$solde', TypeCarte = '$type_carte', NumeroCarte = '$num_carte' WHERE ID = $user_id";
+                $sql_maj = "UPDATE acheteurs_vendeurs SET Solde = '$solde', TypeCarte = '$type_carte', NumeroCarte = '$num_carte' WHERE ID = $user_id";
 
-                if (mysqli_query($db_handle, $sql_update)) {
+                if (mysqli_query($db_handle, $sql_maj)) {
                     $message = "Vos informations bancaires ont bien été enregistrées !";
                 } else {
                     $message = "Erreur lors de l'enregistrement";
@@ -218,7 +218,7 @@
       <div id="infos" class="contenu active">
         <h2>Informations personnelles</h2>
 
-            <?php if (!isset($_GET['edit'])): ?>
+            <?php if (!isset($_GET['modif'])): ?>
                 <p><strong>Nom :</strong> <?= htmlspecialchars($user['Nom']) ?></p>
                 <p><strong>Prénom :</strong> <?= htmlspecialchars($user['Prenom']) ?></p>
                 <p><strong>Email :</strong> <?= htmlspecialchars($user['Email']) ?></p>
@@ -230,8 +230,8 @@
                 <p><strong>Solde :</strong> <?= htmlspecialchars($user['Solde']) ?> €</p>
 
                 <form method="get" action="">
-                    <input type="hidden" name="edit" value="1">
-                    <button type="submit" class="button_compte">Modifier mes informations</button>
+                    <input type="hidden" name="modif" value="1">
+                    <button type="submit" style="background-color: darkgrey;" class="button_compte">Modifier mes informations</button>
                 </form>
 
             <?php else: ?>
@@ -245,8 +245,8 @@
                         <tr><td>Mot de passe</td><td><input type="text" name="password" value="<?= htmlspecialchars($user['MotDePasse']) ?>"></td></tr>
                         <tr><td>Date de naissance</td><td><input type="date" name="date_naissance" value="<?= htmlspecialchars($user['DateNaissance']) ?>"></td></tr>
                     </table>
-                    <button type="submit" class="button_compte" name="ModifierInfos">Enregistrer</button>
-                     <a href="profil.php"><button type="button" class="button_compte" style="background-color: grey;">Retour</button></a>
+                    <button type="submit" style="background-color: green;" class="button_compte" name="ModifierInfos">Enregistrer</button>
+                     <a href="profil.php"><button type="button" class="button_compte" style="background-color: darkgrey;">Retour</button></a>
                 </form>
             <?php endif; ?>
         </div>
@@ -332,7 +332,7 @@
                 </table>
                 <button type="submit" class="button_compte" id="connexion" value="Vendre"name ="Vendre">Vendre</button>
             </form>
-              <button type="button" class="button_compte" id="btn_afficher_articles" style="margin-top: 10px;">
+              <button type="button" class="button_compte" style="background-color: darkgrey;" id="btn_afficher_articles" style="margin-top: 10px;">
             Afficher mes articles
             </button>
             </div>
@@ -348,15 +348,15 @@
                 echo "<table class='table_inscription' border='1'>";
                 echo "<tr><th>Nom</th><th>Catégorie</th><th>Prix immédiat</th><th>Stock</th><th>Action</th></tr>";
 
-                while ($art = mysqli_fetch_assoc($res_articles)) {
+                while ($article = mysqli_fetch_assoc($res_articles)) {
                     echo "<tr>";
-                    echo "<td>" . htmlspecialchars($art['NomArticle']) . "</td>";
-                    echo "<td>" . htmlspecialchars($art['Categorie']) . "</td>";
-                    echo "<td>" . htmlspecialchars($art['PrixAchatImmediat']) . " €</td>";
-                    echo "<td>" . htmlspecialchars($art['QuantiteStock']) . "</td>";
+                    echo "<td>" . htmlspecialchars($article['NomArticle']) . "</td>";
+                    echo "<td>" . htmlspecialchars($article['Categorie']) . "</td>";
+                    echo "<td>" . htmlspecialchars($article['PrixAchatImmediat']) . " €</td>";
+                    echo "<td>" . htmlspecialchars($article['QuantiteStock']) . "</td>";
                     echo "<td>
                             <form method='post' style='display:inline'>
-                                <input type='hidden' name='id_article_supprimer' value='" . $art['ID'] . "'>
+                                <input type='hidden' name='id_article_supprimer' value='" . $article['ID'] . "'>
                                 <button type='submit' name='SupprimerArticle' style='background-color:red; color:white;'>Supprimer</button>
                             </form>
                           </td>";

@@ -77,43 +77,42 @@
 
 /** ------------------------------    CONNEXION  -------------------------------**/
     if ($action == "Connexion") {
-
-    if ($db_found) {
-        if (empty($email_con) || empty($mdp_con)) {
-            $message = "Veuillez remplir tous les champs";
-        } else {
-            // 1. Vérifie si c'est un admin
-            $sql_admin = "SELECT * FROM admin WHERE Email = '$email_con'";
-            $resultat_admin = mysqli_query($db_handle, $sql_admin);
-
-            if ($resultat_admin && mysqli_num_rows($resultat_admin) > 0) {
-                $admin = mysqli_fetch_assoc($resultat_admin);
-                if ($admin['MotDePasse'] === $mdp_con) {
-                    $_SESSION['admin_id'] = $admin['ID'];
-                    header("Location: admin.php");
-                    exit;
-                } else {
-                    $message = "Mot de passe incorrect";
-                }
+        if ($db_found) {
+            if (empty($email_con) || empty($mdp_con)) {
+                $message = "Veuillez remplir tous les champs";
             } else {
-                // 2. Sinon, cherche dans les utilisateurs classiques
-                $sql_user = "SELECT * FROM acheteurs_vendeurs WHERE Email = '$email_con'";
-                $resultat_user = mysqli_query($db_handle, $sql_user);
+                // 1. Vérifie si c'est un admin
+                $sql_admin = "SELECT * FROM admin WHERE Email = '$email_con'";
+                $resultat_admin = mysqli_query($db_handle, $sql_admin);
 
-                if ($resultat_user && mysqli_num_rows($resultat_user) > 0) {
-                    $user = mysqli_fetch_assoc($resultat_user);
-                    if ($user['MotDePasse'] === $mdp_con) {
-                        $_SESSION['user_id'] = $user['ID'];
-                        header("Location: profil.php");
+                if ($resultat_admin && mysqli_num_rows($resultat_admin) > 0) {
+                    $admin = mysqli_fetch_assoc($resultat_admin);
+                    if ($admin['MotDePasse'] === $mdp_con) {
+                        $_SESSION['admin_id'] = $admin['ID'];
+                        header("Location: admin.php");
                         exit;
                     } else {
                         $message = "Mot de passe incorrect";
                     }
                 } else {
-                    $message = "Utilisateur introuvable";
+                    // 2. Sinon, cherche dans les utilisateurs classiques
+                    $sql_user = "SELECT * FROM acheteurs_vendeurs WHERE Email = '$email_con'";
+                    $resultat_user = mysqli_query($db_handle, $sql_user);
+
+                    if ($resultat_user && mysqli_num_rows($resultat_user) > 0) {
+                        $user = mysqli_fetch_assoc($resultat_user);
+                        if ($user['MotDePasse'] === $mdp_con) {
+                            $_SESSION['user_id'] = $user['ID'];
+                            header("Location: profil.php");
+                            exit;
+                        } else {
+                            $message = "Mot de passe incorrect";
+                        }
+                    } else {
+                        $message = "Utilisateur introuvable";
+                    }
                 }
             }
-        }
     } else {
         $message = "Erreur de connexion à la base de données";
     }
