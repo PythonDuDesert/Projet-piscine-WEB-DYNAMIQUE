@@ -62,9 +62,9 @@
                     </tr>
                     <tr>
                         <td>Quantité en stock</td>
-                        <td><select name="stock" required>
+                        <td><select name="quantite" required>
                                 <option value="">-- Sélectionnez une quantité --</option>
-                                <option value="0 à 15">0 à 5</option>
+                                <option value="0 à 5">0 à 5</option>
                                 <option value="6 à 10">6 à 10</option>
                                 <option value="11 à 20">11 à 20</option>
                                 <option value="20 et plus">20 et plus</option>
@@ -86,18 +86,16 @@
                         $categorie = $_POST["categorie"];
                         $prix = $_POST["prix"];
                         $fin_encheres = $_POST["fin_encheres"];
-                        $stock = $_POST["stock"];
+                        $quantite = $_POST["quantite"];
 
-                         
-
-                        $sql = "INSERT INTO alertes_utilisateur (id_utilisateur, categorie, prix, fin_encheres, quantite) VALUES ('$id_utilisateur','$categorie', '$prix', '$fin_encheres', '$stock')";
+                        $sql = "INSERT INTO alertes_utilisateur (id_utilisateur, categorie, prix, fin_encheres, quantite) VALUES ('$id_utilisateur','$categorie', '$prix', '$fin_encheres', '$quantite')";
 
                         $result = mysqli_query($db_handle, $sql); 
 
                         if ($result) {
                             echo "<h2>Vous avez activé l'alerte !</h2><br>";
 
-                            $sql = "SELECT * FROM alertes_utilisateur WHERE categorie='$categorie' AND prix='$prix' AND fin_encheres='$fin_encheres' AND quantite='$stock'";
+                            $sql = "SELECT * FROM alertes_utilisateur WHERE categorie='$categorie' AND prix='$prix' AND fin_encheres='$fin_encheres' AND quantite='$quantite'";
                             $result = mysqli_query($db_handle, $sql);
 
                             echo "<table border='1'>";
@@ -111,7 +109,7 @@
                                 echo "</tr>";
                             }
                             echo "</table>";
-                            echo "Vous recevrez une notification sur votre compte Agora Francia si un article correspond à vos critères.";
+                            echo "<br>Vous recevrez une notification sur votre compte Agora Francia si un article correspond à vos critères.";
                         }
                     }
                 }

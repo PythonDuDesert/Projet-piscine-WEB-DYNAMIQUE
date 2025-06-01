@@ -372,6 +372,7 @@
             </div>
         </div>
 
+        <div id ="messages" class="contenu">
             <?php 
             if ($db_found && isset($_SESSION['user_id'])) {
                 $id_utilisateur = $_SESSION['user_id'];
@@ -379,7 +380,6 @@
                 $sql = "SELECT * FROM alertes_utilisateur WHERE id_utilisateur = $id_utilisateur ";
                 $result = mysqli_query($db_handle,$sql);
 
-                echo'<div id="messages" class="contenu">';
                 echo '<h2>Vos messages</h2>';
 
                 if (mysqli_num_rows($result)>0) {
@@ -420,9 +420,10 @@
                 }
             } else {
                 echo "Aucune alerte activée";
-            } echo "</div>";
+            }
         }
         ?>
+    </div>
 
         <br>
         <form method="get" action="profil.php" style="display:inline;">
