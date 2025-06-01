@@ -166,13 +166,11 @@
                 // Incrémenter compteur
                 $_SESSION['tentatives_negociation'][$id_article] = $tentatives + 1;
                 echo "<script>alert('Le vendeur a refusé votre offre. Il vous propose un nouveau prix de $contre_offre €'); window.location.href='achat.php?id=$id_article&contre_offre=$contre_offre';</script>";
-                $sql_commande = "INSERT INTO commandes (ID_article, DateAchat, PrixAchat, MoyenPayement, ID_acheteur, Type_achat, Payement_effectue) VALUES ('$id_article','$now_str','$contre_offre','$type_carte','$id_acheteur','Negociation','1')";
+                $sql_commande = "INSERT INTO commandes (ID_article, DateAchat, PrixAchat, MoyenPayement, ID_acheteur, Type_achat, Payement_effectue) VALUES ('$id_article', '$now_str', '$contre_offre', '$type_carte', '$id_acheteur', '3', '0')";
                 $result_commande = mysqli_query($db_handle, $sql_commande);
                 if (!$result_commande) {
                     echo "Erreur SQL : " . mysqli_error($db_handle);
                 }
-                $sql_new_solde = "UPDATE acheteurs_vendeurs SET Solde = Solde-'$contre_offre'";
-                $result_new_solde = mysqli_query($db_handle, $sql_new_solde);
             }
         }
         

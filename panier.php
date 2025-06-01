@@ -4,10 +4,11 @@
     $database = "agora francia";
     $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
+    $id_article = isset($_GET['id']) ? $_GET['id'] : 1;
+    $userID = intval($_SESSION['user_id']);
 
     if ($db_found) {
         if (isset($_POST['payer'])) {
-            $userID = $_SESSION['user_id'];
             $sql_solde_debt = "SELECT PrixAchat FROM commandes WHERE ID_acheteur = $userID AND Type_achat = '1'";
             $result_solde_debt = mysqli_query($db_handle, $sql_solde_debt);
             $solde_debt = 0;
@@ -19,6 +20,19 @@
 
             $sql = "UPDATE commandes SET Payement_effectue = '1' WHERE ID_acheteur = $userID AND Type_achat = '1'";
             $result = mysqli_query($db_handle, $sql);
+        }
+        if (isset($_POST['supprimer'])) {            
+            $sql_solde_debt = "SELECT PrixAchat FROM commandes WHERE ID_acheteur = $userID AND ID_article = '$id_article'";
+            $result_solde_debt = mysqli_query($db_handle, $sql_solde_debt);
+            $solde_debt = 0;
+            if ($data = mysqli_fetch_assoc($result_solde_debt)) {
+                $solde_debt += $data['PrixAchat'];
+                $sql_solde_debt = "UPDATE acheteurs_vendeurs SET Solde = Solde + '$solde_debt'";
+                $result_solde_debt = mysqli_query($db_handle, $sql_solde_debt);
+            }
+
+            $sql_delete = "DELETE FROM commandes WHERE ID_acheteur = $userID AND ID_article = '$id_article'";
+            $result_delete = mysqli_query($db_handle, $sql_delete);
         }
     }
 ?>
@@ -103,6 +117,7 @@
                     while ($data = mysqli_fetch_assoc($result_solde_debt)) {
                         $solde_debt += $data['PrixAchat'];
                     }
+
                     echo "<div id='container_payer'>
                             <form action='panier.php' method='post'>
                                 <button type='submit' id='payer' name='payer'>PAYER ".$solde_debt." €</button>
@@ -110,6 +125,9 @@
                         </div>";
                     echo "<div id='container_shop'>";
                     while ($data = mysqli_fetch_assoc($result)) {
+                        $sql2 = "SELECT * FROM commandes WHERE ID_acheteur = $userID AND ID_article = '{$data['ID']}'";
+                        $result2 = mysqli_query($db_handle, $sql2);
+                        $data2 = mysqli_fetch_assoc($result2);
                         echo "<div class='article'>
                                 <a href='article_detail.php?id=".$data['ID']."'>
                                     <img src='".$data['Image']."' alt='".$data['NomArticle']."' class='article_img'>
@@ -121,14 +139,23 @@
                                     <p>Catégorie : ".$data['Categorie']."</p>
                                     <p>
                                         Prix d'enchère : ".$data['PrixEnchere']." €";
-                                        if ($data['TypeAchat'] = '2') {echo " VOTRE CHOIX EN COURS";};
+                                        if ($data2['Type_achat'] == 2) {echo " VOTRE CHOIX EN COURS";};
                                         echo "<br>
                                         Fin des enchères : ".$data['DateFinEnchere']."<br>
                                         Prix d'achat immédiat : ".$data['PrixAchatImmediat']." €<br>
-                                        Prix en négociation : ".$data['PrixNegociation']." €
+                                        Prix en négociation : ".$data['PrixNegociation']. " €
                                     </p>
-                                </div>
-                            </div>";
+                                </div>";
+                                if ($data2['Type_achat'] == 1) {
+                                    echo "
+                                    <form action='panier.php?id=".$data['ID']."' method='post' class='container_option_achat'>
+                                        <input type='hidden' name='id' value='".htmlspecialchars($data['ID'])."'>
+                                        <button type='submit' name='supprimer' class='option_achat'>
+                                            Supprimer
+                                        </button>
+                                    </form>";
+                                }
+                        echo "</div>";
                     }
                     echo "</div>";
                 }
