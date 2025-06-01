@@ -69,6 +69,7 @@
                 <div class="article_description">
                     <h2><?= htmlspecialchars($data['NomArticle']) ?></h2>
                     <p>Description : <?= htmlspecialchars($data['Description']) ?></p>
+                    <p>ID : <?= htmlspecialchars($data['ID']) ?></p>
                     <p>Catégorie : <?= htmlspecialchars($data['Categorie']) ?></p>
                     <p>
                         Prix d'enchère : <?= htmlspecialchars($data['PrixEnchere']) ?> €
