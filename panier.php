@@ -120,7 +120,9 @@
                                     </h2>
                                     <p>Catégorie : ".$data['Categorie']."</p>
                                     <p>
-                                        Prix d'enchère : ".$data['PrixEnchere']." €<br>
+                                        Prix d'enchère : ".$data['PrixEnchere']." €";
+                                        if ($data['TypeAchat'] = '2') {echo " VOTRE CHOIX EN COURS";};
+                                        echo "<br>
                                         Fin des enchères : ".$data['DateFinEnchere']."<br>
                                         Prix d'achat immédiat : ".$data['PrixAchatImmediat']." €<br>
                                         Prix en négociation : ".$data['PrixNegociation']." €

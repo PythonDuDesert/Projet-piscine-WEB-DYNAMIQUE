@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 01 juin 2025 à 08:35
+-- Généré le : dim. 01 juin 2025 à 20:00
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -52,24 +52,24 @@ CREATE TABLE IF NOT EXISTS `acheteurs_vendeurs` (
 --
 
 INSERT INTO `acheteurs_vendeurs` (`ID`, `Nom`, `Prenom`, `DateNaissance`, `Email`, `Telephone`, `CodePostal`, `Adresse`, `Pseudo`, `MotDePasse`, `Photo`, `DateInscription`, `Solde`, `TypeCarte`, `NumeroCarte`) VALUES
-(1, 'Liquidation ', 'Poséidon ', '0355-05-03', 'poseidon.liquidation@gmail.com', '0612345678', 75013, ' 7 Rue des Vagues', 'RoiDesOceans', 'Trident', 'images/Poseidon.jpg', '0400-07-18', 8000, 1, '4539 7582 1234 5678'),
-(2, 'Destock', 'Hercule ', '0365-05-03', 'hercule.destock@agorafrancia.fr', '0612345678', 75012, '12 Rue des Travaux', 'HerculeLeCostaud', '12Travaux', 'images/Hercule.jpg', '0386-12-05', 7563, 3, '5578 1234 5987 8765'),
-(3, 'TroisPourLePrixDeDeux', 'Cerbère ', '0347-01-25', 'cerbere.soldes@agorafrancia.fr', '0633669900', 69003, '3 Rue des Trois Têtes', 'CerbèreLeChien', 'AboiePas', 'images/Cerbere.jpg', '0396-04-19', 3333, 3, '3782 8224 3333 1005'),
-(4, 'Dépôt-vente', 'Hadès ', '0299-06-24', 'hades.depot@agorafrancia.fr', '0698765432', 13001, '666 Avenue des Ombres', 'RoiDesEnfers', 'Enfer', 'images/Hades.jpg', '0336-06-06', 6666, 2, '3782 8224 6666 1005'),
-(5, 'Anubis', 'FilsDeChacal', '0300-01-01', 'anubis@agorafrancia.fr', '0601020304', 75001, '11 Nécropole du Nil', 'anubis400', 'DitLesTermesChacal', 'images/Anubis.png', '0400-05-27', 3221, 1, '1234 5678 9012 3456'),
-(6, 'Osiris', 'SouverainDesMorts', '0290-03-15', 'osiris@agorafrancia.fr', '0612345678', 13001, '29 Temple du Delta', 'osiris400', 'EpouxDeIsis', 'images/Osiris.png', '0400-05-27', 4870, 2, '2345 6789 0123 4567'),
-(7, 'Isis', 'GrandeMagicienne', '0295-07-21', 'isis@agorafrancia.fr', '0654321987', 69000, '31 Palais de l’Est', 'isisis400', 'EpouseDeOsiris', 'images/Isis.png', '0400-05-27', 2510, 3, '3456 7890 1234 5678'),
-(8, 'Horus', 'FauconCeleste', '0305-11-11', 'horus@agorafrancia.fr', '0678901234', 31000, '40 Ciel d’Héliopolis', 'horusse400', 'FanDeFaucon', 'images/Horus.png', '0400-05-27', 4000, 1, '4567 8901 2345 6789'),
-(9, 'Seth', 'SeigneurDuDesert', '0280-09-09', 'seth@agorafrancia.fr', '0611122233', 60000, '55 Désert Rouge', 'sept400', 'sept777', 'images/Seth.png', '0400-05-27', 515, 2, '5678 9012 3456 7890'),
-(10, 'Re', 'SoleilEternel', '0275-12-25', 're@agorafrancia.fr', '0699998888', 33000, '68 Bateau Solaire', 'reflexion400', 'SuperSoleil', 'images/Re.png', '0400-05-27', 4785, 3, '6789 0123 4567 8901'),
-(13, 'Erikson', 'Leif', '0970-08-13', 'leif.erikson@gmail.com', '0722345487', 36110, '1 Rue de l\'expedition', 'Lexplorateur', 'Islande12', 'images/leif.jpg', '1002-04-27', 3254, 2, '4322 3245 4356 1254'),
-(14, 'Lucius Artorius Castus ', 'Askeladd', '0969-10-30', 'askeladd@agorafrancia.fr', '4567984190', 9988, '4 Rue du Jutland du Nord', 'Askeladd', 'Pirate3', 'images/askeladd.png', '1001-07-21', 12000, 3, '9171 9452 6821 1780 '),
-(15, 'Jarl', 'Ulf', '0976-03-05', 'ulf.leouf@gmail.com', '4587432192', 9990, '343 Rue du Vinland', 'LeNavigateur', 'ulfff', 'images/ulf.png', '1021-09-19', 8467, 1, '6305 1571 8000 5331'),
-(16, 'Knut', 'Knutsson', '0985-12-01', 'knut.legrand@agorafrancia.fr', '0612566360 ', 29000, '45 Avenue du Jelling ', 'KnutLeGrand', 'TheGreat', 'images/knut.jpg', '1017-09-23', 6000, 2, '5279 9917 4335 2424'),
-(17, 'Einsteinus', 'Albertus', '0341-03-10', 'albertus.einsteinus@agorafrancia.gr', '07 64 43 19 22', 35000, '12 Rue des inventions', 'Albertus', 'emc2', '/images/albertus_einsteinus.jpg', '0382-06-01', 650, 2, '4109 3489 1007 9848'),
-(18, 'Stote', 'Harry', '0380-07-31', 'harry.stote@agorafrancia.gr', '06 12 34 56 78', 33000, '9 Rue de la Magie Antique', 'SavantUltime', 'SavantUltime123', '/images/aristote.jpg', '0401-11-01', 1500, 3, '3115 1234 3231 6458'),
-(19, 'Couchoud', 'Nicolas', '0372-05-15', 'nicolas.couchoud@agorafrancia.gr', '07 89 65 43 21', 78100, '21 Rue des Parchemins', 'MrCouchoud', 'Electromag123', '/images/nicolas_Couchoud.png', '0400-09-15', 720, 2, '1462 7548 3265 8958'),
-(20, 'Hugo', 'Victorius', '0320-02-26', 'victorius.hugo@agorafrancia.gr', '06 01 23 45 67', 75000, '5 Impasse des Ecrivains', 'HugoAstuces', 'miserables123', '/images/victorius_hugo.jpg', '0350-12-25', 800, 1, '1643 4976 1872 2983'),
+(1, 'Liquidation ', 'Poséidon ', '0355-05-03', 'poseidon.liquidation@gmail.com', '0612345678', 75013, ' 7 Rue des Vagues', 'RoiDesOceans', 'Trident', 'images/Poseidon.jpg', '0400-07-18', 6039, 1, '4539 7582 1234 5678'),
+(2, 'Destock', 'Hercule ', '0365-05-03', 'hercule.destock@agorafrancia.fr', '0612345678', 75012, '12 Rue des Travaux', 'HerculeLeCostaud', '12Travaux', 'images/Hercule.jpg', '0386-12-05', 5602, 3, '5578 1234 5987 8765'),
+(3, 'TroisPourLePrixDeDeux', 'Cerbère ', '0347-01-25', 'cerbere.soldes@agorafrancia.fr', '0633669900', 69003, '3 Rue des Trois Têtes', 'CerbèreLeChien', 'AboiePas', 'images/Cerbere.jpg', '0396-04-19', 1372, 3, '3782 8224 3333 1005'),
+(4, 'Dépôt-vente', 'Hadès ', '0299-06-24', 'hades.depot@agorafrancia.fr', '0698765432', 13001, '666 Avenue des Ombres', 'RoiDesEnfers', 'Enfer', 'images/Hades.jpg', '0336-06-06', 4705, 2, '3782 8224 6666 1005'),
+(5, 'Anubis', 'FilsDeChacal', '0300-01-01', 'anubis@agorafrancia.fr', '0601020304', 75001, '11 Nécropole du Nil', 'anubis400', 'DitLesTermesChacal', 'images/Anubis.png', '0400-05-27', 1260, 1, '1234 5678 9012 3456'),
+(6, 'Osiris', 'SouverainDesMorts', '0290-03-15', 'osiris@agorafrancia.fr', '0612345678', 13001, '29 Temple du Delta', 'osiris400', 'EpouxDeIsis', 'images/Osiris.png', '0400-05-27', 2909, 2, '2345 6789 0123 4567'),
+(7, 'Isis', 'GrandeMagicienne', '0295-07-21', 'isis@agorafrancia.fr', '0654321987', 69000, '31 Palais de l’Est', 'isisis400', 'EpouseDeOsiris', 'images/Isis.png', '0400-05-27', 549, 3, '3456 7890 1234 5678'),
+(8, 'Horus', 'FauconCeleste', '0305-11-11', 'horus@agorafrancia.fr', '0678901234', 31000, '40 Ciel d’Héliopolis', 'horusse400', 'FanDeFaucon', 'images/Horus.png', '0400-05-27', 2039, 1, '4567 8901 2345 6789'),
+(9, 'Seth', 'SeigneurDuDesert', '0280-09-09', 'seth@agorafrancia.fr', '0611122233', 60000, '55 Désert Rouge', 'sept400', 'sept777', 'images/Seth.png', '0400-05-27', 0, 2, '5678 9012 3456 7890'),
+(10, 'Re', 'SoleilEternel', '0275-12-25', 're@agorafrancia.fr', '0699998888', 33000, '68 Bateau Solaire', 'reflexion400', 'SuperSoleil', 'images/Re.png', '0400-05-27', 2824, 3, '6789 0123 4567 8901'),
+(13, 'Erikson', 'Leif', '0970-08-13', 'leif.erikson@gmail.com', '0722345487', 36110, '1 Rue de l\'expedition', 'Lexplorateur', 'Islande12', 'images/leif.jpg', '1002-04-27', 1293, 2, '4322 3245 4356 1254'),
+(14, 'Lucius Artorius Castus ', 'Askeladd', '0969-10-30', 'askeladd@agorafrancia.fr', '4567984190', 9988, '4 Rue du Jutland du Nord', 'Askeladd', 'Pirate3', 'images/askeladd.png', '1001-07-21', 10039, 3, '9171 9452 6821 1780 '),
+(15, 'Jarl', 'Ulf', '0976-03-05', 'ulf.leouf@gmail.com', '4587432192', 9990, '343 Rue du Vinland', 'LeNavigateur', 'ulfff', 'images/ulf.png', '1021-09-19', 6506, 1, '6305 1571 8000 5331'),
+(16, 'Knut', 'Knutsson', '0985-12-01', 'knut.legrand@agorafrancia.fr', '0612566360 ', 29000, '45 Avenue du Jelling ', 'KnutLeGrand', 'TheGreat', 'images/knut.jpg', '1017-09-23', 4039, 2, '5279 9917 4335 2424'),
+(17, 'Einsteinus', 'Albertus', '0341-03-10', 'albertus.einsteinus@agorafrancia.gr', '07 64 43 19 22', 35000, '12 Rue des inventions', 'Albertus', 'emc2', '/images/albertus_einsteinus.jpg', '0382-06-01', 0, 2, '4109 3489 1007 9848'),
+(18, 'Stote', 'Harry', '0380-07-31', 'harry.stote@agorafrancia.gr', '06 12 34 56 78', 33000, '9 Rue de la Magie Antique', 'SavantUltime', 'SavantUltime123', '/images/aristote.jpg', '0401-11-01', 0, 3, '3115 1234 3231 6458'),
+(19, 'Couchoud', 'Nicolas', '0372-05-15', 'nicolas.couchoud@agorafrancia.gr', '07 89 65 43 21', 78100, '21 Rue des Parchemins', 'MrCouchoud', 'Electromag123', '/images/nicolas_Couchoud.png', '0400-09-15', 0, 2, '1462 7548 3265 8958'),
+(20, 'Hugo', 'Victorius', '0320-02-26', 'victorius.hugo@agorafrancia.gr', '06 01 23 45 67', 75000, '5 Impasse des Ecrivains', 'HugoAstuces', 'miserables123', '/images/victorius_hugo.jpg', '0350-12-25', 0, 1, '1643 4976 1872 2983'),
 (21, 'boob', 'bobo', '2000-06-15', 'bo@gmail.com', '0677777777', 60100, '4 Rue du Bo', 'bobobo', 'bobobo', 'images/', '2025-05-31', 0, 0, '');
 
 -- --------------------------------------------------------
@@ -107,23 +107,18 @@ INSERT INTO `admin` (`ID`, `Prenom`, `Nom`, `Email`, `MotDePasse`) VALUES
 DROP TABLE IF EXISTS `alertes_utilisateur`;
 CREATE TABLE IF NOT EXISTS `alertes_utilisateur` (
   `id_utilisateur` int NOT NULL,
-  `id_alerte` int NOT NULL AUTO_INCREMENT,
   `categorie` enum('Commun','Rare','Premium') NOT NULL,
   `prix` enum('0 à 50','50 à 100','100 à 500','500 et plus') NOT NULL,
   `fin_encheres` date NOT NULL,
-  `quantite` enum('0 à 5','6 à 10','11 à 20','20 et plus') NOT NULL,
-  PRIMARY KEY (`id_alerte`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  `quantite` enum('0 à 5','6 à 10','11 à 20','20 et plus') NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `alertes_utilisateur`
 --
 
-INSERT INTO `alertes_utilisateur` (`id_utilisateur`, `id_alerte`, `categorie`, `prix`, `fin_encheres`, `quantite`) VALUES
-(21, 2, 'Commun', '0 à 50', '2025-06-15', '6 à 10'),
-(21, 6, 'Commun', '50 à 100', '2025-07-16', '6 à 10'),
-(21, 5, 'Premium', '100 à 500', '2025-06-16', '0 à 5'),
-(21, 7, 'Commun', '50 à 100', '2025-07-16', '6 à 10');
+INSERT INTO `alertes_utilisateur` (`id_utilisateur`, `categorie`, `prix`, `fin_encheres`, `quantite`) VALUES
+(0, 'Premium', '500 et plus', '2025-05-28', '');
 
 -- --------------------------------------------------------
 
@@ -155,12 +150,12 @@ CREATE TABLE IF NOT EXISTS `articles` (
 
 INSERT INTO `articles` (`ID`, `NomArticle`, `Categorie`, `DateAjout`, `PrixAchatImmediat`, `PrixEnchere`, `PrixNegociation`, `DateFinEnchere`, `Description`, `QuantiteStock`, `QuantiteVendue`, `Image`, `IDAcheteurVendeur`) VALUES
 (1, 'Trident ', 'Premium', '0400-07-28', 5000, 2500, 4500, '2025-06-04 20:38:24', 'Authentique Trident de Poséidon ! Parfait pour décorer votre salon, impressionner vos invités ou même diriger des océans. Matière : Résine métallisée. Hauteur : 1,20 m. Poids : 2,5 kg.\"', 1, 0, 'images/articles/Trident.png', 1),
-(2, 'Tentacule de Kraken', 'Rare', '0400-06-12', 249, 149, 199, '2025-06-04 18:30:58', 'Kraken pêcher ce matin, tentacule toujours très fraîche. \r\nLongueur : 3 mètres.', 8, 2, 'images/articles/Kraken.jpg', 1),
-(3, 'Le Coffre aux Trésors de Sirène', 'Rare', '0400-06-25', 179, 99, 139, '2025-06-02 21:10:05', 'Coffre en bois vieilli avec incrustations de coquillages et pierres semi-précieuses. Contient :\r\n10 pièces d’or répliques (taille réelle)\r\n1 collier de perles faux\r\n1 flacon de \"poussière de sirène\" (paillettes biodégradables)\r\nDimensions : 40 x 30 x 25 c', 10, 4, 'images/articles/Coffre.jpg', 1),
+(2, 'Tentacule de Kraken', 'Rare', '0400-06-12', 249, 150, 199, '2025-06-04 18:30:58', 'Kraken pêcher ce matin, tentacule toujours très fraîche. \r\nLongueur : 3 mètres.', 8, 2, 'images/articles/Kraken.jpg', 1),
+(3, 'Le Coffre aux Trésors de Sirène', 'Rare', '0400-06-25', 179, 111, 139, '2025-06-02 21:10:05', 'Coffre en bois vieilli avec incrustations de coquillages et pierres semi-précieuses. Contient :\r\n10 pièces d’or répliques (taille réelle)\r\n1 collier de perles faux\r\n1 flacon de \"poussière de sirène\" (paillettes biodégradables)\r\nDimensions : 40 x 30 x 25 c', 10, 4, 'images/articles/Coffre.jpg', 1),
 (4, 'La Perle Géante Lumineuse', 'Commun', '0400-06-24', 69, 39, 59, '2025-06-04 21:13:54', 'Perle en résine de 20 cm de diamètre, avec effet nacré et lumière. Autonomie : 10h. Poids : 1,2 kg.', 20, 12, 'images/articles/Perle.jpg', 1),
 (5, 'Le Kraken en Peluche (Format Géant)', 'Commun', '0400-06-05', 19, 10, 15, '2025-05-26 19:20:39', 'Peluche tentaculaire géante (1,20 m)\r\nCâliner vos peurs marines\r\nMatière : Polyester ultra-doux. Lavable en machine. Yeux lumineux.', 6, 1, 'images/articles/Peluche.jpg', 1),
 (6, 'Le Manteau d’Écume (Dégradé Bleu)', 'Commun', '0400-06-01', 49, 29, 39, '2025-06-12 21:24:10', 'Manteau longueur royale avec effet « vague qui brille ».\r\n\r\nMatière : Polyester résistant (imitation écume)\r\n\r\nCapuche intégrée en forme de vague\r\n\r\nPoche secrète pour cacher des coquillages (ou vos clés)\r\n\r\nTaille unique (adaptable de 1,60 m à 1,90 m)', 8, 3, 'images/articles/Manteau.jpg', 1),
-(7, 'Peau du Lion de Némée', 'Premium ', '0386-12-22', 1289, 975, 1049, '2025-06-03 21:31:53', 'Peau du Lion de Némée, vaincu par Hercule lors de son premier travail.', 1, 0, 'images/articles/Nemee.jpg', 2),
+(7, 'Peau du Lion de Némée', 'Premium ', '0386-12-22', 1289, 976, 1049, '2025-06-03 21:31:53', 'Peau du Lion de Némée, vaincu par Hercule lors de son premier travail.', 1, 0, 'images/articles/Nemee.jpg', 2),
 (8, 'Massue \"Travail n°9\"', 'Rare', '0386-12-29', 59, 45, 29, '2025-05-26 19:35:19', 'Massue utilisée contre l\'Hydre de Lerne', 1, 0, 'images/articles/Massue.jpg', 2),
 (9, 'Flèches empoisonnées ', 'Commun', '0386-12-18', 34, 29, 19, '2025-05-26 19:38:28', 'Pack de 6 flèches pour recréer le combat contre les oiseaux du lac Stymphale.', 20, 12, 'images/articles/Fleches.jpg', 2),
 (10, 'Collier à Trois Têtes \"Gardien des Enfers\"', 'Commun', '0396-05-14', 39, 25, 30, '2025-06-04 21:42:39', 'Collier ajustable pour chien (ou humain audacieux)\r\nMatériaux : Nylon résistant + détails glow-in-the-dark\r\nTaille : Adaptable (40-60 cm)', 15, 4, 'images/articles/Collier.jpg', 3),
@@ -217,10 +212,22 @@ CREATE TABLE IF NOT EXISTS `commandes` (
   `PrixAchat` decimal(10,0) UNSIGNED NOT NULL,
   `MoyenPayement` varchar(255) NOT NULL,
   `ID_acheteur` int NOT NULL,
-  `Type_achat` varchar(255) NOT NULL,
+  `Type_achat` tinyint NOT NULL,
   `Payement_effectue` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID_commande`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `commandes`
+--
+
+INSERT INTO `commandes` (`ID_commande`, `ID_article`, `DateAchat`, `PrixAchat`, `MoyenPayement`, `ID_acheteur`, `Type_achat`, `Payement_effectue`) VALUES
+(4, 3, '2025-05-31 18:20:08', 111, '3', 10, 2, 0),
+(15, 14, '2025-06-01 19:48:03', 40, '1', 5, 1, 1),
+(5, 2, '2025-05-31 18:26:34', 150, '3', 10, 2, 0),
+(18, 7, '2025-06-01 21:55:58', 976, '1', 5, 2, 0),
+(16, 14, '2025-06-01 19:49:06', 40, '1', 5, 1, 1),
+(17, 4, '2025-06-01 19:53:06', 69, '1', 5, 1, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
